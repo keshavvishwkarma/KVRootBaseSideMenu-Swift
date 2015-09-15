@@ -37,7 +37,7 @@
     [centerLabel setFont:[UIFont fontWithName:@"American Typewriter" size:28.0f]];
     [self.view addSubview:centerLabel];
     [centerLabel setText:NSStringFromClass(self.class)];
-
+    [self setTitle:centerLabel.text];
     [centerLabel applyConstraintForHorizontallyCenterInSuperview];
     [centerLabel applyCenterYPinConstraintToSuperviewWithPadding:-32.0f];
 
@@ -77,8 +77,12 @@
 
 #pragma mark - IBAction Methods
 
-- (void)leftButtonAction:(UIButton*)sender {
+- (void)leftButtonAction:(UIButton*)sender
+{
+// For Animation
+    [sender.layer setTintColor:self.view.backgroundColor];
     [sender.layer startAnimation];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:KVToggleLeftSideMenuNotification object:self];
 
     // OR
@@ -86,8 +90,12 @@
 //    [self.sideMenuViewController.menuContainerView toggleLeftSideMenu];
 }
 
-- (void)rightButtonAction:(UIButton*)sender {
+- (void)rightButtonAction:(UIButton*)sender
+{
+    // For Animation
+    [sender.layer setTintColor:self.view.backgroundColor];
     [sender.layer startAnimation];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:KVToggleRightSideMenuNotification object:self];
     // OR
     //  instead of notification, we can call toggleRightSideMenu

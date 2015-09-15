@@ -130,21 +130,20 @@ NSString *const KVCloseSideMenuNotification        =  @"KVCloseSideMenuNotificat
             [self setUpSideMenuRootBySegue:sender];
         }
     }
-    
     return shouldPerformSegue;
 }
 
 -(void)setUpSideMenuRootBySegue:(KVCustomSegue*)segue
 {
-    if ( self == segue.sourceViewController ) {
+    if ( self == segue.sourceViewController )
+    {
         if (![[_rootsObjectsInfo allKeys] containsObject:segue.identifier]) {
             [_rootsObjectsInfo setObject:segue.destinationViewController forKey:segue.identifier];
         }
         
         id rootViewController = [_rootsObjectsInfo valueForKey:segue.identifier];
         
-        if (rootViewController != self.centerNavigationController)
-        {
+        if (rootViewController != self.centerNavigationController) {
             if (self.centerNavigationController) {
                 [self containerRemoveChildViewController:self.centerNavigationController];
             }

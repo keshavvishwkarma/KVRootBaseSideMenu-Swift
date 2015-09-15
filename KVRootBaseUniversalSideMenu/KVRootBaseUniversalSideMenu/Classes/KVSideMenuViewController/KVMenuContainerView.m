@@ -17,7 +17,7 @@ const CGFloat KVSideMenuViewControllerHideShowMenuDuration = 0.4;
 - (instancetype)initWithSuperView:(UIView*)superView
 {
     KVMenuContainerView *_mainContainerView = [KVMenuContainerView prepareNewViewForAutoLayout];
-    [_mainContainerView setBackgroundColor:[UIColor brownColor]];
+    [_mainContainerView setBackgroundColor:[UIColor clearColor]];
     [superView addSubview:_mainContainerView];
     
     [_mainContainerView applyConstraintForCenterInSuperview];
@@ -170,6 +170,26 @@ const CGFloat KVSideMenuViewControllerHideShowMenuDuration = 0.4;
     }];
 }
 
+- (void)applyShadow:(UIView*)shadowView
+{
+    CALayer *shadowViewLayer = shadowView.layer;
+    shadowViewLayer.shadowColor = shadowView.backgroundColor.CGColor;
+    shadowViewLayer.shadowOpacity = 0.4;
+    shadowViewLayer.shadowRadius = 4.0f;
+    shadowViewLayer.rasterizationScale = self.window.screen.scale;
+
+    if (self.currentSideMenuState == SideMenuStateLeft) {
+        shadowViewLayer.shadowOffset = CGSizeMake(-2, 2);
+    } else if (self.currentSideMenuState == SideMenuStateRight){
+        shadowViewLayer.shadowOffset = CGSizeMake(0, 2);
+    } else {
+        shadowViewLayer.shadowRadius = 3;
+        shadowViewLayer.shadowOpacity = 0;
+        shadowViewLayer.shadowOffset = CGSizeMake(0, -3);
+        shadowViewLayer.shadowColor = nil;
+    }
+}
+
 -(void)applyAnimations
 {
     UIViewAnimationOptions options = (UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionLayoutSubviews|UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseOut);
@@ -177,6 +197,7 @@ const CGFloat KVSideMenuViewControllerHideShowMenuDuration = 0.4;
     [UIView animateWithDuration:KVSideMenuViewControllerHideShowMenuDuration delay:0 usingSpringWithDamping:0.95 initialSpringVelocity:10 options:options animations:^{
         [UIView setAnimationCurve:UIViewAnimationCurveLinear];
         [self updateModifyConstraints];
+        [self applyShadow:self.centerContainerView];
     } completion:NULL];
 }
 
