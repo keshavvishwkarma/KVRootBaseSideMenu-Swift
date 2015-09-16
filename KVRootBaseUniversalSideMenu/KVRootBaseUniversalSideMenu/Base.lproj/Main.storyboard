@@ -145,7 +145,7 @@
         <!--First Left RootVC-->
         <scene sceneID="phW-fW-L6o">
             <objects>
-                <viewController storyboardIdentifier="KVFirstLeftRootVC" id="qW5-Oc-GuO" customClass="KVFirstLeftRootVC" sceneMemberID="viewController">
+                <viewController id="qW5-Oc-GuO" customClass="KVFirstLeftRootVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fbk-LZ-FRk"/>
                         <viewControllerLayoutGuide type="bottom" id="ckW-OG-dHk"/>
@@ -179,7 +179,7 @@
         <!--Second Left RootVC-->
         <scene sceneID="goV-4K-QSs">
             <objects>
-                <viewController storyboardIdentifier="KVSecondLeftRootVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sf8-1G-c8w" customClass="KVSecondLeftRootVC" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="sf8-1G-c8w" customClass="KVSecondLeftRootVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Whm-Nr-Lzf"/>
                         <viewControllerLayoutGuide type="bottom" id="z09-HY-xSs"/>
@@ -202,9 +202,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="P46-9D-Zrr">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
-                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="se4-Ag-4Ps" kind="relationship" relationship="rootViewController" id="9xE-sv-qPZ"/>
@@ -217,7 +214,7 @@
         <!--Third Left RootVC-->
         <scene sceneID="iGa-l9-fOs">
             <objects>
-                <viewController storyboardIdentifier="KVThirdLeftRootVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="se4-Ag-4Ps" customClass="KVThirdLeftRootVC" sceneMemberID="viewController">
+                <viewController id="se4-Ag-4Ps" customClass="KVThirdLeftRootVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MuN-nZ-zFJ"/>
                         <viewControllerLayoutGuide type="bottom" id="apw-1t-8w9"/>
@@ -306,10 +303,10 @@
             </objects>
             <point key="canvasLocation" x="681" y="425"/>
         </scene>
-        <!--Second Left RootVC-->
+        <!--Second Right RootVC-->
         <scene sceneID="4OJ-94-SLS">
             <objects>
-                <viewController storyboardIdentifier="KVSecondLeftRootVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Xaf-oK-YX7" customClass="KVSecondLeftRootVC" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Xaf-oK-YX7" customClass="KVSecondRightRootVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7Zj-nm-sLQ"/>
                         <viewControllerLayoutGuide type="bottom" id="5Sb-Z3-Lyj"/>
@@ -360,10 +357,10 @@
             </objects>
             <point key="canvasLocation" x="681" y="1165"/>
         </scene>
-        <!--Third Left RootVC-->
+        <!--Third Right RootVC-->
         <scene sceneID="S6W-Za-9Mh">
             <objects>
-                <viewController storyboardIdentifier="KVThirdLeftRootVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="L4l-lJ-Oki" customClass="KVThirdLeftRootVC" sceneMemberID="viewController">
+                <viewController id="L4l-lJ-Oki" customClass="KVThirdRightRootVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uVw-VE-x6C"/>
                         <viewControllerLayoutGuide type="bottom" id="BEd-V4-jIe"/>

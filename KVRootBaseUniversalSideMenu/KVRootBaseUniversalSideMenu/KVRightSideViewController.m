@@ -3,7 +3,7 @@
 //  KVRootBaseUniversalSideMenu
 //
 //  Created by Keshav on 15/09/15.
-//  Copyright (c) 2015 Keshav. All rights reserved.
+//  Copyright (c) 2015 Keshav Vishwkarma. All rights reserved.
 //
 
 #import "KVRightSideViewController.h"
@@ -58,10 +58,10 @@
     [cell.layer startAnimation];
 
     KVRootBaseSideMenuViewController *aSideMenuVC = self.sideMenuViewController;
-    NSString*rootIdentifiered = [NSString stringWithFormat:@"RightNavRoot%@",@(indexPath.row+1)];
+    NSString*rightRootIdentifier = [NSString stringWithFormat:@"RightNavRoot%@",@(indexPath.row+1)];
     
     @try {
-        [aSideMenuVC performSegueWithIdentifier:rootIdentifiered sender:self];
+        [aSideMenuVC performSegueWithIdentifier:rightRootIdentifier sender:self];
     } @catch (NSException *exception) {
         NSLog(@"name =%@, reason =%@",exception.name,exception.reason);
     }
