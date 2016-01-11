@@ -71,8 +71,8 @@ const CGFloat KVSideMenuViewControllerHideShowMenuDuration = 0.4;
     [_leftContainerView applyEqualWidthRatioPinConstrainToSuperview: KVSideMenuOffsetValueInRatio];
     [_rightContainerView applyEqualWidthRatioPinConstrainToSuperview: KVSideMenuOffsetValueInRatio];
     
-    [_leftContainerView applyConstraintFromSiblingViewAttribute:NSLayoutAttributeRight toAttribute:NSLayoutAttributeLeading ofView:_centerContainerView spacing:defualtConstant];
-    [_centerContainerView applyConstraintFromSiblingViewAttribute:NSLayoutAttributeRight toAttribute:NSLayoutAttributeLeading ofView:_rightContainerView spacing:defualtConstant];
+    [_leftContainerView applyConstraintFromSiblingViewAttribute:NSLayoutAttributeTrailing toAttribute:NSLayoutAttributeLeading ofView:_centerContainerView spacing:defualtConstant];
+    [_centerContainerView applyConstraintFromSiblingViewAttribute:NSLayoutAttributeTrailing toAttribute:NSLayoutAttributeLeading ofView:_rightContainerView spacing:defualtConstant];
     
     _currentSideMenuState = SideMenuStateNone;
     
