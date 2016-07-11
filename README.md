@@ -1,6 +1,6 @@
-# KVRootBaseUniversalSideMenu
+# KVRootBaseSideMenu-Swift
 
 License
 -----
 
-KVRootBaseUniversalSideMenu is released under the MIT license.
+KVRootBaseSideMenu-Swift is released under the MIT license.
