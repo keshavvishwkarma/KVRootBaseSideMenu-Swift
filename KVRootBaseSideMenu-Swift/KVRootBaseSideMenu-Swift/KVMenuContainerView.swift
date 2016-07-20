@@ -51,7 +51,7 @@ public class KVMenuContainerView: UIView
         }
     }
     
-    public var isAdvanceAnimation : Bool = false
+    public var isAdvanceAnimation : Bool = true
     public var allowPanGesture :    Bool = true
     
     /// A Boolean value indicating whether the left swipe is enabled.
@@ -166,7 +166,9 @@ public class KVMenuContainerView: UIView
             // self.toggleRightSideMenu()
             
         default: appliedConstraint?.constant = 0
-                 applyAnimations()
+        applyAnimations({
+            self.applyTransformAnimations(self.centerContainerView, transform_d: 1.0 )
+        })
             
         }
         
@@ -191,13 +193,16 @@ public class KVMenuContainerView: UIView
                     self.centerContainerView.superview?.removeConstraint(appliedConstraint)
                     self.leftContainerView.applyLeadingPinConstraintToSuperviewWithPadding(defualtConstant)
                     
-                    self.applyTransformAnimations(self.centerContainerView, transform: self.transformScale )
-                    self.applyAnimations()
+                    self.applyAnimations({
+                        self.applyTransformAnimations(self.centerContainerView, transform_d: self.transformScale.d )
+                    })
                     
                 }
                 else {
                     self.closeOpenedSideMenu(self.leftContainerView, attribute: .Leading, completion: { _ in
-                        self.applyAnimations()
+                        self.applyAnimations({
+                            self.applyTransformAnimations(self.centerContainerView, transform_d: 1.0 )
+                        })
                     })
                 }
             }
@@ -207,7 +212,7 @@ public class KVMenuContainerView: UIView
         }
         
     }
-
+    
     /// Toggles the state (open or close) of the right side menu.
     public func toggleRightSideMenu()
     {
@@ -227,13 +232,16 @@ public class KVMenuContainerView: UIView
                     self.centerContainerView.superview?.removeConstraint(appliedConstraint)
                     self.rightContainerView.applyTrailingPinConstraintToSuperviewWithPadding(defualtConstant)
                     
-                    self.applyTransformAnimations(self.centerContainerView, transform: self.transformScale )
-                    self.applyAnimations()
+                    self.applyAnimations({
+                        self.applyTransformAnimations(self.centerContainerView, transform_d: self.transformScale.d )
+                    })
                     
                 }
                 else {
-                        self.closeOpenedSideMenu(self.rightContainerView, attribute: .Trailing, completion: { _ in
-                        self.applyAnimations()
+                    self.closeOpenedSideMenu(self.rightContainerView, attribute: .Trailing, completion: { _ in
+                        self.applyAnimations({
+                            self.applyTransformAnimations(self.centerContainerView, transform_d: 1.0 )
+                        })
                     })
                 }
             }
@@ -306,6 +314,16 @@ extension KVMenuContainerView: UIGestureRecognizerDelegate
                     
                 }
                 
+                let dy = abs(CGFloat(Int(xPoint)))*(1.0 - transformScale.d)/CGRectGetWidth(leftContainerView.bounds)
+                debugPrint(dy)
+                
+                if (currentSideMenuState == .Left || currentSideMenuState == .Right) {
+                    applyTransformAnimations(centerContainerView, transform_d: min(1.0, transformScale.d + dy))
+                }
+                else{
+                    applyTransformAnimations(centerContainerView, transform_d: min(1.0, abs(1-dy)) )
+                }
+                
                 self.appliedConstraint?.constant = CGFloat(Int(xPoint))
                 recognizer.setTranslation(CGPointZero, inView: self)
             }
@@ -321,7 +339,9 @@ extension KVMenuContainerView: UIGestureRecognizerDelegate
                     self.toggleLeftSideMenu();
                 }else{
                     self.appliedConstraint?.constant = 0
-                    self.applyAnimations()
+                    self.applyAnimations({
+                        self.applyTransformAnimations(self.centerContainerView, transform_d: self.transformScale.d )
+                    })
                 }
                 
             case .Right:    // Possitive value
@@ -329,7 +349,9 @@ extension KVMenuContainerView: UIGestureRecognizerDelegate
                     self.toggleRightSideMenu();
                 }else{
                     self.appliedConstraint?.constant = 0
-                    self.applyAnimations()
+                    self.applyAnimations({
+                        self.applyTransformAnimations(self.centerContainerView, transform_d: self.transformScale.d )
+                    })
                 }
                 
             default:  // None state
@@ -379,8 +401,6 @@ private extension KVMenuContainerView
                 view.superview?.removeConstraint(appliedConstraint)
                 self.centerContainerView.applyConstraintForHorizontallyCenterInSuperview()
                 
-                self.applyTransformAnimations(self.centerContainerView, transform: CGAffineTransformIdentity)
-                
                 if completion == nil {
                     self.updateModifyConstraints()
                 }else{
@@ -396,7 +416,7 @@ private extension KVMenuContainerView
 
 private extension KVMenuContainerView
 {
-    func applyAnimations()
+    func applyAnimations(completionHandler: (Void -> Void)? = nil)
     {
         // let options : UIViewAnimationOptions = [.AllowUserInteraction, .OverrideInheritedCurve, .LayoutSubviews, .BeginFromCurrentState, .CurveEaseOut]
         
@@ -407,16 +427,14 @@ private extension KVMenuContainerView
             self.updateModifyConstraints()
             self.setNeedsUpdateConstraints()
             self.applyShadow(self.centerContainerView)
+            completionHandler?()
             }, completion: nil)
     }
     
-    func applyTransformAnimations(view:UIView!,transform:CGAffineTransform)
+    func applyTransformAnimations(view:UIView!,transform_d:CGFloat)
     {
-        if isAdvanceAnimation{
-            let duration = NSTimeInterval(self.KVSideMenuHideShowDuration)
-            UIView.animateWithDuration(duration, animations: { () -> Void in
-                view.transform = transform
-            })
+        if isAdvanceAnimation {
+            view.transform.d = transform_d
         }
     }
     
@@ -439,9 +457,6 @@ private extension KVMenuContainerView
             shadowViewLayer.shadowColor = nil
         }
     }
-
+    
     
 }
-
-
-
