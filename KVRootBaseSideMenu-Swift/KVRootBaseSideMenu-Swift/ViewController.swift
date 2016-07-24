@@ -15,7 +15,20 @@ class ViewController: BaseViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    @IBAction func defualtButtonPressed(sender: AnyObject)
+    {
+        sideMenuViewController()?.menuContainerView?.animationType = KVSideMenu.AnimationType.Default
+    }
     
+    @IBAction func foldingButtonPressed(sender: AnyObject)
+    {
+        sideMenuViewController()?.menuContainerView?.animationType = KVSideMenu.AnimationType.Folding
+    }
+    
+    @IBAction func windowButtonPressed(sender: AnyObject)
+    {
+        sideMenuViewController()?.menuContainerView?.animationType = KVSideMenu.AnimationType.Window
+    }
 }
 
 

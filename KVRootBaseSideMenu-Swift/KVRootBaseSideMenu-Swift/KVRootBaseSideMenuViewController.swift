@@ -15,18 +15,18 @@ public class KVRootBaseSideMenuViewController: UIViewController
     
     private var rootObjects: [Key:Value] = [Key:Value]();
     
-    private var menuContainerView: KVMenuContainerView?
+    private(set) var menuContainerView: KVMenuContainerView?
     
     public var leftSideMenuViewController: UIViewController? {
         didSet {
-            menuContainerView!.allowRightSwipe = leftSideMenuViewController != nil
+            menuContainerView!.allowRightPaning = leftSideMenuViewController != nil
             self.addChildViewControllerOnContainerView(leftSideMenuViewController, containerView: menuContainerView!.leftContainerView)
         }
     }
     
     public var rightSideMenuViewController: UIViewController? {
         didSet{
-            menuContainerView!.allowLeftSwipe = rightSideMenuViewController != nil
+            menuContainerView!.allowLeftPaning = rightSideMenuViewController != nil
             self.addChildViewControllerOnContainerView(rightSideMenuViewController, containerView: menuContainerView!.rightContainerView)
         }
     }
