@@ -165,13 +165,8 @@ public class KVMenuContainerView: UIView
     {
         switch (currentSideMenuState)
         {
-        case .Left:  closeOpenedSideMenu(leftContainerView, attribute: .Trailing)
-            // OR
-            // self.toggleLeftSideMenu()
-            
+        case .Left:  closeOpenedSideMenu(leftContainerView,  attribute: .Leading)
         case .Right: closeOpenedSideMenu(rightContainerView, attribute: .Trailing)
-            // OR
-            // self.toggleRightSideMenu()
             
         default: appliedConstraint?.constant = 0
                  applyAnimations({
@@ -367,24 +362,21 @@ extension KVMenuContainerView: UIGestureRecognizerDelegate
                 if abs(constaint) > CGRectGetWidth(leftContainerView.bounds)*thresholdFactor {
                     self.toggleLeftSideMenu();
                 }else{
+                    // Keep open left SideMenu here
                     self.appliedConstraint?.constant = 0
-                    self.applyAnimations({
-                        self.applyTransformAnimations(self.centerContainerView, transform_d: self.transformScale.d )
-                    })
+                    self.handelTransformAnimations()
                 }
                 
             case .Right:    // Possitive value
                 if constaint > CGRectGetWidth(rightContainerView.bounds)*thresholdFactor {
                     self.toggleRightSideMenu();
                 }else{
+                    // Keep open right SideMenu here
                     self.appliedConstraint?.constant = 0
-                    self.applyAnimations({
-                        self.applyTransformAnimations(self.centerContainerView, transform_d: self.transformScale.d )
-                    })
+                    self.handelTransformAnimations()
                 }
                 
             default:  // None state
-                
                 if constaint > 0
                 {
                     if constaint > CGRectGetWidth(leftContainerView.bounds)*thresholdFactor {

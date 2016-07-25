@@ -21,7 +21,7 @@ class BaseViewController: UIViewController {
         // Customize the UIBarButtonItem
         let leftItemCustomeView   = UIButton(type: UIButtonType.Custom);
         leftItemCustomeView.frame = barItemFram;
-        leftItemCustomeView.setImage(UIImage(named:"menu_icon"), forState: UIControlState.Normal)
+        leftItemCustomeView.setImage(UIImage(named:"backward_arrow"), forState: UIControlState.Normal)
         
         let rightItemCustomeView   = UIButton(type: UIButtonType.Custom);
         rightItemCustomeView.frame = barItemFram;
