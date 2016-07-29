@@ -1,0 +1,6 @@
+framework module KVConstraintExtensionsMaster {
+  umbrella header "KVConstraintExtensionsMaster.h"
+
+  export *
+  module * { export * }
+}
