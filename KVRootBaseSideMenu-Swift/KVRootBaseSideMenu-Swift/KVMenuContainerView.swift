@@ -86,10 +86,8 @@ public class KVMenuContainerView: UIView
         backgroundColor = UIColor.clearColor()
         superView.addSubview(self)
         
-        applyConstraintForCenterInSuperview()
-        applyEqualHeightPinConstrainToSuperview()
-        applyEqualWidthPinConstrainToSuperview()
-        
+        // apply constraints vai oprator overloading.
+        self +== [.Height, .Width, .CenterX, .CenterY]
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -121,18 +119,16 @@ public class KVMenuContainerView: UIView
         addSubview(rightContainerView)
         addSubview(centerContainerView)
         
-        leftContainerView.applyTopAndBottomPinConstraintToSuperviewWithPadding(defualtConstant)
-        centerContainerView.applyTopAndBottomPinConstraintToSuperviewWithPadding(defualtConstant)
-        rightContainerView.applyTopAndBottomPinConstraintToSuperviewWithPadding(defualtConstant)
-        
-        centerContainerView.applyConstraintForHorizontallyCenterInSuperview()
-        centerContainerView.applyEqualWidthPinConstrainToSuperview()
-        
-        leftContainerView.applyEqualWidthRatioPinConstrainToSuperview(KVSideMenuOffsetValueInRatio)
-        rightContainerView.applyEqualWidthRatioPinConstrainToSuperview(KVSideMenuOffsetValueInRatio)
-        
-        leftContainerView.applyConstraintFromSiblingViewAttribute(.Trailing, toAttribute: .Leading, ofView: centerContainerView, spacing: defualtConstant)
-        centerContainerView.applyConstraintFromSiblingViewAttribute(.Trailing, toAttribute: .Leading, ofView: rightContainerView, spacing: defualtConstant)
+        // apply constraints vai oprator overloading.
+        leftContainerView   +== [ .Top, .Bottom ]
+        centerContainerView +== [ .Top, .Bottom, .Width, .CenterX ]
+        rightContainerView  +== [ .Top, .Bottom ]
+
+        leftContainerView  +*== ( .Width, KVSideMenuOffsetValueInRatio )
+        rightContainerView +*== ( .Width, KVSideMenuOffsetValueInRatio )
+
+        leftContainerView   <==> (.Trailing, .Leading, centerContainerView, 0)
+        centerContainerView <==> (.Trailing, .Leading, rightContainerView,  0)
         
     }
     

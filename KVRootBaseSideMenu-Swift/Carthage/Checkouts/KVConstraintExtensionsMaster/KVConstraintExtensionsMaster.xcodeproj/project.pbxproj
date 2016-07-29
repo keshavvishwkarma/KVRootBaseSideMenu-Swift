@@ -1,0 +1,432 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6B2FFDF91C53CF7900BBFC20 /* KVConstraintExtensionsMaster.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B2FFDF81C53CF7900BBFC20 /* KVConstraintExtensionsMaster.h */; };
+		6B2FFE001C53CF7900BBFC20 /* KVConstraintExtensionsMaster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B2FFDF51C53CF7900BBFC20 /* KVConstraintExtensionsMaster.framework */; };
+		6B2FFE051C53CF7900BBFC20 /* KVConstraintExtensionsMasterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B2FFE041C53CF7900BBFC20 /* KVConstraintExtensionsMasterTests.m */; };
+		6BC0AAB71C53F99E000F71C9 /* KVConstraintExtensionsMaster.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BC0AAB61C53F99E000F71C9 /* KVConstraintExtensionsMaster.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6BCB19B11C53D3D100D47ED1 /* NSLayoutConstraint+KVConstraintExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BCB19AB1C53D3D100D47ED1 /* NSLayoutConstraint+KVConstraintExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6BCB19B21C53D3D100D47ED1 /* NSLayoutConstraint+KVConstraintExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BCB19AC1C53D3D100D47ED1 /* NSLayoutConstraint+KVConstraintExtensions.m */; };
+		6BCB19B31C53D3D100D47ED1 /* UIView+KVConstraintExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BCB19AD1C53D3D100D47ED1 /* UIView+KVConstraintExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6BCB19B41C53D3D100D47ED1 /* UIView+KVConstraintExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BCB19AE1C53D3D100D47ED1 /* UIView+KVConstraintExtensions.m */; };
+		6BCB19B51C53D3D100D47ED1 /* UIViewController+KVConstraintExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BCB19AF1C53D3D100D47ED1 /* UIViewController+KVConstraintExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6BCB19B61C53D3D100D47ED1 /* UIViewController+KVConstraintExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BCB19B01C53D3D100D47ED1 /* UIViewController+KVConstraintExtensions.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6B2FFE011C53CF7900BBFC20 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6B2FFDEC1C53CF7900BBFC20 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6B2FFDF41C53CF7900BBFC20;
+			remoteInfo = KVConstraintExtensionsMaster;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6B2FFDF51C53CF7900BBFC20 /* KVConstraintExtensionsMaster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KVConstraintExtensionsMaster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B2FFDF81C53CF7900BBFC20 /* KVConstraintExtensionsMaster.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KVConstraintExtensionsMaster.h; sourceTree = "<group>"; };
+		6B2FFDFA1C53CF7900BBFC20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6B2FFDFF1C53CF7900BBFC20 /* KVConstraintExtensionsMasterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KVConstraintExtensionsMasterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B2FFE041C53CF7900BBFC20 /* KVConstraintExtensionsMasterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KVConstraintExtensionsMasterTests.m; sourceTree = "<group>"; };
+		6B2FFE061C53CF7900BBFC20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6BC0AAB61C53F99E000F71C9 /* KVConstraintExtensionsMaster.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KVConstraintExtensionsMaster.h; sourceTree = "<group>"; };
+		6BC0AAB81C53F9D9000F71C9 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		6BCB19AB1C53D3D100D47ED1 /* NSLayoutConstraint+KVConstraintExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+KVConstraintExtensions.h"; sourceTree = "<group>"; };
+		6BCB19AC1C53D3D100D47ED1 /* NSLayoutConstraint+KVConstraintExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+KVConstraintExtensions.m"; sourceTree = "<group>"; };
+		6BCB19AD1C53D3D100D47ED1 /* UIView+KVConstraintExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+KVConstraintExtensions.h"; sourceTree = "<group>"; };
+		6BCB19AE1C53D3D100D47ED1 /* UIView+KVConstraintExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+KVConstraintExtensions.m"; sourceTree = "<group>"; };
+		6BCB19AF1C53D3D100D47ED1 /* UIViewController+KVConstraintExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+KVConstraintExtensions.h"; sourceTree = "<group>"; };
+		6BCB19B01C53D3D100D47ED1 /* UIViewController+KVConstraintExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+KVConstraintExtensions.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6B2FFDF11C53CF7900BBFC20 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6B2FFDFC1C53CF7900BBFC20 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6B2FFE001C53CF7900BBFC20 /* KVConstraintExtensionsMaster.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6B2FFDEB1C53CF7900BBFC20 = {
+			isa = PBXGroup;
+			children = (
+				6B2FFDF71C53CF7900BBFC20 /* KVConstraintExtensionsMaster */,
+				6B2FFE031C53CF7900BBFC20 /* KVConstraintExtensionsMasterTests */,
+				6B2FFDF61C53CF7900BBFC20 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6B2FFDF61C53CF7900BBFC20 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6B2FFDF51C53CF7900BBFC20 /* KVConstraintExtensionsMaster.framework */,
+				6B2FFDFF1C53CF7900BBFC20 /* KVConstraintExtensionsMasterTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6B2FFDF71C53CF7900BBFC20 /* KVConstraintExtensionsMaster */ = {
+			isa = PBXGroup;
+			children = (
+				6B2FFDF81C53CF7900BBFC20 /* KVConstraintExtensionsMaster.h */,
+				6BCB19AB1C53D3D100D47ED1 /* NSLayoutConstraint+KVConstraintExtensions.h */,
+				6BCB19AC1C53D3D100D47ED1 /* NSLayoutConstraint+KVConstraintExtensions.m */,
+				6BCB19AD1C53D3D100D47ED1 /* UIView+KVConstraintExtensions.h */,
+				6BCB19AE1C53D3D100D47ED1 /* UIView+KVConstraintExtensions.m */,
+				6BCB19AF1C53D3D100D47ED1 /* UIViewController+KVConstraintExtensions.h */,
+				6BCB19B01C53D3D100D47ED1 /* UIViewController+KVConstraintExtensions.m */,
+				6BCB19AA1C53D35700D47ED1 /* Supporting Files */,
+			);
+			path = KVConstraintExtensionsMaster;
+			sourceTree = "<group>";
+		};
+		6B2FFE031C53CF7900BBFC20 /* KVConstraintExtensionsMasterTests */ = {
+			isa = PBXGroup;
+			children = (
+				6B2FFE041C53CF7900BBFC20 /* KVConstraintExtensionsMasterTests.m */,
+				6B2FFE061C53CF7900BBFC20 /* Info.plist */,
+			);
+			path = KVConstraintExtensionsMasterTests;
+			sourceTree = "<group>";
+		};
+		6BCB19AA1C53D35700D47ED1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6BC0AAB61C53F99E000F71C9 /* KVConstraintExtensionsMaster.h */,
+				6BC0AAB81C53F9D9000F71C9 /* module.modulemap */,
+				6B2FFDFA1C53CF7900BBFC20 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			path = "../Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		6B2FFDF21C53CF7900BBFC20 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BC0AAB71C53F99E000F71C9 /* KVConstraintExtensionsMaster.h in Headers */,
+				6BCB19B31C53D3D100D47ED1 /* UIView+KVConstraintExtensions.h in Headers */,
+				6BCB19B51C53D3D100D47ED1 /* UIViewController+KVConstraintExtensions.h in Headers */,
+				6BCB19B11C53D3D100D47ED1 /* NSLayoutConstraint+KVConstraintExtensions.h in Headers */,
+				6B2FFDF91C53CF7900BBFC20 /* KVConstraintExtensionsMaster.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		6B2FFDF41C53CF7900BBFC20 /* KVConstraintExtensionsMaster */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6B2FFE091C53CF7900BBFC20 /* Build configuration list for PBXNativeTarget "KVConstraintExtensionsMaster" */;
+			buildPhases = (
+				6B2FFDF01C53CF7900BBFC20 /* Sources */,
+				6B2FFDF11C53CF7900BBFC20 /* Frameworks */,
+				6B2FFDF21C53CF7900BBFC20 /* Headers */,
+				6B2FFDF31C53CF7900BBFC20 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KVConstraintExtensionsMaster;
+			productName = KVConstraintExtensionsMaster;
+			productReference = 6B2FFDF51C53CF7900BBFC20 /* KVConstraintExtensionsMaster.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		6B2FFDFE1C53CF7900BBFC20 /* KVConstraintExtensionsMasterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6B2FFE0C1C53CF7900BBFC20 /* Build configuration list for PBXNativeTarget "KVConstraintExtensionsMasterTests" */;
+			buildPhases = (
+				6B2FFDFB1C53CF7900BBFC20 /* Sources */,
+				6B2FFDFC1C53CF7900BBFC20 /* Frameworks */,
+				6B2FFDFD1C53CF7900BBFC20 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6B2FFE021C53CF7900BBFC20 /* PBXTargetDependency */,
+			);
+			name = KVConstraintExtensionsMasterTests;
+			productName = KVConstraintExtensionsMasterTests;
+			productReference = 6B2FFDFF1C53CF7900BBFC20 /* KVConstraintExtensionsMasterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6B2FFDEC1C53CF7900BBFC20 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = Keshav;
+				TargetAttributes = {
+					6B2FFDF41C53CF7900BBFC20 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					6B2FFDFE1C53CF7900BBFC20 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = 6B2FFDEF1C53CF7900BBFC20 /* Build configuration list for PBXProject "KVConstraintExtensionsMaster" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 6B2FFDEB1C53CF7900BBFC20;
+			productRefGroup = 6B2FFDF61C53CF7900BBFC20 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6B2FFDF41C53CF7900BBFC20 /* KVConstraintExtensionsMaster */,
+				6B2FFDFE1C53CF7900BBFC20 /* KVConstraintExtensionsMasterTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6B2FFDF31C53CF7900BBFC20 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6B2FFDFD1C53CF7900BBFC20 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6B2FFDF01C53CF7900BBFC20 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BCB19B61C53D3D100D47ED1 /* UIViewController+KVConstraintExtensions.m in Sources */,
+				6BCB19B41C53D3D100D47ED1 /* UIView+KVConstraintExtensions.m in Sources */,
+				6BCB19B21C53D3D100D47ED1 /* NSLayoutConstraint+KVConstraintExtensions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6B2FFDFB1C53CF7900BBFC20 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6B2FFE051C53CF7900BBFC20 /* KVConstraintExtensionsMasterTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6B2FFE021C53CF7900BBFC20 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6B2FFDF41C53CF7900BBFC20 /* KVConstraintExtensionsMaster */;
+			targetProxy = 6B2FFE011C53CF7900BBFC20 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		6B2FFE071C53CF7900BBFC20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		6B2FFE081C53CF7900BBFC20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		6B2FFE0A1C53CF7900BBFC20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Keshav-Vishwkarma.KVConstraintExtensionsMaster";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		6B2FFE0B1C53CF7900BBFC20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Keshav-Vishwkarma.KVConstraintExtensionsMaster";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		6B2FFE0D1C53CF7900BBFC20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = KVConstraintExtensionsMasterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Keshav-Vishwkarma.KVConstraintExtensionsMasterTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6B2FFE0E1C53CF7900BBFC20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = KVConstraintExtensionsMasterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Keshav-Vishwkarma.KVConstraintExtensionsMasterTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6B2FFDEF1C53CF7900BBFC20 /* Build configuration list for PBXProject "KVConstraintExtensionsMaster" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6B2FFE071C53CF7900BBFC20 /* Debug */,
+				6B2FFE081C53CF7900BBFC20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6B2FFE091C53CF7900BBFC20 /* Build configuration list for PBXNativeTarget "KVConstraintExtensionsMaster" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6B2FFE0A1C53CF7900BBFC20 /* Debug */,
+				6B2FFE0B1C53CF7900BBFC20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6B2FFE0C1C53CF7900BBFC20 /* Build configuration list for PBXNativeTarget "KVConstraintExtensionsMasterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6B2FFE0D1C53CF7900BBFC20 /* Debug */,
+				6B2FFE0E1C53CF7900BBFC20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6B2FFDEC1C53CF7900BBFC20 /* Project object */;
+}

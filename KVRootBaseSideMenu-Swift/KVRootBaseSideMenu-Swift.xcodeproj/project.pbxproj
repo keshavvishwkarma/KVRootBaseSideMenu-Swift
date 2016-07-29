@@ -15,12 +15,12 @@
 		6B298B831D342E8900DADBA5 /* KVCustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298B7F1D342E8900DADBA5 /* KVCustomSegue.swift */; };
 		6B298B841D342E8900DADBA5 /* KVMenuContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298B801D342E8900DADBA5 /* KVMenuContainerView.swift */; };
 		6B298B851D342E8900DADBA5 /* KVRootBaseSideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298B811D342E8900DADBA5 /* KVRootBaseSideMenuViewController.swift */; };
-		6B298B861D342E9A00DADBA5 /* KVConstraintExtensionsMaster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B298B7E1D342E8900DADBA5 /* KVConstraintExtensionsMaster.framework */; };
-		6B298B871D342E9A00DADBA5 /* KVConstraintExtensionsMaster.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6B298B7E1D342E8900DADBA5 /* KVConstraintExtensionsMaster.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6B298B8D1D342ED500DADBA5 /* LeftSideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298B8A1D342ED500DADBA5 /* LeftSideViewController.swift */; };
 		6B298B8E1D342ED500DADBA5 /* RightSideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298B8B1D342ED500DADBA5 /* RightSideViewController.swift */; };
 		6B298B8F1D342ED500DADBA5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298B8C1D342ED500DADBA5 /* BaseViewController.swift */; };
 		6B298B911D342EE000DADBA5 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298B901D342EE000DADBA5 /* SideMenuViewController.swift */; };
+		6BF830331D4BEC6B002E5978 /* KVConstraintOperaterOverloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF830321D4BEC6B002E5978 /* KVConstraintOperaterOverloading.swift */; };
+		6BF830351D4BF11F002E5978 /* KVConstraintExtensionsMaster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF830341D4BF11F002E5978 /* KVConstraintExtensionsMaster.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,7 +30,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6B298B871D342E9A00DADBA5 /* KVConstraintExtensionsMaster.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -45,7 +44,6 @@
 		6B298B731D342E1E00DADBA5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6B298B761D342E1F00DADBA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6B298B781D342E1F00DADBA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6B298B7E1D342E8900DADBA5 /* KVConstraintExtensionsMaster.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KVConstraintExtensionsMaster.framework; sourceTree = "<group>"; };
 		6B298B7F1D342E8900DADBA5 /* KVCustomSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVCustomSegue.swift; sourceTree = "<group>"; };
 		6B298B801D342E8900DADBA5 /* KVMenuContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVMenuContainerView.swift; sourceTree = "<group>"; };
 		6B298B811D342E8900DADBA5 /* KVRootBaseSideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVRootBaseSideMenuViewController.swift; sourceTree = "<group>"; };
@@ -53,6 +51,8 @@
 		6B298B8B1D342ED500DADBA5 /* RightSideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightSideViewController.swift; sourceTree = "<group>"; };
 		6B298B8C1D342ED500DADBA5 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		6B298B901D342EE000DADBA5 /* SideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
+		6BF830321D4BEC6B002E5978 /* KVConstraintOperaterOverloading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVConstraintOperaterOverloading.swift; sourceTree = "<group>"; };
+		6BF830341D4BF11F002E5978 /* KVConstraintExtensionsMaster.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KVConstraintExtensionsMaster.framework; path = Carthage/Build/iOS/KVConstraintExtensionsMaster.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B298B861D342E9A00DADBA5 /* KVConstraintExtensionsMaster.framework in Frameworks */,
+				6BF830351D4BF11F002E5978 /* KVConstraintExtensionsMaster.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +70,7 @@
 		6B298B601D342E1E00DADBA5 = {
 			isa = PBXGroup;
 			children = (
+				6BF830341D4BF11F002E5978 /* KVConstraintExtensionsMaster.framework */,
 				6B298B6B1D342E1E00DADBA5 /* KVRootBaseSideMenu-Swift */,
 				6B298B6A1D342E1E00DADBA5 /* Products */,
 			);
@@ -104,10 +105,10 @@
 		6B298B891D342EB300DADBA5 /* KVRootBaseSideMenu */ = {
 			isa = PBXGroup;
 			children = (
-				6B298B7E1D342E8900DADBA5 /* KVConstraintExtensionsMaster.framework */,
-				6B298B7F1D342E8900DADBA5 /* KVCustomSegue.swift */,
+				6BF830321D4BEC6B002E5978 /* KVConstraintOperaterOverloading.swift */,
 				6B298B801D342E8900DADBA5 /* KVMenuContainerView.swift */,
 				6B298B811D342E8900DADBA5 /* KVRootBaseSideMenuViewController.swift */,
+				6B298B7F1D342E8900DADBA5 /* KVCustomSegue.swift */,
 			);
 			name = KVRootBaseSideMenu;
 			sourceTree = "<group>";
@@ -123,6 +124,7 @@
 				6B298B661D342E1E00DADBA5 /* Frameworks */,
 				6B298B671D342E1E00DADBA5 /* Resources */,
 				6B298B881D342E9A00DADBA5 /* Embed Frameworks */,
+				6BF830361D4BF12E002E5978 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -179,6 +181,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6BF830361D4BF12E002E5978 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/KVConstraintExtensionsMaster.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6B298B651D342E1E00DADBA5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -186,6 +205,7 @@
 			files = (
 				6B298B841D342E8900DADBA5 /* KVMenuContainerView.swift in Sources */,
 				6B298B6F1D342E1E00DADBA5 /* ViewController.swift in Sources */,
+				6BF830331D4BEC6B002E5978 /* KVConstraintOperaterOverloading.swift in Sources */,
 				6B298B831D342E8900DADBA5 /* KVCustomSegue.swift in Sources */,
 				6B298B851D342E8900DADBA5 /* KVRootBaseSideMenuViewController.swift in Sources */,
 				6B298B8D1D342ED500DADBA5 /* LeftSideViewController.swift in Sources */,
@@ -307,6 +327,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/KVRootBaseSideMenu-Swift",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "KVRootBaseSideMenu-Swift/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -323,6 +344,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/KVRootBaseSideMenu-Swift",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "KVRootBaseSideMenu-Swift/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
