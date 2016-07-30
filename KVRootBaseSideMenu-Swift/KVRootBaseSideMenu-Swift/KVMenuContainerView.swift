@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import KVConstraintExtensionsMaster
 
 public struct KVSideMenu
 {
@@ -184,12 +183,12 @@ public class KVMenuContainerView: UIView
                 closeOpenedSideMenu(rightContainerView, attribute: .Trailing)
             }
             
-            centerContainerView.accessAppliedConstraintByAttribute(.CenterX) { (appliedConstraint) -> Void in
+            centerContainerView.accessAppliedConstraintBy(attribute: .CenterX)  { (appliedConstraint) -> Void in
                 if appliedConstraint != nil {
                     self.currentSideMenuState = .Left
                     
-                    self.centerContainerView.superview?.removeConstraint(appliedConstraint)
-                    self.leftContainerView.applyLeadingPinConstraintToSuperviewWithPadding(defualtConstant)
+                    self.centerContainerView.superview! - appliedConstraint!
+                    self.leftContainerView +== .Leading
                     
                     self.handelTransformAnimations()
                 }
@@ -220,12 +219,12 @@ public class KVMenuContainerView: UIView
                 closeOpenedSideMenu(leftContainerView, attribute: .Leading)
             }
             
-            centerContainerView.accessAppliedConstraintByAttribute(.CenterX) { (appliedConstraint) -> Void in
+            centerContainerView.accessAppliedConstraintBy(attribute: .CenterX) { (appliedConstraint) -> Void in
                 if appliedConstraint != nil {
                     self.currentSideMenuState = .Right
                     
-                    self.centerContainerView.superview?.removeConstraint(appliedConstraint)
-                    self.rightContainerView.applyTrailingPinConstraintToSuperviewWithPadding(defualtConstant)
+                    self.centerContainerView.superview! - appliedConstraint!
+                    self.rightContainerView +== .Trailing
                     
                     self.handelTransformAnimations()
                 }
@@ -248,7 +247,8 @@ public class KVMenuContainerView: UIView
         if self.animationType == KVSideMenu.AnimationType.Window
         {
             // update Top And Bottom Pin Constraints Of SideMenu
-            centerContainerView.applyTopAndBottomPinConstraintToSuperviewWithPadding(22.5)
+            (centerContainerView +== .Bottom).constant = -22.5
+            (centerContainerView +== .Top).constant    = 22.5
             // this valus is fixed for orientation so try to avoid it
         }
         
@@ -294,11 +294,11 @@ extension KVMenuContainerView: UIGestureRecognizerDelegate
             switch (currentSideMenuState)
             {
             case .Left:
-                appliedConstraint = leftContainerView.accessAppliedConstraintByAttribute(.Leading)
+                appliedConstraint = leftContainerView.accessAppliedConstraintBy(attribute: .Leading)
             case .Right:
-                appliedConstraint = rightContainerView.accessAppliedConstraintByAttribute(.Trailing)
+                appliedConstraint = rightContainerView.accessAppliedConstraintBy(attribute: .Trailing)
             default:
-                appliedConstraint = centerContainerView.accessAppliedConstraintByAttribute(.CenterX)
+                appliedConstraint = centerContainerView.accessAppliedConstraintBy(attribute: .CenterX)
             }
             
         case .Changed:
@@ -410,16 +410,16 @@ extension KVMenuContainerView: UIGestureRecognizerDelegate
 
 private extension KVMenuContainerView
 {
-    func closeOpenedSideMenu(view:UIView, attribute: NSLayoutAttribute, completion: (Void -> Void)? = nil )
+    func closeOpenedSideMenu(view:UIView, attribute attr: NSLayoutAttribute, completion: (Void -> Void)? = nil )
     {
-        view.accessAppliedConstraintByAttribute(attribute, completion: { (appliedConstraint) -> Void in
+        view.accessAppliedConstraintBy(attribute: attr, completionHandler: { (appliedConstraint) -> Void in
             if appliedConstraint != nil {
                 self.currentSideMenuState = .None
-                view.superview?.removeConstraint(appliedConstraint)
-                self.centerContainerView.applyConstraintForHorizontallyCenterInSuperview()
-                self.centerContainerView.applyTopAndBottomPinConstraintToSuperviewWithPadding(defualtConstant)
+                view.superview! - appliedConstraint!
+                self.centerContainerView +== [.Top, .CenterX, .Bottom]
                 if completion == nil {
-                    self.updateModifyConstraints()
+                    self.layoutIfNeeded()
+                    self.setNeedsLayout()
                 }else{
                     completion?()
                 }
@@ -441,7 +441,8 @@ private extension KVMenuContainerView
         let duration = NSTimeInterval(self.KVSideMenuHideShowDuration)
         
         UIView.animateWithDuration(duration, delay: 0, usingSpringWithDamping: 0.95, initialSpringVelocity: 10, options: options, animations: { _ in
-            self.updateModifyConstraints()
+            self.layoutIfNeeded()
+            self.setNeedsLayout()
             self.setNeedsUpdateConstraints()
             self.applyShadow(self.centerContainerView)
             completionHandler?()

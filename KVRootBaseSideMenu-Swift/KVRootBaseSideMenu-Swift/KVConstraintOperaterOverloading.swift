@@ -1,17 +1,37 @@
 //
 //  KVConstraintOperaterOverloading.swift
-//  KVRootBaseSideMenu-Swift
+//  https://github.com/keshavvishwkarma/KVConstraintExtensionsMaster.git
 //
-//  Created by Keshav on 7/30/16.
+//  Distributed under the MIT License.
+//
+//  Created by Keshav on 7/28/16.
 //  Copyright © 2016 Keshav. All rights reserved.
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of
+//  this software and associated documentation files (the "Software"), to deal in
+//  the Software without restriction, including without limitation the rights to
+//  use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+//  of the Software, and to permit persons to whom the Software is furnished to do
+//  so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
+//
+//
 
-import KVConstraintExtensionsMaster
 
-public typealias View = UIView
+import UIKit
 
 //********* DEFINE NEW OPERATOR *********//
-infix operator <<- { }; infix operator +==  { }; infix operator +>=  { }
+infix operator <- { }; infix operator +==  { }; infix operator +>=  { }
 infix operator +<= { }; infix operator +*== { }; infix operator <==> { }
 
 //********* DEFINE NEW INTERFACE *********//
@@ -35,6 +55,8 @@ public protocol Removable:class {
 public protocol LayoutRelationable:class {
     /// TO ADD SINGLE EQUAL RELATION CONSTRAINT
     func +==(lhs: Self, rhs: NSLayoutAttribute) -> NSLayoutConstraint
+    func +>=(lhs: Self, rhs: NSLayoutAttribute) -> NSLayoutConstraint
+    func +<=(lhs: Self, rhs: NSLayoutAttribute) -> NSLayoutConstraint
     
     /// TO ADD MULTIPLE EQUAL RELATION CONSTRAINT
     func +==(lhs: Self, rhs: [NSLayoutAttribute])
@@ -44,29 +66,47 @@ public protocol LayoutRelationable:class {
     
     /// TO ADD SIBLING CONSTRAINT WITH EQUAL RELATION
     func <==>(lhs: View, rhs: (NSLayoutAttribute, NSLayoutAttribute, View, CGFloat))
-    
-    /// TO ACCESS CONSTRAINT BASED ON LAYOUT ATTRIBUTE
-    func <<-(lhs: Self, rhs: NSLayoutAttribute) -> NSLayoutConstraint?
 }
 
-extension View : Addable, Removable, LayoutRelationable { }
+public protocol Accessable:class {
+    /// TO ACCESS CONSTRAINT BASED ON LAYOUT ATTRIBUTE
+    func <-(lhs: Self, rhs: NSLayoutAttribute) -> NSLayoutConstraint?
+}
+
+extension View : Addable, Removable, Accessable, LayoutRelationable { }
+
+public func <-(lhs: View, rhs: NSLayoutAttribute) -> NSLayoutConstraint?{
+    return lhs.accessAppliedConstraintBy(attribute: rhs)
+}
+
+public func <-(lhs: View, rhs: (NSLayoutAttribute, NSLayoutRelation)) -> NSLayoutConstraint?{
+    return lhs.accessAppliedConstraintBy(attribute: rhs.0, relation: rhs.1)
+}
 
 //MARK: LayoutRelationable
-
-public func <<-(lhs: View, rhs: NSLayoutAttribute) -> NSLayoutConstraint?{
-    return lhs.accessAppliedConstraintByAttribute(rhs)
-}
 
 /// (leftContainerView *== (.Top, multiplier) ).constant = 0
 public func +*==(lhs: View, rhs: (NSLayoutAttribute, CGFloat)) -> NSLayoutConstraint {
     assert(lhs.superview != nil, "You should have addSubView on any other its called's Superview \(lhs)");
-    return lhs.superview! + lhs.prepareEqualRelationPinRatioConstraintToSuperview(rhs.0, multiplier: rhs.1)
+    return lhs.superview! + lhs.prepareEqualRelationPinRatioConstraintToSuperview(attribute: rhs.0, multiplier: rhs.1)
+}
+
+/// (leftContainerView +== .Top).constant = 0
+public func +<=(lhs: View, rhs: NSLayoutAttribute) -> NSLayoutConstraint {
+    assert(lhs.superview != nil, "You should have addSubView on any other its called's Superview \(lhs)");
+    return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs, attribute: rhs, relation: .LessThanOrEqual)
 }
 
 /// (leftContainerView +== .Top).constant = 0
 public func +==(lhs: View, rhs: NSLayoutAttribute) -> NSLayoutConstraint {
     assert(lhs.superview != nil, "You should have addSubView on any other its called's Superview \(lhs)");
-    return lhs.superview! + lhs.prepareEqualRelationPinConstraintToSuperview(rhs, constant: defualtConstant)
+    return lhs.superview! + lhs.prepareEqualRelationPinConstraintToSuperview(attribute: rhs, constant: defualtConstant)
+}
+
+/// (leftContainerView +== .Top).constant = 0
+public func +>=(lhs: View, rhs: NSLayoutAttribute) -> NSLayoutConstraint {
+    assert(lhs.superview != nil, "You should have addSubView on any other its called's Superview \(lhs)");
+    return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs, attribute: rhs, relation: .GreaterThanOrEqual)
 }
 
 // With defualt constant value that is - 0 (Zero) on a specific attribute
@@ -77,19 +117,23 @@ public func +==(lhs: View, rhs: [NSLayoutAttribute]) {
 public func <==>(lhs: View, rhs: (NSLayoutAttribute, NSLayoutAttribute, View, CGFloat)) {
     assert(!rhs.3.isInfinite, "Constant must not be INFINITY.")
     assert(!rhs.3.isNaN, "Constant must not be NaN.")
-    lhs.applyConstraintFromSiblingViewAttribute(rhs.0, toAttribute: rhs.1, ofView: rhs.2, spacing: rhs.3)
+    lhs.applyConstraintFromSiblingView(attribute: rhs.0, toAttribute: rhs.1, ofView: rhs.2, constant: rhs.3)
 }
 
 // MARK: Addable
 
 /// to add single constraint on the receiver view
 public func +(lhs: View, rhs: NSLayoutConstraint) -> NSLayoutConstraint {
-    lhs.applyPreparedConastrainInView(rhs); return rhs
+    return lhs.applyPreparedConstraintInView(constraint: rhs)
 }
 
 /// to add multiple constraints on the receiver view
 public func +(lhs: View, rhs: [NSLayoutConstraint]) -> [NSLayoutConstraint] {
-    for constraint in rhs { lhs + constraint }; return rhs
+    var constraints = [NSLayoutConstraint]()
+    for c in rhs {
+        constraints.append( lhs + c )
+    }
+    return constraints
 }
 
 // MARK: Removable
@@ -103,3 +147,4 @@ public func -(lhs: View, rhs: NSLayoutConstraint) -> NSLayoutConstraint {
 public func -(lhs: View, rhs: [NSLayoutConstraint]) -> [NSLayoutConstraint] {
     lhs.removeConstraints(rhs); return rhs
 }
+
