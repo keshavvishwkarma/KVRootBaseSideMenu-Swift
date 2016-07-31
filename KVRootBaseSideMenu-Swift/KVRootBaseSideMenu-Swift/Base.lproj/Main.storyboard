@@ -44,21 +44,27 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNU-o7-FKI">
                                 <rect key="frame" x="99" y="143" width="123" height="30"/>
-                                <state key="normal" title="Defualt Animation"/>
+                                <state key="normal" title="Defualt Animation">
+                                    <color key="titleColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                </state>
                                 <connections>
                                     <action selector="defualtButtonPressed:" destination="qnA-Hp-LC1" eventType="touchUpInside" id="eOa-tu-TLA"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9yd-Of-uJz">
                                 <rect key="frame" x="96" y="237" width="128" height="30"/>
-                                <state key="normal" title="Window Animation"/>
+                                <state key="normal" title="Window Animation">
+                                    <color key="titleColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                </state>
                                 <connections>
                                     <action selector="windowButtonPressed:" destination="qnA-Hp-LC1" eventType="touchUpInside" id="EtY-Bc-6Ui"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rpV-yi-Wck">
                                 <rect key="frame" x="99" y="189" width="123" height="30"/>
-                                <state key="normal" title="Folding Animation"/>
+                                <state key="normal" title="Folding Animation">
+                                    <color key="titleColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                </state>
                                 <connections>
                                     <action selector="foldingButtonPressed:" destination="qnA-Hp-LC1" eventType="touchUpInside" id="LaT-TS-QLU"/>
                                 </connections>
@@ -94,21 +100,27 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Yu-Bb-mCU">
                                 <rect key="frame" x="99" y="159" width="123" height="30"/>
-                                <state key="normal" title="Defualt Animation"/>
+                                <state key="normal" title="Defualt Animation">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="defualtButtonPressed:" destination="6Wg-Ty-O7k" eventType="touchUpInside" id="XOe-vJ-Ubp"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ADb-BH-9aq">
                                 <rect key="frame" x="97" y="253" width="128" height="30"/>
-                                <state key="normal" title="Window Animation"/>
+                                <state key="normal" title="Window Animation">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="windowButtonPressed:" destination="6Wg-Ty-O7k" eventType="touchUpInside" id="jWo-bd-XxS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VHz-jF-cGk">
                                 <rect key="frame" x="99" y="205" width="123" height="30"/>
-                                <state key="normal" title="Folding Animation"/>
+                                <state key="normal" title="Folding Animation">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="foldingButtonPressed:" destination="6Wg-Ty-O7k" eventType="touchUpInside" id="zIZ-bP-OvG"/>
                                 </connections>

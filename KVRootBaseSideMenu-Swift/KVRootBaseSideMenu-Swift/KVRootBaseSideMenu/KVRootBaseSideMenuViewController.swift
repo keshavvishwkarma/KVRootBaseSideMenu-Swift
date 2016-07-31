@@ -16,6 +16,7 @@ public class KVRootBaseSideMenuViewController: UIViewController
     private var rootObjects: [Key:Value] = [Key:Value]();
     
     private(set) var menuContainerView: KVMenuContainerView?
+    @IBOutlet var containerView: UIView?
     
     public var leftSideMenuViewController: UIViewController? {
         didSet {
@@ -61,7 +62,7 @@ public class KVRootBaseSideMenuViewController: UIViewController
     
     override public func loadView() {
         super.loadView()
-        self.menuContainerView = KVMenuContainerView(superView: self.view);
+        self.menuContainerView = KVMenuContainerView(superView: (containerView == nil) ? self.view : containerView);
     }
     
     override public func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {

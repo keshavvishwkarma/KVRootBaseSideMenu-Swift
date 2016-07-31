@@ -84,7 +84,8 @@ public class KVMenuContainerView: UIView
         prepareViewForAutoLayout()
         backgroundColor = UIColor.clearColor()
         superView.addSubview(self)
-        
+        superView.clipsToBounds = true
+
         // apply constraints vai oprator overloading.
         self +== [.Height, .Width, .CenterX, .CenterY]
     }

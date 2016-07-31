@@ -12,15 +12,15 @@
 		6B298B721D342E1E00DADBA5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B298B701D342E1E00DADBA5 /* Main.storyboard */; };
 		6B298B741D342E1E00DADBA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B298B731D342E1E00DADBA5 /* Assets.xcassets */; };
 		6B298B771D342E1F00DADBA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B298B751D342E1F00DADBA5 /* LaunchScreen.storyboard */; };
-		6B298B831D342E8900DADBA5 /* KVCustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298B7F1D342E8900DADBA5 /* KVCustomSegue.swift */; };
-		6B298B841D342E8900DADBA5 /* KVMenuContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298B801D342E8900DADBA5 /* KVMenuContainerView.swift */; };
-		6B298B851D342E8900DADBA5 /* KVRootBaseSideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298B811D342E8900DADBA5 /* KVRootBaseSideMenuViewController.swift */; };
 		6B298B8D1D342ED500DADBA5 /* LeftSideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298B8A1D342ED500DADBA5 /* LeftSideViewController.swift */; };
 		6B298B8E1D342ED500DADBA5 /* RightSideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298B8B1D342ED500DADBA5 /* RightSideViewController.swift */; };
 		6B298B8F1D342ED500DADBA5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298B8C1D342ED500DADBA5 /* BaseViewController.swift */; };
 		6B298B911D342EE000DADBA5 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B298B901D342EE000DADBA5 /* SideMenuViewController.swift */; };
-		6B2BD05E1D4D586800C01D42 /* KVConstraintsExtensionsMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2BD05C1D4D586800C01D42 /* KVConstraintsExtensionsMaster.swift */; };
-		6BF830331D4BEC6B002E5978 /* KVConstraintOperaterOverloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF830321D4BEC6B002E5978 /* KVConstraintOperaterOverloading.swift */; };
+		6B8669631D4E7D31001A8C5D /* KVConstraintOperaterOverloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B86695E1D4E7D31001A8C5D /* KVConstraintOperaterOverloading.swift */; };
+		6B8669641D4E7D31001A8C5D /* KVConstraintsExtensionsMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B86695F1D4E7D31001A8C5D /* KVConstraintsExtensionsMaster.swift */; };
+		6B8669651D4E7D31001A8C5D /* KVCustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8669601D4E7D31001A8C5D /* KVCustomSegue.swift */; };
+		6B8669661D4E7D31001A8C5D /* KVMenuContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8669611D4E7D31001A8C5D /* KVMenuContainerView.swift */; };
+		6B8669671D4E7D31001A8C5D /* KVRootBaseSideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8669621D4E7D31001A8C5D /* KVRootBaseSideMenuViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,15 +44,15 @@
 		6B298B731D342E1E00DADBA5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6B298B761D342E1F00DADBA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6B298B781D342E1F00DADBA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6B298B7F1D342E8900DADBA5 /* KVCustomSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVCustomSegue.swift; sourceTree = "<group>"; };
-		6B298B801D342E8900DADBA5 /* KVMenuContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVMenuContainerView.swift; sourceTree = "<group>"; };
-		6B298B811D342E8900DADBA5 /* KVRootBaseSideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVRootBaseSideMenuViewController.swift; sourceTree = "<group>"; };
 		6B298B8A1D342ED500DADBA5 /* LeftSideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftSideViewController.swift; sourceTree = "<group>"; };
 		6B298B8B1D342ED500DADBA5 /* RightSideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightSideViewController.swift; sourceTree = "<group>"; };
 		6B298B8C1D342ED500DADBA5 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		6B298B901D342EE000DADBA5 /* SideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
-		6B2BD05C1D4D586800C01D42 /* KVConstraintsExtensionsMaster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVConstraintsExtensionsMaster.swift; sourceTree = "<group>"; };
-		6BF830321D4BEC6B002E5978 /* KVConstraintOperaterOverloading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVConstraintOperaterOverloading.swift; sourceTree = "<group>"; };
+		6B86695E1D4E7D31001A8C5D /* KVConstraintOperaterOverloading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVConstraintOperaterOverloading.swift; sourceTree = "<group>"; };
+		6B86695F1D4E7D31001A8C5D /* KVConstraintsExtensionsMaster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVConstraintsExtensionsMaster.swift; sourceTree = "<group>"; };
+		6B8669601D4E7D31001A8C5D /* KVCustomSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVCustomSegue.swift; sourceTree = "<group>"; };
+		6B8669611D4E7D31001A8C5D /* KVMenuContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVMenuContainerView.swift; sourceTree = "<group>"; };
+		6B8669621D4E7D31001A8C5D /* KVRootBaseSideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVRootBaseSideMenuViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +85,7 @@
 		6B298B6B1D342E1E00DADBA5 /* KVRootBaseSideMenu-Swift */ = {
 			isa = PBXGroup;
 			children = (
-				6B298B891D342EB300DADBA5 /* KVRootBaseSideMenu */,
+				6B86695C1D4E7D31001A8C5D /* KVRootBaseSideMenu */,
 				6B298B6C1D342E1E00DADBA5 /* AppDelegate.swift */,
 				6B298B901D342EE000DADBA5 /* SideMenuViewController.swift */,
 				6B298B8A1D342ED500DADBA5 /* LeftSideViewController.swift */,
@@ -100,24 +100,24 @@
 			path = "KVRootBaseSideMenu-Swift";
 			sourceTree = "<group>";
 		};
-		6B298B891D342EB300DADBA5 /* KVRootBaseSideMenu */ = {
+		6B86695C1D4E7D31001A8C5D /* KVRootBaseSideMenu */ = {
 			isa = PBXGroup;
 			children = (
-				6B405F0A1D4D670A0050346C /* KVConstraintsExtensionsMaster */,
-				6B298B801D342E8900DADBA5 /* KVMenuContainerView.swift */,
-				6B298B811D342E8900DADBA5 /* KVRootBaseSideMenuViewController.swift */,
-				6B298B7F1D342E8900DADBA5 /* KVCustomSegue.swift */,
+				6B86695D1D4E7D31001A8C5D /* KVConstraintsExtensionsMaster */,
+				6B8669601D4E7D31001A8C5D /* KVCustomSegue.swift */,
+				6B8669611D4E7D31001A8C5D /* KVMenuContainerView.swift */,
+				6B8669621D4E7D31001A8C5D /* KVRootBaseSideMenuViewController.swift */,
 			);
-			name = KVRootBaseSideMenu;
+			path = KVRootBaseSideMenu;
 			sourceTree = "<group>";
 		};
-		6B405F0A1D4D670A0050346C /* KVConstraintsExtensionsMaster */ = {
+		6B86695D1D4E7D31001A8C5D /* KVConstraintsExtensionsMaster */ = {
 			isa = PBXGroup;
 			children = (
-				6B2BD05C1D4D586800C01D42 /* KVConstraintsExtensionsMaster.swift */,
-				6BF830321D4BEC6B002E5978 /* KVConstraintOperaterOverloading.swift */,
+				6B86695E1D4E7D31001A8C5D /* KVConstraintOperaterOverloading.swift */,
+				6B86695F1D4E7D31001A8C5D /* KVConstraintsExtensionsMaster.swift */,
 			);
-			name = KVConstraintsExtensionsMaster;
+			path = KVConstraintsExtensionsMaster;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,13 +192,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B298B841D342E8900DADBA5 /* KVMenuContainerView.swift in Sources */,
-				6B2BD05E1D4D586800C01D42 /* KVConstraintsExtensionsMaster.swift in Sources */,
 				6B298B6F1D342E1E00DADBA5 /* ViewController.swift in Sources */,
-				6BF830331D4BEC6B002E5978 /* KVConstraintOperaterOverloading.swift in Sources */,
-				6B298B831D342E8900DADBA5 /* KVCustomSegue.swift in Sources */,
-				6B298B851D342E8900DADBA5 /* KVRootBaseSideMenuViewController.swift in Sources */,
+				6B8669671D4E7D31001A8C5D /* KVRootBaseSideMenuViewController.swift in Sources */,
 				6B298B8D1D342ED500DADBA5 /* LeftSideViewController.swift in Sources */,
+				6B8669661D4E7D31001A8C5D /* KVMenuContainerView.swift in Sources */,
+				6B8669631D4E7D31001A8C5D /* KVConstraintOperaterOverloading.swift in Sources */,
+				6B8669641D4E7D31001A8C5D /* KVConstraintsExtensionsMaster.swift in Sources */,
+				6B8669651D4E7D31001A8C5D /* KVCustomSegue.swift in Sources */,
 				6B298B8F1D342ED500DADBA5 /* BaseViewController.swift in Sources */,
 				6B298B6D1D342E1E00DADBA5 /* AppDelegate.swift in Sources */,
 				6B298B911D342EE000DADBA5 /* SideMenuViewController.swift in Sources */,
