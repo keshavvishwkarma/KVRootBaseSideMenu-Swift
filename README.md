@@ -1,6 +1,6 @@
 # KVRootBaseSideMenu-Swift
 
-It's a root base side menu with autolayout for iOS applications & It is also written in pure swift. — Edit
+It's a root base side menu with autolayout for iOS applications & It is also written in pure swift.
 ### Demo
 [![KVRootBaseSideMenu-Swift](http://img.youtube.com/vi/104QJ6Nn77A/0.jpg)](http://www.youtube.com/watch?v=104QJ6Nn77A)
 
