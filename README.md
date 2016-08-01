@@ -39,7 +39,7 @@ class RightViewController: UIViewController {
 
 }
 ```
-- In Storyboard, Drag three view controllers from the Object library to the storyboard canvas and give them class  name in the Attributes inspector for the scenes. one is ‘SideMenuViewController’ second is 'LeftViewController' & third is 'RightViewController'.
+- In Storyboard, Drag three view controllers from the Object library to the storyboard canvas and give them class  name in the Attributes inspector for the scenes. one is  `SideMenuViewController ` second is `LeftViewController` & third is `RightViewController`.
 
 ####`Step 2.`
 - Prepare roots(options available in left and/or Right side menu) & roots identifiers and [Connect](#Connect_Roots) all the roots from side menu view controller.
@@ -71,11 +71,11 @@ public extension KVSideMenu
 
 <a name="Connect_Roots"> How to connect roots from side menu view controller </a>
 -----
-- You need to create a segue from the ‘SideMenuViewController’ itself to the destination root viewController. You must do this for each root viewController and give them appropriate ’identifiers’ and give them ’Segue Class’ i.e. ’KVCustomSegue’
+- You need to create a segue from the `SideMenuViewController` itself to the destination root viewController. You must do this for each root viewController and give them appropriate `identifiers` and give them ’Segue Class’ i.e. `KVCustomSegue`
 
 ####`Step 3.`
 
-- To enable left or right or both SideMenu, you must assign a leftSideMenuViewController or rightSideMenuViewController or both at any moment. In this example I'm doing as -
+- To enable left or right or both SideMenu, you must assign a `leftSideMenuViewController` or `rightSideMenuViewController` or both at any moment. In this example I'm doing as -
 ```
 class SideMenuViewController: KVRootBaseSideMenuViewController
 {
