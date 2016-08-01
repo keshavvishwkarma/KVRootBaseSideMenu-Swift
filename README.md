@@ -8,12 +8,12 @@ It's a root base side menu with autolayout for iOS applications & It is also wri
 - [x] Highly customizable & easy to use.
 - [x] You can add this side menu in a view of viewCintroller Or any specific subview of viewcontroller.
 - [x] Support both left & right side menu.
-- [x] Support fingure touch to open or close both side menu
+- [x] Support finger touch to open or close both side menu
 - [x] Automatic orientation support because of autolayout that we used.
-- [x] Automatic manage Left, right or left & right side menu sliding & toggle functionality to open or close.
+- [x] Automatically manage Left, right or left & right side menu sliding & toggle functionality to open or close.
 - [x] Complete example
 
-###TODO
+###TO DO
 - [ ] By supporting @IBInspectable, the class properties can be exposed in the Interface Builder
 - [ ] Carthage Support
 - [ ] Advance example.
