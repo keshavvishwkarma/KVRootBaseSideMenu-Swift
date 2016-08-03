@@ -27,36 +27,39 @@
 //
 //
 
-
 import UIKit
 
 //********* DEFINE NEW OPERATOR *********//
-infix operator <- { }; infix operator +==  { }; infix operator +>=  { }
+infix operator  <- { }; infix operator  +== { }; infix operator  +>= { }
 infix operator +<= { }; infix operator +*== { }; infix operator <==> { }
 
 //********* DEFINE NEW INTERFACE *********//
 
 public protocol Addable:class {
-    /// TO ADD SINGLE CONSTRAINTS
+    /// TO ADD SINGLE CONSTRAINT
     func +(lhs: Self, rhs: NSLayoutConstraint)  -> NSLayoutConstraint
-    
-    /// TO ADD MULTIPLE CONSTRAINTS
-    func +(lhs: Self, rhs: [NSLayoutConstraint])-> [NSLayoutConstraint]
 }
 
 public protocol Removable:class {
-    /// TO REMOVE SINGLE CONSTRAINTS
+    /// TO REMOVE SINGLE CONSTRAINT
     func -(lhs: Self, rhs: NSLayoutConstraint)  -> NSLayoutConstraint
-    
-    /// TO REMOVE MULTIPLE CONSTRAINTS
-    func -(lhs: Self, rhs: [NSLayoutConstraint])-> [NSLayoutConstraint]
 }
 
-public protocol LayoutRelationable:class {
+public protocol Accessable:class {
+    /// TO ACCESS CONSTRAINT BASED ON LAYOUT ATTRIBUTE
+    func <-(lhs: Self, rhs: NSLayoutAttribute) -> NSLayoutConstraint?
+}
+
+public protocol LayoutRelationable:class
+{
+    /// TO ADD SINGLE GREATER THAN OR EQUAL RELATION CONSTRAINT
+    func +<=(lhs: Self, rhs: NSLayoutAttribute) -> NSLayoutConstraint
+    
     /// TO ADD SINGLE EQUAL RELATION CONSTRAINT
     func +==(lhs: Self, rhs: NSLayoutAttribute) -> NSLayoutConstraint
+    
+    /// TO ADD SINGLE LESS THAN OR EQUAL RELATION CONSTRAINT
     func +>=(lhs: Self, rhs: NSLayoutAttribute) -> NSLayoutConstraint
-    func +<=(lhs: Self, rhs: NSLayoutAttribute) -> NSLayoutConstraint
     
     /// TO ADD MULTIPLE EQUAL RELATION CONSTRAINT
     func +==(lhs: Self, rhs: [NSLayoutAttribute])
@@ -68,12 +71,23 @@ public protocol LayoutRelationable:class {
     func <==>(lhs: View, rhs: (NSLayoutAttribute, NSLayoutAttribute, View, CGFloat))
 }
 
-public protocol Accessable:class {
-    /// TO ACCESS CONSTRAINT BASED ON LAYOUT ATTRIBUTE
-    func <-(lhs: Self, rhs: NSLayoutAttribute) -> NSLayoutConstraint?
+extension View : Addable, Removable, Accessable, LayoutRelationable { }
+
+// MARK: Addable
+
+/// To add single constraint on the receiver view
+public func +(lhs: View, rhs: NSLayoutConstraint) -> NSLayoutConstraint {
+    return lhs.applyPreparedConstraintInView(constraint: rhs)
 }
 
-extension View : Addable, Removable, Accessable, LayoutRelationable { }
+// MARK: Removable
+
+/// To remove single constraint from the receiver view
+public func -(lhs: View, rhs: NSLayoutConstraint) -> NSLayoutConstraint {
+    lhs.removeConstraint(rhs); return rhs
+}
+
+// MARK: Accessable
 
 public func <-(lhs: View, rhs: NSLayoutAttribute) -> NSLayoutConstraint?{
     return lhs.accessAppliedConstraintBy(attribute: rhs)
@@ -85,27 +99,18 @@ public func <-(lhs: View, rhs: (NSLayoutAttribute, NSLayoutRelation)) -> NSLayou
 
 //MARK: LayoutRelationable
 
-/// (leftContainerView *== (.Top, multiplier) ).constant = 0
-public func +*==(lhs: View, rhs: (NSLayoutAttribute, CGFloat)) -> NSLayoutConstraint {
-    assert(lhs.superview != nil, "You should have addSubView on any other its called's Superview \(lhs)");
-    return lhs.superview! + lhs.prepareEqualRelationPinRatioConstraintToSuperview(attribute: rhs.0, multiplier: rhs.1)
-}
-
 /// (leftContainerView +== .Top).constant = 0
 public func +<=(lhs: View, rhs: NSLayoutAttribute) -> NSLayoutConstraint {
-    assert(lhs.superview != nil, "You should have addSubView on any other its called's Superview \(lhs)");
     return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs, attribute: rhs, relation: .LessThanOrEqual)
 }
 
 /// (leftContainerView +== .Top).constant = 0
 public func +==(lhs: View, rhs: NSLayoutAttribute) -> NSLayoutConstraint {
-    assert(lhs.superview != nil, "You should have addSubView on any other its called's Superview \(lhs)");
     return lhs.superview! + lhs.prepareEqualRelationPinConstraintToSuperview(attribute: rhs, constant: defualtConstant)
 }
 
 /// (leftContainerView +== .Top).constant = 0
 public func +>=(lhs: View, rhs: NSLayoutAttribute) -> NSLayoutConstraint {
-    assert(lhs.superview != nil, "You should have addSubView on any other its called's Superview \(lhs)");
     return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs, attribute: rhs, relation: .GreaterThanOrEqual)
 }
 
@@ -114,37 +119,11 @@ public func +==(lhs: View, rhs: [NSLayoutAttribute]) {
     for attribute in rhs { lhs +== attribute }
 }
 
+/// (leftContainerView *== (.Top, multiplier) ).constant = 0
+public func +*==(lhs: View, rhs: (NSLayoutAttribute, CGFloat)) -> NSLayoutConstraint {
+    return lhs.superview! + lhs.prepareEqualRelationPinRatioConstraintToSuperview(attribute: rhs.0, multiplier: rhs.1)
+}
+
 public func <==>(lhs: View, rhs: (NSLayoutAttribute, NSLayoutAttribute, View, CGFloat)) {
-    assert(!rhs.3.isInfinite, "Constant must not be INFINITY.")
-    assert(!rhs.3.isNaN, "Constant must not be NaN.")
     lhs.applyConstraintFromSiblingView(attribute: rhs.0, toAttribute: rhs.1, ofView: rhs.2, constant: rhs.3)
 }
-
-// MARK: Addable
-
-/// to add single constraint on the receiver view
-public func +(lhs: View, rhs: NSLayoutConstraint) -> NSLayoutConstraint {
-    return lhs.applyPreparedConstraintInView(constraint: rhs)
-}
-
-/// to add multiple constraints on the receiver view
-public func +(lhs: View, rhs: [NSLayoutConstraint]) -> [NSLayoutConstraint] {
-    var constraints = [NSLayoutConstraint]()
-    for c in rhs {
-        constraints.append( lhs + c )
-    }
-    return constraints
-}
-
-// MARK: Removable
-
-/// to remove single constraint from the receiver view
-public func -(lhs: View, rhs: NSLayoutConstraint) -> NSLayoutConstraint {
-    lhs.removeConstraint(rhs); return rhs
-}
-
-/// to remove multiple constraints from the receiver view
-public func -(lhs: View, rhs: [NSLayoutConstraint]) -> [NSLayoutConstraint] {
-    lhs.removeConstraints(rhs); return rhs
-}
-

@@ -9,7 +9,7 @@
 import UIKit
 
 class RightSideViewController: UIViewController {
-        
+    
     @IBAction func moveToFirstViewControllerButton(sender: AnyObject) {
         self.changeSideMenuViewControllerRoot(KVSideMenu.RootsIdentifiers.firstViewController)
         NSNotificationCenter.defaultCenter().postNotificationName(KVSideMenu.Notifications.toggleRight, object: self)
@@ -19,6 +19,6 @@ class RightSideViewController: UIViewController {
         self.changeSideMenuViewControllerRoot(KVSideMenu.RootsIdentifiers.secondViewController)
         NSNotificationCenter.defaultCenter().postNotificationName(KVSideMenu.Notifications.toggleRight, object: self)
     }
-
+    
     
 }

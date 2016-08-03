@@ -1,9 +1,29 @@
 //
-//  KVRootBaseSideMenuViewController.swift
-//  KVRootBaseSideMenu-Swift
+//  KVCustomSegue.swift
+//  https://github.com/keshavvishwkarma/KVRootBaseSideMenu-Swift.git
+//
+//  Distributed under the MIT License.
 //
 //  Created by Keshav on 7/3/16.
 //  Copyright © 2016 Keshav. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of
+//  this software and associated documentation files (the "Software"), to deal in
+//  the Software without restriction, including without limitation the rights to
+//  use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+//  of the Software, and to permit persons to whom the Software is furnished to do
+//  so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
 //
 
 import UIKit
@@ -16,7 +36,14 @@ public class KVRootBaseSideMenuViewController: UIViewController
     private var rootObjects: [Key:Value] = [Key:Value]();
     
     private(set) var menuContainerView: KVMenuContainerView?
-    @IBOutlet var containerView: UIView?
+    
+    /// If **true** then we will always create a new instance of every root viewcontroller.
+    ///
+    /// If **false** then we will reuse already created root viewcontroller if exist otherwise create it.
+    /// By defualt valus is **false**.
+    @IBInspectable public var freshRoot : Bool = false
+    
+    @IBOutlet public var containerView: UIView?
     
     public var leftSideMenuViewController: UIViewController? {
         didSet {
@@ -65,34 +92,62 @@ public class KVRootBaseSideMenuViewController: UIViewController
         self.menuContainerView = KVMenuContainerView(superView: (containerView == nil) ? self.view : containerView);
     }
     
-    override public func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        let shouldPerformSegue  = super.shouldPerformSegueWithIdentifier(identifier, sender: sender);
-        if (shouldPerformSegue) {
-            if (sender is KVCustomSegue) {
-                setUpSideMenuRootBySegue((sender as! KVCustomSegue))
-            }
-        }
-        return shouldPerformSegue;
-    }
-    
     ///Returns a Boolean value that indicates, either the side menu is showed or closed.
     public func isSideMenuOpen () -> Bool {
         let sieMenuOpen = !(menuContainerView!.currentSideMenuState == .None)
         return sieMenuOpen
     }
-
+    
+    /// To switch the root of side menu controller.
+    override public func changeSideMenuViewControllerRoot(rootIdentifier:String)
+    {
+        if shouldPerformSegueWithIdentifier(rootIdentifier, sender: self) {
+            performSegueWithIdentifier(rootIdentifier, sender: self)
+        }
+    }
+    
+    override public func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        let shouldPerformSegue  = super.shouldPerformSegueWithIdentifier(identifier, sender: sender);
+        if (shouldPerformSegue)
+        {
+            // If root view controller, already exist in the rootObjects list then change to root only.
+            // and sugue should be ignored
+            if let value = rootObjects[identifier] {
+                visibleRootViewController = value
+                return false
+            }
+            
+            // If root view controller, does not exist in the rootObjects list, that means
+            // The segue should be performed to fetch destinationViewController obejct.
+            // If sender is KVCustomSegue that means viewcontroller is first time going to be initialise.
+            if (sender is KVCustomSegue) {
+                setUpSideMenuRootBySegue((sender as! KVCustomSegue))
+            }
+        }
+        
+        return shouldPerformSegue;
+    }
+    
 }
 
-// MARK:
-private extension KVRootBaseSideMenuViewController {
+private extension KVRootBaseSideMenuViewController
+{
     func setUpSideMenuRootBySegue(segue:KVCustomSegue)
     {
         if ( self == segue.sourceViewController )
         {
-            if !(rootObjects.keys.contains(segue.identifier!)) {
-                rootObjects[segue.identifier!] = segue.destinationViewController
+            // If freshRoot is true means allways prefere feresh root then we will always create a new instance for everry root viewcontrollers.
+            // If freshRoot is false then we will reuse already created root view controller
+            
+            if freshRoot {
+                if !(rootObjects.keys.contains(segue.identifier!)) {
+                    rootObjects[segue.identifier!] = segue.destinationViewController
+                }
+                visibleRootViewController = rootObjects[segue.identifier!]
             }
-            visibleRootViewController = rootObjects[segue.identifier!]
+            else{
+                visibleRootViewController = segue.destinationViewController
+            }
         }
         else {
             debugPrint("Both objects are distinct \(self), \(segue.sourceViewController)")
@@ -101,7 +156,6 @@ private extension KVRootBaseSideMenuViewController {
     
 }
 
-// MARK:
 public extension KVRootBaseSideMenuViewController {
     
     // MARK: To access the currently visible ViewController on the view of KVRootBaseSideMenuViewController.
@@ -134,8 +188,12 @@ public extension UIViewController {
         return (viewController as! KVRootBaseSideMenuViewController)
     }
     
-    public func changeSideMenuViewControllerRoot(rootIdentifier:String) {
-        sideMenuViewController()?.performSegueWithIdentifier(rootIdentifier, sender: self)
+    /// To switch the root of side menu controller from any view controller.
+    public func changeSideMenuViewControllerRoot(rootIdentifier:String)
+    {
+        if let sideMenuViewController = sideMenuViewController() {
+            sideMenuViewController.changeSideMenuViewControllerRoot(rootIdentifier)
+        }
     }
     
 }
@@ -155,21 +213,13 @@ public extension UIViewController {
             if (containerView.translatesAutoresizingMaskIntoConstraints) {
                 childViewController.view.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
             } else {
-                let parent = containerView
-                let child  = childViewController.view
+                let child = childViewController.view
                 child!.prepareViewForAutoLayout()
                 
-                parent.addConstraints(constraint("H:|[child]|", views: ["child" : child]))
-                parent.addConstraints(constraint("V:|[child]|", views: ["child" : child]))
-                parent.layoutIfNeeded()
-                
+                // Apply Equal relation constrains to its parent view.
+                child +== [.CenterX, .CenterY, .Height, .Width]
             }
         }
         
-    }
-    
-    @warn_unused_result
-    public func constraint(format: String, options: NSLayoutFormatOptions = [], metrics: Dictionary<String, AnyObject>?=nil, views: Dictionary<String, AnyObject>) -> Array<NSLayoutConstraint> {
-        return NSLayoutConstraint.constraintsWithVisualFormat( format, options: options, metrics: metrics, views: views )
     }
 }

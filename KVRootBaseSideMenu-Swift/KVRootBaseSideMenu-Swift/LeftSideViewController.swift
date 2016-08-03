@@ -19,7 +19,7 @@ class LeftSideViewController: UIViewController {
         self.changeSideMenuViewControllerRoot(KVSideMenu.RootsIdentifiers.secondViewController)
         NSNotificationCenter.defaultCenter().postNotificationName(KVSideMenu.Notifications.toggleLeft, object: self)
     }
-
-
+    
+    
 }
 

@@ -2,7 +2,7 @@
 //  BaseViewController.swift
 //  DemoApp
 //
-//  Created by Keshav on 7/9/16.
+//  Created by Keshav on 7/3/16.
 //  Copyright © 2016 Keshav. All rights reserved.
 //
 
@@ -39,12 +39,16 @@ class BaseViewController: UIViewController {
     
     func leftButtonAction(sender: UIButton)
     {
+        // with orange color
+        sender.layer.startAnimation(tintColor :UIColor.orangeColor())
         NSNotificationCenter.defaultCenter().postNotificationName(KVSideMenu.Notifications.toggleLeft, object: self)
     }
     
     func rightButtonAction(sender: UIButton)
     {
-         NSNotificationCenter.defaultCenter().postNotificationName(KVSideMenu.Notifications.toggleRight, object: self)
+        // with defualt color
+        sender.layer.startAnimation()
+        NSNotificationCenter.defaultCenter().postNotificationName(KVSideMenu.Notifications.toggleRight, object: self)
         //   OR
         // self.sideMenuViewController()?.menuContainerView?.toggleRightSideMenu();
     }
