@@ -15,7 +15,7 @@ class ViewController: BaseViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    @IBAction func defualtButtonPressed(sender: AnyObject)
+    @IBAction func defaultButtonPressed(sender: AnyObject)
     {
         sideMenuViewController()?.menuContainerView?.animationType = KVSideMenu.AnimationType.Default
     }

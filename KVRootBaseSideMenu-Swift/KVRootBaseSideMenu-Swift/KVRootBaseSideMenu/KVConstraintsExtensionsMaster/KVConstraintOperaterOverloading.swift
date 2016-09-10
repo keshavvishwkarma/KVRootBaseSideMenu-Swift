@@ -106,7 +106,7 @@ public func +<=(lhs: View, rhs: NSLayoutAttribute) -> NSLayoutConstraint {
 
 /// (leftContainerView +== .Top).constant = 0
 public func +==(lhs: View, rhs: NSLayoutAttribute) -> NSLayoutConstraint {
-    return lhs.superview! + lhs.prepareEqualRelationPinConstraintToSuperview(attribute: rhs, constant: defualtConstant)
+    return lhs.superview! + lhs.prepareEqualRelationPinConstraintToSuperview(attribute: rhs, constant: defaultConstant)
 }
 
 /// (leftContainerView +== .Top).constant = 0
@@ -114,7 +114,7 @@ public func +>=(lhs: View, rhs: NSLayoutAttribute) -> NSLayoutConstraint {
     return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs, attribute: rhs, relation: .GreaterThanOrEqual)
 }
 
-// With defualt constant value that is - 0 (Zero) on a specific attribute
+// With defaultt constant value that is - 0 (Zero) on a specific attribute
 public func +==(lhs: View, rhs: [NSLayoutAttribute]) {
     for attribute in rhs { lhs +== attribute }
 }

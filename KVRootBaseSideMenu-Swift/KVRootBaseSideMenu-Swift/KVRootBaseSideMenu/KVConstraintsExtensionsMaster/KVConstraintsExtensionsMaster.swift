@@ -31,11 +31,11 @@ import UIKit
 
 public typealias View = UIView
 
-public let defualtConstant        = CGFloat(0)
-public let defualtMultiplier      = CGFloat(1.0)
-public let defualtRelation        = NSLayoutRelation.Equal
-public let defualt_iPadRation     = CGFloat(4.0/3.0)
-public let defualtLessMaxPriority = CGFloat(999.99996)
+public let defaultConstant        = CGFloat(0)
+public let defaultMultiplier      = CGFloat(1.0)
+public let defaultRelation        = NSLayoutRelation.Equal
+public let default_iPadRation     = CGFloat(4.0/3.0)
+public let defaultLessMaxPriority = CGFloat(999.99996)
 
 extension View {
     
@@ -102,11 +102,11 @@ extension View {
     public final func prepareConstraintFromSiblingView(attribute attr1: NSLayoutAttribute, toAttribute attr2:NSLayoutAttribute, ofView otherSiblingView: View, relation: NSLayoutRelation = .Equal) -> NSLayoutConstraint {
         assert(((NSSet(array: [superview!,otherSiblingView.superview!])).count == 1), "All the sibling views must belong to same superview")
         
-        // Here defualt multiplier = 1.0 // <+<=>, <+==>, <+>=>
+        // Here defaultt multiplier = 1.0 // <+<=>, <+==>, <+>=>
         return View.prepareConstraintFor(self, attribute: attr1, secondView:otherSiblingView, attribute:attr2, relation:relation )
     }
     
-    // here defualt multiplier = 1.0 // <+*<=>, <+*==>, <+*>=>
+    // here defaultt multiplier = 1.0 // <+*<=>, <+*==>, <+*>=>
     public final func prepareConstraintFromSiblingView(attribute attr1: NSLayoutAttribute, toAttribute attr2:NSLayoutAttribute, ofView otherSiblingView: View, multiplier:CGFloat) -> NSLayoutConstraint {
         assert(((NSSet(array: [superview!,otherSiblingView.superview!])).count == 1), "All the sibling views must belong to same superview")
         return View.prepareConstraintFor(self, attribute: attr1, secondView:otherSiblingView, attribute:attr2, multiplier:multiplier )

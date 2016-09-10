@@ -40,7 +40,7 @@ public class KVRootBaseSideMenuViewController: UIViewController
     /// If **true** then we will always create a new instance of every root viewcontroller.
     ///
     /// If **false** then we will reuse already created root viewcontroller if exist otherwise create it.
-    /// By defualt valus is **false**.
+    /// By default valus is **false**.
     @IBInspectable public var freshRoot : Bool = false
     
     @IBOutlet public var containerView: UIView?
@@ -139,7 +139,7 @@ private extension KVRootBaseSideMenuViewController
             // If freshRoot is true means allways prefere feresh root then we will always create a new instance for everry root viewcontrollers.
             // If freshRoot is false then we will reuse already created root view controller
             
-            if freshRoot {
+            if freshRoot == false {
                 if !(rootObjects.keys.contains(segue.identifier!)) {
                     rootObjects[segue.identifier!] = segue.destinationViewController
                 }

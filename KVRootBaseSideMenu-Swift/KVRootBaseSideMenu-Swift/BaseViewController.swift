@@ -46,7 +46,7 @@ class BaseViewController: UIViewController {
     
     func rightButtonAction(sender: UIButton)
     {
-        // with defualt color
+        // with defaultt color
         sender.layer.startAnimation()
         NSNotificationCenter.defaultCenter().postNotificationName(KVSideMenu.Notifications.toggleRight, object: self)
         //   OR
