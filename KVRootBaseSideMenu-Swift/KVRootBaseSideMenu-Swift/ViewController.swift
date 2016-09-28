@@ -10,9 +10,19 @@ import UIKit
 
 class ViewController: BaseViewController {
     
+    @IBOutlet weak var disableMenuButton: UIButton! {
+        didSet{
+            disableMenuButton.selected = !(sideMenuViewController()?.menuContainerView?.allowPanGesture ?? false)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
     }
     
     @IBAction func defaultButtonPressed(sender: AnyObject)
@@ -29,6 +39,15 @@ class ViewController: BaseViewController {
     {
         sideMenuViewController()?.menuContainerView?.animationType = KVSideMenu.AnimationType.Window
     }
+    
+    @IBAction func disablePanGustureButtonPressed(sender: UIButton)
+    {
+        sender.selected = !sender.selected
+        sideMenuViewController()?.menuContainerView?.allowPanGesture = !sender.selected
+//        sideMenuViewController()?.menuContainerView?.allowPanGesture = false
+
+    }
+
 }
 
 

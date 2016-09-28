@@ -69,18 +69,33 @@
                                     <action selector="foldingButtonPressed:" destination="qnA-Hp-LC1" eventType="touchUpInside" id="LaT-TS-QLU"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DDw-Fn-ik3">
+                                <rect key="frame" x="99" y="282" width="123" height="30"/>
+                                <state key="normal" title="Disable SideMenu">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <state key="selected" title="Enable SideMenu"/>
+                                <connections>
+                                    <action selector="disablePanGustureButtonPressed:" destination="qnA-Hp-LC1" eventType="touchUpInside" id="aYI-Ys-pi1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.93725496529999996" green="0.2078431547" blue="0.30980393290000002" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
                             <constraint firstItem="9yd-Of-uJz" firstAttribute="centerY" secondItem="mC6-1Z-rY4" secondAttribute="centerY" id="1E1-k0-XYv"/>
                             <constraint firstItem="9yd-Of-uJz" firstAttribute="centerX" secondItem="mC6-1Z-rY4" secondAttribute="centerX" id="Mdh-uE-RUM"/>
+                            <constraint firstItem="DDw-Fn-ik3" firstAttribute="centerX" secondItem="9yd-Of-uJz" secondAttribute="centerX" id="eVd-wi-6dc"/>
                             <constraint firstItem="rpV-yi-Wck" firstAttribute="top" secondItem="UNU-o7-FKI" secondAttribute="bottom" constant="16" id="iCb-kR-Pmm"/>
                             <constraint firstItem="9yd-Of-uJz" firstAttribute="top" secondItem="rpV-yi-Wck" secondAttribute="bottom" constant="18" id="m7E-2O-Kub"/>
                             <constraint firstItem="9yd-Of-uJz" firstAttribute="centerX" secondItem="rpV-yi-Wck" secondAttribute="centerX" id="nkn-td-zJ4"/>
+                            <constraint firstItem="DDw-Fn-ik3" firstAttribute="top" secondItem="9yd-Of-uJz" secondAttribute="bottom" constant="15" id="yjI-xl-h66"/>
                             <constraint firstItem="UNU-o7-FKI" firstAttribute="centerX" secondItem="rpV-yi-Wck" secondAttribute="centerX" id="zgK-eX-QGr"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Szq-7D-Ced"/>
+                    <connections>
+                        <outlet property="disableMenuButton" destination="DDw-Fn-ik3" id="z7v-Og-fUm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jqO-W3-ql3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -125,6 +140,16 @@
                                     <action selector="foldingButtonPressed:" destination="6Wg-Ty-O7k" eventType="touchUpInside" id="zIZ-bP-OvG"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c9d-8r-opn">
+                                <rect key="frame" x="99" y="298" width="123" height="30"/>
+                                <state key="normal" title="Disable SideMenu">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <state key="selected" title="Enable SideMenu"/>
+                                <connections>
+                                    <action selector="disablePanGustureButtonPressed:" destination="6Wg-Ty-O7k" eventType="touchUpInside" id="7FU-hR-uQK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -132,11 +157,16 @@
                             <constraint firstItem="ADb-BH-9aq" firstAttribute="centerX" secondItem="VHz-jF-cGk" secondAttribute="centerX" id="7Vs-qx-zlh"/>
                             <constraint firstItem="ADb-BH-9aq" firstAttribute="top" secondItem="VHz-jF-cGk" secondAttribute="bottom" constant="18" id="DUI-LR-FRe"/>
                             <constraint firstItem="VHz-jF-cGk" firstAttribute="top" secondItem="8Yu-Bb-mCU" secondAttribute="bottom" constant="16" id="Jc2-Kw-e8Q"/>
+                            <constraint firstItem="c9d-8r-opn" firstAttribute="centerX" secondItem="ADb-BH-9aq" secondAttribute="centerX" id="VxO-sT-auB"/>
                             <constraint firstItem="VHz-jF-cGk" firstAttribute="centerX" secondItem="c5S-RO-FAQ" secondAttribute="centerX" id="W4R-Mp-DR4"/>
                             <constraint firstItem="VHz-jF-cGk" firstAttribute="centerY" secondItem="c5S-RO-FAQ" secondAttribute="centerY" constant="-32" id="XuQ-eo-Nre"/>
+                            <constraint firstItem="c9d-8r-opn" firstAttribute="top" secondItem="ADb-BH-9aq" secondAttribute="bottom" constant="15" id="cgm-sI-j4R"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="6PX-dh-xDz"/>
+                    <connections>
+                        <outlet property="disableMenuButton" destination="c9d-8r-opn" id="GMu-T6-LEZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d9T-b4-Tn8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
