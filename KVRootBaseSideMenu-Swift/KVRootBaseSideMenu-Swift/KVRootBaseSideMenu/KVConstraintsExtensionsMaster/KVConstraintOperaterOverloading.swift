@@ -106,7 +106,7 @@ public func +<=(lhs: View, rhs: NSLayoutAttribute) -> NSLayoutConstraint {
 
 /// (leftContainerView +== .Top).constant = 0
 public func +==(lhs: View, rhs: NSLayoutAttribute) -> NSLayoutConstraint {
-    return lhs.superview! + lhs.prepareEqualRelationPinConstraintToSuperview(attribute: rhs, constant: defaultConstant)
+    return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs, constant: defaultConstant)
 }
 
 /// (leftContainerView +== .Top).constant = 0
@@ -121,7 +121,7 @@ public func +==(lhs: View, rhs: [NSLayoutAttribute]) {
 
 /// (leftContainerView *== (.Top, multiplier) ).constant = 0
 public func +*==(lhs: View, rhs: (NSLayoutAttribute, CGFloat)) -> NSLayoutConstraint {
-    return lhs.superview! + lhs.prepareEqualRelationPinRatioConstraintToSuperview(attribute: rhs.0, multiplier: rhs.1)
+    return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs.0, multiplier: rhs.1)
 }
 
 public func <==>(lhs: View, rhs: (NSLayoutAttribute, NSLayoutAttribute, View, CGFloat)) {

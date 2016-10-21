@@ -55,7 +55,7 @@ extension View {
 
 private extension View
 {
-    class final func prepareConstraintFor(firstView: View!, attribute attr1: NSLayoutAttribute, secondView: View?=nil, attribute attr2: NSLayoutAttribute = .NotAnAttribute, relation: NSLayoutRelation = .Equal, multiplier: CGFloat = 1, constant: CGFloat = 0) -> NSLayoutConstraint!
+    class final func prepareConstraint(firstView: View!, attribute attr1: NSLayoutAttribute, secondView: View?=nil, attribute attr2: NSLayoutAttribute = .NotAnAttribute, relation: NSLayoutRelation = .Equal, multiplier: CGFloat = 1, constant: CGFloat = 0) -> NSLayoutConstraint!
     {
         assert(!multiplier.isInfinite, "Multiplier/Ratio of view must not be INFINITY.")
         assert(!multiplier.isNaN, "Multiplier/Ratio of view must not be NaN.")
@@ -71,45 +71,29 @@ private extension View
 
 extension View {
     
-    // MARK - Generalized public constraint methods for views
-    
-    // for operator +<=,  +==,  +>=,
+    /// Generalized public constraint methods for views
+    // For operator +<=,  +==,  +>=,
     public final func prepareConstraintToSuperview(attribute attr1: NSLayoutAttribute, attribute attr2:NSLayoutAttribute, relation: NSLayoutRelation = .Equal) -> NSLayoutConstraint! {
-        assert(self.superview != nil, "You should have addSubView on any other its called's Superview \(self)");
-        return View.prepareConstraintFor(self, attribute: attr1, secondView: superview, attribute:attr2, relation: relation)
+        assert(superview != nil, "You should have addSubView on any other its called's Superview \(self)");
+        return View.prepareConstraint(self, attribute: attr1, secondView: superview, attribute:attr2, relation: relation)
     }
     
-    // for operator +==
-    public final func prepareEqualRelationPinConstraintToSuperview(attribute attr1: NSLayoutAttribute, constant:CGFloat) -> NSLayoutConstraint! {
-        // let preparePinConastrain : NSLayoutConstraint = View.prepareConastrainFor(self, attribute: attr1, secondView: superview, attribute:attr1)
+    // For operator +== , =<= , =>=
+    // For operator +*==, +*>= , +*<=
+    public final func prepareConstraintToSuperview(attribute attr1: NSLayoutAttribute,  relation: NSLayoutRelation = .Equal, multiplier:CGFloat = 1.0, constant:CGFloat = 0.0) -> NSLayoutConstraint! {
+        assert(superview != nil, "You should have addSubView on any other its called's Superview \(self)");
         
-        let preparePinConastrain : NSLayoutConstraint = prepareConstraintToSuperview(attribute: attr1, attribute: attr1) // nexted stack at runtime for function call
-        
-        assert(!constant.isInfinite, "Constant must not be INFINITY.")
-        assert(!constant.isNaN, "Constant must not be NaN.")
-        preparePinConastrain.constant = constant
-        
+        let preparePinConastrain : NSLayoutConstraint = View.prepareConstraint(self, attribute: attr1, secondView: superview, attribute:attr1, relation: relation, multiplier:multiplier, constant:constant)
         return preparePinConastrain
     }
     
-    // for operator +*==
-    public final func prepareEqualRelationPinRatioConstraintToSuperview(attribute attr1: NSLayoutAttribute, multiplier:CGFloat, constant: CGFloat = 0) -> NSLayoutConstraint! {
-        assert(self.superview != nil, "You should have addSubView on any other its called's Superview \(self)");
-        return View.prepareConstraintFor(self, attribute: attr1, secondView: superview, attribute:attr1, multiplier: multiplier, constant:constant)
-    }
-    
-    ///MARK: - Prepare constraint of one sibling view to other sibling view and add it into its superview view.
-    public final func prepareConstraintFromSiblingView(attribute attr1: NSLayoutAttribute, toAttribute attr2:NSLayoutAttribute, ofView otherSiblingView: View, relation: NSLayoutRelation = .Equal) -> NSLayoutConstraint {
+    /// Prepare constraint of one sibling view to other sibling view and add it into its superview view.
+    // For operator <+<=>,  <+==>, <+>=>
+    // <+*<=>, <+*==>, <+*>=>
+    public final func prepareConstraintFromSiblingView(attribute attr1: NSLayoutAttribute, toAttribute attr2:NSLayoutAttribute, ofView otherSiblingView: View, relation:NSLayoutRelation = .Equal, multiplier:CGFloat = 1.0, constant:CGFloat = 0.0 ) -> NSLayoutConstraint! {
         assert(((NSSet(array: [superview!,otherSiblingView.superview!])).count == 1), "All the sibling views must belong to same superview")
         
-        // Here defaultt multiplier = 1.0 // <+<=>, <+==>, <+>=>
-        return View.prepareConstraintFor(self, attribute: attr1, secondView:otherSiblingView, attribute:attr2, relation:relation )
-    }
-    
-    // here defaultt multiplier = 1.0 // <+*<=>, <+*==>, <+*>=>
-    public final func prepareConstraintFromSiblingView(attribute attr1: NSLayoutAttribute, toAttribute attr2:NSLayoutAttribute, ofView otherSiblingView: View, multiplier:CGFloat) -> NSLayoutConstraint {
-        assert(((NSSet(array: [superview!,otherSiblingView.superview!])).count == 1), "All the sibling views must belong to same superview")
-        return View.prepareConstraintFor(self, attribute: attr1, secondView:otherSiblingView, attribute:attr2, multiplier:multiplier )
+        return View.prepareConstraint(self, attribute: attr1, secondView:otherSiblingView, attribute:attr2, relation:relation,  multiplier: multiplier, constant:constant)
     }
     
 }
@@ -144,12 +128,11 @@ extension View
         return appliedConstraint
     }
     
-    func accessAppliedConstraintBy(attribute attr: NSLayoutAttribute, relation: NSLayoutRelation = .Equal, completionHandler: ((NSLayoutConstraint?) -> Void)){
+    public final func accessAppliedConstraintBy(attribute attr: NSLayoutAttribute, relation: NSLayoutRelation = .Equal, completionHandler: ((NSLayoutConstraint?) -> Void)){
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             completionHandler(self.accessAppliedConstraintBy(attribute: attr, relation: relation))
         }
     }
-    
     
     public final func applyConstraintFromSiblingView(attribute attr1: NSLayoutAttribute, toAttribute attr2:NSLayoutAttribute, ofView otherSiblingView: View, constant:CGFloat) -> NSLayoutConstraint {
         assert(!constant.isInfinite, "constant of view must not be INFINITY.")
@@ -172,7 +155,7 @@ public struct KVConstraintsExtensionsMaster {
 }
 
 private extension NSLayoutConstraint {
-    func isEqualTo(constraint c:NSLayoutConstraint)-> Bool {
+    final func isEqualTo(constraint c:NSLayoutConstraint)-> Bool {
         return firstItem === c.firstItem && firstAttribute == c.firstAttribute && relation == c.relation && firstItem === c.firstItem && secondAttribute == c.secondAttribute && multiplier == c.multiplier
     }
     
@@ -180,6 +163,6 @@ private extension NSLayoutConstraint {
 
 private extension Array where Element: NSLayoutConstraint {
     func containsApplied(constraint c: Element) -> Element? {
-        return reverse().filter { ($0 as NSLayoutConstraint).isEqualTo(constraint: c)}.first
+        return reverse().filter { $0.isEqualTo(constraint: c)}.first
     }
 }
