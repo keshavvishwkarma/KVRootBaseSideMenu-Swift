@@ -98,6 +98,26 @@ public class KVRootBaseSideMenuViewController: UIViewController
         return sieMenuOpen
     }
     
+    override public func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.setNeedsStatusBarAppearanceUpdate()
+        
+        // Listen for changes to keyboard visibility so that we can adjust the text view accordingly.
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: Selector("handleKeyboardNotification:"), name: UIKeyboardWillShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: Selector("handleKeyboardNotification:"), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    override public func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        notificationCenter.removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+
+    
     /// To switch the root of side menu controller.
     override public func changeSideMenuViewControllerRoot(rootIdentifier:String)
     {
@@ -154,6 +174,40 @@ private extension KVRootBaseSideMenuViewController
         }
     }
     
+    
+    // MARK: Keyboard Event Notifications
+    
+    @objc func handleKeyboardNotification(notification: NSNotification) {
+        let userInfo = notification.userInfo!
+        
+        // Get information about the animation.
+        let animationDuration: NSTimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+        
+        let rawAnimationCurveValue = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).unsignedLongValue
+        let animationCurve = UIViewAnimationOptions(rawValue: rawAnimationCurveValue)
+        
+        // Convert the keyboard frame from screen to view coordinates.
+        let keyboardScreenBeginFrame = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
+        let keyboardScreenEndFrame   = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        
+        let keyboardViewBeginFrame   = view.convertRect(keyboardScreenBeginFrame, fromView: view.window)
+        let keyboardViewEndFrame     = view.convertRect(keyboardScreenEndFrame,   fromView: view.window)
+        
+        // Determine how far the keyboard has moved up or down.
+        let originDelta = keyboardViewEndFrame.origin.y - keyboardViewBeginFrame.origin.y
+        
+        // Inform the view that its the layout should be updated.
+        (menuContainerView!.leftContainerView   <- .Bottom)?.constant += originDelta
+        (menuContainerView!.centerContainerView <- .Bottom)?.constant += originDelta
+        (menuContainerView!.rightContainerView  <- .Bottom)?.constant += originDelta
+        
+        menuContainerView!.layoutIfNeeded()
+        // Animate updating the view's layout by calling layoutIfNeeded inside a UIView animation block.
+        let animationOptions: UIViewAnimationOptions = [animationCurve, .BeginFromCurrentState]
+        UIView.animateWithDuration(animationDuration, delay: 0, options: animationOptions, animations: {
+            self.view.layoutIfNeeded()
+            }, completion: nil)
+    }
 }
 
 public extension KVRootBaseSideMenuViewController {

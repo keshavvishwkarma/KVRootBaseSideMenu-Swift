@@ -59,8 +59,8 @@ public class KVMenuContainerView: UIView
     // MARK: - Properties
     
     private let thresholdFactor: CGFloat = 0.25
-    private let KVSideMenuOffsetValueInRatio : CGFloat = 0.75
-    private let KVSideMenuHideShowDuration   : CGFloat = 0.4
+    public var KVSideMenuOffsetValueInRatio : CGFloat = 0.75
+    public var KVSideMenuHideShowDuration   : CGFloat = 0.4
     
     private let transformScale:CGAffineTransform = CGAffineTransformMakeScale(1.0, 0.8)
     
@@ -122,11 +122,8 @@ public class KVMenuContainerView: UIView
     
     private func initialise()
     {
-        let selector: Selector = Selector("didReceivedNotification:")
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name:KVSideMenu.Notifications.toggleLeft, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name:KVSideMenu.Notifications.toggleRight, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name:KVSideMenu.Notifications.close, object: nil)
-        
+        registerNotifications()
+
         setupGestureRecognizer()
         
         clipsToBounds = false
@@ -157,24 +154,7 @@ public class KVMenuContainerView: UIView
     
     deinit
     {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name:KVSideMenu.Notifications.close, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name:KVSideMenu.Notifications.toggleLeft, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name:KVSideMenu.Notifications.toggleRight, object: nil)
-    }
-    
-    // Must be public or internal but not private other wise app will crashed.
-    func didReceivedNotification(notify:NSNotification)
-    {
-        if (notify.name == KVSideMenu.Notifications.toggleLeft) {
-            toggleLeftSideMenu()
-        } else if (notify.name == KVSideMenu.Notifications.toggleRight) {
-            toggleRightSideMenu()
-        } else if (notify.name == KVSideMenu.Notifications.close) {
-            closeSideMenu()
-        }
-        else{
-            
-        }
+        unRegisterNotifications()
     }
     
     /// Close the side menu if the menu is showed.
@@ -290,6 +270,39 @@ public class KVMenuContainerView: UIView
         })
     }
     
+}
+
+extension KVMenuContainerView
+{
+    func registerNotifications()
+    {
+        let selector: Selector = Selector("didReceivedNotification:")
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name:KVSideMenu.Notifications.toggleLeft, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name:KVSideMenu.Notifications.toggleRight, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name:KVSideMenu.Notifications.close, object: nil)
+    }
+    
+    func unRegisterNotifications()
+    {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name:KVSideMenu.Notifications.close, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name:KVSideMenu.Notifications.toggleLeft, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name:KVSideMenu.Notifications.toggleRight, object: nil)
+    }
+    
+    // Must be public or internal but not private other wise app will crashed.
+    @objc func didReceivedNotification(notify:NSNotification)
+    {
+        if (notify.name == KVSideMenu.Notifications.toggleLeft) {
+            toggleLeftSideMenu()
+        } else if (notify.name == KVSideMenu.Notifications.toggleRight) {
+            toggleRightSideMenu()
+        } else if (notify.name == KVSideMenu.Notifications.close) {
+            closeSideMenu()
+        }
+        else{
+            
+        }
+    }
     
 }
 
@@ -455,7 +468,7 @@ private extension KVMenuContainerView
 
 private extension KVMenuContainerView
 {
-    func applyAnimations(completionHandler: (Void -> Void)? = nil)
+    final func applyAnimations(completionHandler: (Void -> Void)? = nil)
     {
         // let options : UIViewAnimationOptions = [.AllowUserInteraction, .OverrideInheritedCurve, .LayoutSubviews, .BeginFromCurrentState, .CurveEaseOut]
         
@@ -471,11 +484,11 @@ private extension KVMenuContainerView
             }, completion: nil)
     }
     
-    func applyTransformAnimations(view:UIView!,transform_d:CGFloat) {
+    final func applyTransformAnimations(view:UIView!,transform_d:CGFloat) {
         view.transform.d = transform_d
     }
     
-    func applyTransform3DAnimations(view:UIView!,transformRotatingAngle:CGFloat)
+    final func applyTransform3DAnimations(view:UIView!,transformRotatingAngle:CGFloat)
     {
         let layerTemp : CALayer = view.layer
         layerTemp.zPosition = 1000
@@ -489,7 +502,9 @@ private extension KVMenuContainerView
         
     }
     
-    func applyShadow(shadowView:UIView)
+    // MARK: -  Helpper methods to apply shadow with SideMenu
+    
+    final func applyShadow(shadowView:UIView)
     {
         let shadowViewLayer : CALayer = shadowView.layer
         shadowViewLayer.shadowColor = shadowView.backgroundColor?.CGColor
