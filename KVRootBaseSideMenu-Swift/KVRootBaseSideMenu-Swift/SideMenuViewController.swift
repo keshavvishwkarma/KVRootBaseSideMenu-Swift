@@ -6,6 +6,8 @@
 //  Copyright © 2016 Keshav. All rights reserved.
 //
 
+import UIKit
+
 public extension KVSideMenu
 {
     // Here define the roots identifier of side menus that must be connected from KVRootBaseSideMenuViewController

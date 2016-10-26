@@ -50,7 +50,7 @@ class BaseViewController: UIViewController {
         sender.layer.startAnimation()
         NSNotificationCenter.defaultCenter().postNotificationName(KVSideMenu.Notifications.toggleRight, object: self)
         //   OR
-        // self.sideMenuViewController()?.menuContainerView?.toggleRightSideMenu();
+        // self.sideMenuViewController?.menuContainerView?.toggleRightSideMenu();
     }
     
     

@@ -20,30 +20,28 @@ class ViewController: BaseViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        disableMenuButton.selected = !(sideMenuViewController()?.menuContainerView?.allowPanGesture ?? false)
+        disableMenuButton.selected = !(sideMenuViewController?.menuContainerView.allowPanGesture ?? false)
     }
     
     @IBAction func defaultButtonPressed(sender: AnyObject)
     {
-        sideMenuViewController()?.menuContainerView?.animationType = KVSideMenu.AnimationType.Default
+        sideMenuViewController?.menuContainerView.animationType = KVSideMenu.AnimationType.Default
     }
     
     @IBAction func foldingButtonPressed(sender: AnyObject)
     {
-        sideMenuViewController()?.menuContainerView?.animationType = KVSideMenu.AnimationType.Folding
+        sideMenuViewController?.menuContainerView.animationType = KVSideMenu.AnimationType.Folding
     }
     
     @IBAction func windowButtonPressed(sender: AnyObject)
     {
-        sideMenuViewController()?.menuContainerView?.animationType = KVSideMenu.AnimationType.Window
+        sideMenuViewController?.menuContainerView.animationType = KVSideMenu.AnimationType.Window
     }
     
     @IBAction func disablePanGustureButtonPressed(sender: UIButton)
     {
         sender.selected = !sender.selected
-        sideMenuViewController()?.menuContainerView?.allowPanGesture = !sender.selected
-//        sideMenuViewController()?.menuContainerView?.allowPanGesture = false
-
+        sideMenuViewController?.menuContainerView.allowPanGesture = !sender.selected
     }
 
 }

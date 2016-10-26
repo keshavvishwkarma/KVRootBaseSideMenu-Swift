@@ -28,14 +28,15 @@
 
 import UIKit
 
+@objc(KVRootBaseSideMenuViewController)
 public class KVRootBaseSideMenuViewController: UIViewController
 {
     private typealias Key   = String
     private typealias Value = UIViewController
     
-    private var rootObjects: [Key:Value] = [Key:Value]();
+    private var rootObjects: [Key:Value] = [Key:Value]()
     
-    private(set) var menuContainerView: KVMenuContainerView?
+    private(set) var menuContainerView: KVMenuContainerView!
     
     /// If **true** then we will always create a new instance of every root viewcontroller.
     ///
@@ -45,25 +46,37 @@ public class KVRootBaseSideMenuViewController: UIViewController
     
     @IBOutlet public var containerView: UIView?
     
+    /// Returns a Boolean value that indicates, either the side menu is showed or closed.
+
+    public var opened: Bool {
+        return !(menuContainerView.currentSideMenuState == .None)
+    }
+    
+    /// A UIViewController property that references the active left UIViewController.
+    
     public var leftSideMenuViewController: UIViewController? {
         didSet {
-            menuContainerView!.allowRightPaning = leftSideMenuViewController != nil
+            menuContainerView.allowRightPaning = leftSideMenuViewController != nil
             self.addChildViewControllerOnContainerView(leftSideMenuViewController, containerView: menuContainerView!.leftContainerView)
         }
     }
     
+    /// A UIViewController property that references the active right UIViewController.
+
     public var rightSideMenuViewController: UIViewController? {
         didSet{
-            menuContainerView!.allowLeftPaning = rightSideMenuViewController != nil
-            self.addChildViewControllerOnContainerView(rightSideMenuViewController, containerView: menuContainerView!.rightContainerView)
+            menuContainerView.allowLeftPaning = rightSideMenuViewController != nil
+            self.addChildViewControllerOnContainerView(rightSideMenuViewController, containerView: menuContainerView.rightContainerView)
         }
     }
+    
+    /// A UIViewController property that references the active visible root ViewController.
     
     private var visibleRootViewController: UIViewController? {
         didSet
         {
             if oldValue == nil {
-                self.addChildViewControllerOnContainerView(self.visibleRootViewController, containerView:self.menuContainerView?.centerContainerView)
+                self.addChildViewControllerOnContainerView(self.visibleRootViewController, containerView:self.menuContainerView.centerContainerView)
             }
             else if oldValue != visibleRootViewController
             {
@@ -75,7 +88,7 @@ public class KVRootBaseSideMenuViewController: UIViewController
                         
                         oldValue?.view.removeFromSuperview()
                         oldValue?.didMoveToParentViewController(nil)
-                        self.addChildViewControllerOnContainerView(self.visibleRootViewController, containerView:self.menuContainerView?.centerContainerView)
+                        self.addChildViewControllerOnContainerView(self.visibleRootViewController, containerView:self.menuContainerView.centerContainerView)
                         
                     })
                 })
@@ -90,12 +103,6 @@ public class KVRootBaseSideMenuViewController: UIViewController
     override public func loadView() {
         super.loadView()
         self.menuContainerView = KVMenuContainerView(superView: (containerView == nil) ? self.view : containerView);
-    }
-    
-    ///Returns a Boolean value that indicates, either the side menu is showed or closed.
-    public func isSideMenuOpen () -> Bool {
-        let sieMenuOpen = !(menuContainerView!.currentSideMenuState == .None)
-        return sieMenuOpen
     }
     
     override public func viewWillAppear(animated: Bool) {
@@ -116,7 +123,7 @@ public class KVRootBaseSideMenuViewController: UIViewController
         notificationCenter.removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         notificationCenter.removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
-
+    
     
     /// To switch the root of side menu controller.
     override public func changeSideMenuViewControllerRoot(rootIdentifier:String)
@@ -212,7 +219,7 @@ private extension KVRootBaseSideMenuViewController
 
 public extension KVRootBaseSideMenuViewController {
     
-    // MARK: To access the currently visible ViewController on the view of KVRootBaseSideMenuViewController.
+    /// To access the currently visible ViewController on the view of KVRootBaseSideMenuViewController.
     @warn_unused_result
     public func visibleViewController() -> UIViewController? {
         
@@ -227,25 +234,26 @@ public extension KVRootBaseSideMenuViewController {
     
 }
 
-// MARK:
 public extension UIViewController {
     
-    @warn_unused_result
-    func sideMenuViewController() -> KVRootBaseSideMenuViewController?
-    {
-        var viewController:UIViewController? = ( self.parentViewController != nil) ? self.parentViewController : self.presentingViewController;
+    /**
+     A convenience property that provides access to the KVRootBaseSideMenuViewController.
+     This is the recommended method of accessing the KVRootBaseSideMenuViewController through roots (child) UIViewControllers.
+     */
+    public var sideMenuViewController: KVRootBaseSideMenuViewController? {
+        var viewController:UIViewController? = ( parentViewController != nil) ? parentViewController : presentingViewController
         
         while (!((viewController == nil ) || (viewController is KVRootBaseSideMenuViewController))) {
             viewController = ( viewController!.parentViewController != nil) ? viewController!.parentViewController : viewController!.presentingViewController;
         }
         
-        return (viewController as! KVRootBaseSideMenuViewController)
+        return (viewController as? KVRootBaseSideMenuViewController)
     }
     
     /// To switch the root of side menu controller from any view controller.
     public func changeSideMenuViewControllerRoot(rootIdentifier:String)
     {
-        if let sideMenuViewController = sideMenuViewController() {
+        if let sideMenuViewController = sideMenuViewController {
             sideMenuViewController.changeSideMenuViewControllerRoot(rootIdentifier)
         }
     }
@@ -254,7 +262,7 @@ public extension UIViewController {
 
 public extension UIViewController {
     
-    public func addChildViewControllerOnContainerView(childViewController: UIViewController!, containerView: UIView!)
+    public final func addChildViewControllerOnContainerView(childViewController: UIViewController!, containerView: UIView!)
     {
         if childViewController != nil && containerView != nil
         {

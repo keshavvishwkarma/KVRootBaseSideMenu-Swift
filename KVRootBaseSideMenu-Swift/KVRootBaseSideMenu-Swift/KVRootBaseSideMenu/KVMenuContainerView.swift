@@ -37,14 +37,15 @@ public struct KVSideMenu
         static public let close        = "CloseSideMenuNotification"
     }
     
-    enum SideMenuState {
+    @objc
+    public enum SideMenuState: Int {
         case None, Left, Right
         init() {
             self = None
         }
     }
     
-    public enum AnimationType
+    public enum AnimationType: Int
     {
         case Default, Window, Folding
         public init() {
@@ -54,13 +55,71 @@ public struct KVSideMenu
     
 }
 
+@objc(KVMenuContainerViewDelegate)
+public protocol KVMenuContainerViewDelegate {
+    /**
+     An optional delegation method that is fired before the
+     KVMenuContainerView opens.
+     */
+    optional func sideMenuViewWillOpen(sideMenuView: KVMenuContainerView, position: KVSideMenu.SideMenuState)
+    
+    /**
+     An optional delegation method that is fired after the
+     KVMenuContainerView opened.
+     */
+    optional func sideMenuViewDidOpen(sideMenuView: KVMenuContainerView, position: KVSideMenu.SideMenuState)
+    
+    /**
+     An optional delegation method that is fired before the
+     KVMenuContainerView closes.
+     */
+    optional func sideMenuViewWillClose(sideMenuView: KVMenuContainerView, position: KVSideMenu.SideMenuState)
+    
+    /**
+     An optional delegation method that is fired after the
+     KVMenuContainerView closed.
+     */
+    optional func sideMenuViewDidClose(sideMenuView: KVMenuContainerView, position: KVSideMenu.SideMenuState)
+    
+}
+
+@objc(KVMenuContainerView)
 public class KVMenuContainerView: UIView
 {
     // MARK: - Properties
     
+    /// A KVMenuContainerViewDelegate property used to bind the delegation object.
+    public weak var delegate: KVMenuContainerViewDelegate?
+    
+    public var animationType   = KVSideMenu.AnimationType()
+    public var allowPanGesture: Bool = true
+    
+    /// A Boolean property that indicates either left swipe is enables or disables .
+    public var allowLeftPaning: Bool = false {
+        didSet{
+            rightContainerView.subviews.first?.removeFromSuperview()
+        }
+    }
+    
+    /// A Boolean property that indicates either right swipe is enables or disables .
+    public var allowRightPaning : Bool = false {
+        didSet{
+            leftContainerView.subviews.first?.removeFromSuperview()
+        }
+    }
+
+    /**
+     A CGFloat property that accesses the leftContainerView and
+     rightContainerView threshold of the KVMenuContainerView.
+     
+     When the panning gesture has ended, if the position is
+     beyond the threshold, either left or right side menu
+     is opened, if it is below the threshold, the side menu is closed.
+     */
     private let thresholdFactor: CGFloat = 0.25
-    public var KVSideMenuOffsetValueInRatio : CGFloat = 0.75
-    public var KVSideMenuHideShowDuration   : CGFloat = 0.4
+    
+    public var KVSideMenuOffsetValueInRatio: CGFloat = 0.75
+    public var KVSideMenuHideShowDuration  : CGFloat = 0.4
     
     private let transformScale:CGAffineTransform = CGAffineTransformMakeScale(1.0, 0.8)
     
@@ -76,23 +135,6 @@ public class KVMenuContainerView: UIView
             panRecognizer?.delegate = self
             panRecognizer?.maximumNumberOfTouches = 1
             addGestureRecognizer(panRecognizer!)
-        }
-    }
-    
-    public var animationType   = KVSideMenu.AnimationType()
-    public var allowPanGesture :    Bool = true
-    
-    /// A Boolean value indicating whether the left swipe is enabled.
-    public var allowLeftPaning  : Bool = false {
-        didSet{
-            rightContainerView.subviews.first?.removeFromSuperview()
-        }
-    }
-    
-    /// A Boolean value indicating whether the right swipe is enabled.
-    public var allowRightPaning : Bool = false {
-        didSet{
-            leftContainerView.subviews.first?.removeFromSuperview()
         }
     }
     
@@ -157,7 +199,7 @@ public class KVMenuContainerView: UIView
         unRegisterNotifications()
     }
     
-    /// Close the side menu if the menu is showed.
+    /// A method that closes the side menu if the menu is showed.
     public func closeSideMenu()
     {
         switch (currentSideMenuState)
@@ -173,7 +215,10 @@ public class KVMenuContainerView: UIView
         
     }
     
-    /// Toggles the state (open or close) of the left side menu.
+    /**
+     A method that opens or closes the left side menu &
+     toggles it's current state either Left or None too.
+     */
     public func toggleLeftSideMenu()
     {
         if allowRightPaning
@@ -187,17 +232,29 @@ public class KVMenuContainerView: UIView
             
             centerContainerView.accessAppliedConstraintBy(attribute: .CenterX)  { (appliedConstraint) -> Void in
                 if appliedConstraint != nil {
+                    debugPrint("will_Opened_LeftSideMenu")
+                    self.delegate?.sideMenuViewWillOpen?(self, position: self.currentSideMenuState)
+                    
                     self.currentSideMenuState = .Left
                     
                     self.centerContainerView.superview! - appliedConstraint!
                     self.leftContainerView +== .Leading
                     
-                    self.handelTransformAnimations()
+                    self.handelTransformAnimations({
+                        debugPrint("did_Opened_LeftSideMenu")
+                        self.delegate?.sideMenuViewDidOpen?(self, position: self.currentSideMenuState)
+                    })
                 }
                 else {
+                    debugPrint("will_Closed_LeftSideMenu")
+                    self.delegate?.sideMenuViewWillClose?(self, position: self.currentSideMenuState)
+                    
                     self.closeOpenedSideMenu(self.leftContainerView, attribute: .Leading, completion: { _ in
                         self.applyAnimations({
                             self.centerContainerView.transform = CGAffineTransformIdentity
+                            
+                            debugPrint("did_Closed_LeftSideMenu")
+                            self.delegate?.sideMenuViewDidClose?(self, position: self.currentSideMenuState)
                         })
                     })
                 }
@@ -209,7 +266,10 @@ public class KVMenuContainerView: UIView
         
     }
     
-    /// Toggles the state (open or close) of the right side menu.
+    /**
+     A method that opens or closes the right side menu &
+     toggles it's current state either Right or None too.
+     */
     public func toggleRightSideMenu()
     {
         if allowLeftPaning
@@ -223,17 +283,29 @@ public class KVMenuContainerView: UIView
             
             centerContainerView.accessAppliedConstraintBy(attribute: .CenterX) { (appliedConstraint) -> Void in
                 if appliedConstraint != nil {
+                    debugPrint("will_Opened_RightSideMenu")
+                    self.delegate?.sideMenuViewWillOpen?(self, position: self.currentSideMenuState)
+                    
                     self.currentSideMenuState = .Right
                     
                     self.centerContainerView.superview! - appliedConstraint!
                     self.rightContainerView +== .Trailing
                     
-                    self.handelTransformAnimations()
+                    self.handelTransformAnimations({
+                        debugPrint("did_Opened_RightSideMenu")
+                        self.delegate?.sideMenuViewDidOpen?(self, position: self.currentSideMenuState)
+                    })
                 }
                 else {
+                    debugPrint("will_Closed_RightSideMenu")
+                    self.delegate?.sideMenuViewWillClose?(self, position: self.currentSideMenuState)
+                    
                     self.closeOpenedSideMenu(self.rightContainerView, attribute: .Trailing, completion: { _ in
                         self.applyAnimations({
                             self.centerContainerView.transform = CGAffineTransformIdentity
+                            
+                            debugPrint("did_Closed_RightSideMenu")
+                            self.delegate?.sideMenuViewDidClose?(self, position: self.currentSideMenuState)
                         })
                     })
                 }
@@ -244,7 +316,8 @@ public class KVMenuContainerView: UIView
         }
     }
     
-    private func handelTransformAnimations()
+    /// A method that handel transform & animations too.
+    private func handelTransformAnimations(completionHandler: (Void -> Void)? = nil)
     {
         if self.animationType == KVSideMenu.AnimationType.Window
         {
@@ -267,6 +340,8 @@ public class KVMenuContainerView: UIView
             else{
                 
             }
+            
+            completionHandler?()
         })
     }
     
@@ -289,7 +364,7 @@ extension KVMenuContainerView
         NSNotificationCenter.defaultCenter().removeObserver(self, name:KVSideMenu.Notifications.toggleRight, object: nil)
     }
     
-    // Must be public or internal but not private other wise app will crashed.
+    /// A method that opens or closes the side menu
     @objc func didReceivedNotification(notify:NSNotification)
     {
         if (notify.name == KVSideMenu.Notifications.toggleLeft) {
@@ -395,7 +470,7 @@ extension KVMenuContainerView: UIGestureRecognizerDelegate
                 }else{
                     // Keep open left SideMenu here
                     self.appliedConstraint?.constant = 0
-                    self.handelTransformAnimations()
+                    self.handelTransformAnimations() // Note :Do not passed Completion block from here
                 }
                 
             case .Right:    // Possitive value
@@ -404,7 +479,7 @@ extension KVMenuContainerView: UIGestureRecognizerDelegate
                 }else{
                     // Keep open right SideMenu here
                     self.appliedConstraint?.constant = 0
-                    self.handelTransformAnimations()
+                    self.handelTransformAnimations()  // Note :Do not passed Completion block from here
                 }
                 
             default:  // None state
