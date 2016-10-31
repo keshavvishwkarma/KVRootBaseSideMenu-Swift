@@ -122,11 +122,7 @@ public class KVMenuContainerView: UIView
     
     private func initialise()
     {
-        let selector: Selector = Selector("didReceivedNotification:")
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name:KVSideMenu.Notifications.toggleLeft, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name:KVSideMenu.Notifications.toggleRight, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name:KVSideMenu.Notifications.close, object: nil)
-        
+        registerNotifications()
         setupGestureRecognizer()
         
         clipsToBounds = false
@@ -155,29 +151,11 @@ public class KVMenuContainerView: UIView
     
     // MARK: - Deinitialization
     
-    deinit
-    {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name:KVSideMenu.Notifications.close, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name:KVSideMenu.Notifications.toggleLeft, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name:KVSideMenu.Notifications.toggleRight, object: nil)
+    deinit {
+        unRegisterNotifications()
     }
     
-    // Must be public or internal but not private other wise app will crashed.
-    func didReceivedNotification(notify:NSNotification)
-    {
-        if (notify.name == KVSideMenu.Notifications.toggleLeft) {
-            toggleLeftSideMenu()
-        } else if (notify.name == KVSideMenu.Notifications.toggleRight) {
-            toggleRightSideMenu()
-        } else if (notify.name == KVSideMenu.Notifications.close) {
-            closeSideMenu()
-        }
-        else{
-            
-        }
-    }
-    
-    /// Close the side menu if the menu is showed.
+    /// A method that closes the side menu if the menu is showed.
     public func closeSideMenu()
     {
         switch (currentSideMenuState)
@@ -186,42 +164,21 @@ public class KVMenuContainerView: UIView
         case .Right: closeOpenedSideMenu(rightContainerView, attribute: .Trailing)
             
         default: appliedConstraint?.constant = 0
-        applyAnimations({
-            self.centerContainerView.transform = CGAffineTransformIdentity
-        })
+                 applyAnimations({
+                    self.centerContainerView.transform = CGAffineTransformIdentity
+                 })
         }
         
     }
     
-    /// Toggles the state (open or close) of the left side menu.
+    /**
+     A method that opens or closes the left side menu &
+     toggles it's current state either Left or None too.
+     */
     public func toggleLeftSideMenu()
     {
-        if allowRightPaning
-        {
-            endEditing(true)
-            backgroundColor  = leftContainerView.subviews.first?.backgroundColor
-            
-            if (currentSideMenuState == .Right) {
-                closeOpenedSideMenu(rightContainerView, attribute: .Trailing)
-            }
-            
-            centerContainerView.accessAppliedConstraintBy(attribute: .CenterX)  { (appliedConstraint) -> Void in
-                if appliedConstraint != nil {
-                    self.currentSideMenuState = .Left
-                    
-                    self.centerContainerView.superview! - appliedConstraint!
-                    self.leftContainerView +== .Leading
-                    
-                    self.handelTransformAnimations()
-                }
-                else {
-                    self.closeOpenedSideMenu(self.leftContainerView, attribute: .Leading, completion: { _ in
-                        self.applyAnimations({
-                            self.centerContainerView.transform = CGAffineTransformIdentity
-                        })
-                    })
-                }
-            }
+        if allowRightPaning {
+            toggleSideMenu(true)
         }
         else {
             debugPrint("Left SideMenu has beed disable, because leftSideMenuViewController is nil.")
@@ -229,42 +186,84 @@ public class KVMenuContainerView: UIView
         
     }
     
-    /// Toggles the state (open or close) of the right side menu.
+    /**
+     A method that opens or closes the right side menu &
+     toggles it's current state either Right or None too.
+     */
     public func toggleRightSideMenu()
     {
-        if allowLeftPaning
-        {
-            endEditing(true)
-            backgroundColor  = rightContainerView.subviews.first?.backgroundColor
-            
-            if (currentSideMenuState == .Left) {
-                closeOpenedSideMenu(leftContainerView, attribute: .Leading)
-            }
-            
-            centerContainerView.accessAppliedConstraintBy(attribute: .CenterX) { (appliedConstraint) -> Void in
-                if appliedConstraint != nil {
-                    self.currentSideMenuState = .Right
-                    
-                    self.centerContainerView.superview! - appliedConstraint!
-                    self.rightContainerView +== .Trailing
-                    
-                    self.handelTransformAnimations()
-                }
-                else {
-                    self.closeOpenedSideMenu(self.rightContainerView, attribute: .Trailing, completion: { _ in
-                        self.applyAnimations({
-                            self.centerContainerView.transform = CGAffineTransformIdentity
-                        })
-                    })
-                }
-            }
+        if allowLeftPaning {
+            toggleSideMenu(false)
         }
         else{
             debugPrint("Right SideMenu has beed disable, because rightSideMenuViewController is nil.")
         }
     }
     
-    private func handelTransformAnimations()
+}
+
+// MARK: -  Helpper methods to Open & Close the SideMenu
+
+private extension KVMenuContainerView
+{
+    final func toggleSideMenu(isLeft:Bool)
+    {
+        let constraintView = isLeft ? leftContainerView         : rightContainerView
+        let attribute      = isLeft ? NSLayoutAttribute.Leading : NSLayoutAttribute.Trailing
+        
+        endEditing(true)
+        backgroundColor = constraintView.subviews.first?.backgroundColor
+        
+        if isLeft {
+            if (currentSideMenuState == .Right) {
+                closeOpenedSideMenu(rightContainerView, attribute: .Trailing)
+            }
+        }
+        else{
+            if (currentSideMenuState == .Left) {
+                closeOpenedSideMenu(leftContainerView, attribute: .Leading)
+            }
+        }
+        
+        centerContainerView.accessAppliedConstraintBy(attribute: .CenterX) { appliedConstraint in
+            if appliedConstraint != nil {
+                
+                self.currentSideMenuState = isLeft ? .Left : .Right
+                self.centerContainerView.superview! - appliedConstraint!
+                constraintView +== attribute
+                
+                self.handelTransformAnimations()
+            }
+            else {
+
+                self.closeOpenedSideMenu(constraintView, attribute: attribute, completion: { _ in
+                    self.applyAnimations({
+                        self.centerContainerView.transform = CGAffineTransformIdentity
+                    })
+                })
+            }
+        }
+        
+    }
+    
+    final func closeOpenedSideMenu(view:UIView, attribute attr: NSLayoutAttribute, completion: (Void -> Void)? = nil )
+    {
+        view.accessAppliedConstraintBy(attribute: attr, completionHandler: { (appliedConstraint) -> Void in
+            if appliedConstraint != nil {
+                self.currentSideMenuState = .None
+                view.superview! - appliedConstraint!
+                self.centerContainerView +== [.Top, .CenterX, .Bottom]
+                if completion == nil {
+                    self.layoutIfNeeded()
+                    self.setNeedsLayout()
+                }else{
+                    completion?()
+                }
+            }
+        })
+    }
+    
+    final func handelTransformAnimations()
     {
         if self.animationType == KVSideMenu.AnimationType.Window
         {
@@ -290,6 +289,39 @@ public class KVMenuContainerView: UIView
         })
     }
     
+}
+
+private extension KVMenuContainerView
+{
+    final func registerNotifications()
+    {
+        let selector: Selector = Selector("didReceivedNotification:")
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name:KVSideMenu.Notifications.toggleLeft, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name:KVSideMenu.Notifications.toggleRight, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name:KVSideMenu.Notifications.close, object: nil)
+    }
+    
+    final func unRegisterNotifications()
+    {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name:KVSideMenu.Notifications.close, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name:KVSideMenu.Notifications.toggleLeft, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name:KVSideMenu.Notifications.toggleRight, object: nil)
+    }
+    
+    /// A method that opens or closes the side menu
+    @objc func didReceivedNotification(notify:NSNotification)
+    {
+        if (notify.name == KVSideMenu.Notifications.toggleLeft) {
+            toggleLeftSideMenu()
+        } else if (notify.name == KVSideMenu.Notifications.toggleRight) {
+            toggleRightSideMenu()
+        } else if (notify.name == KVSideMenu.Notifications.close) {
+            closeSideMenu()
+        }
+        else{
+            
+        }
+    }
     
 }
 
@@ -424,29 +456,6 @@ extension KVMenuContainerView: UIGestureRecognizerDelegate
         }
         
         return false
-    }
-    
-}
-
-// MARK: -  Helpper methods to Open & Close the SideMenu
-
-private extension KVMenuContainerView
-{
-    func closeOpenedSideMenu(view:UIView, attribute attr: NSLayoutAttribute, completion: (Void -> Void)? = nil )
-    {
-        view.accessAppliedConstraintBy(attribute: attr, completionHandler: { (appliedConstraint) -> Void in
-            if appliedConstraint != nil {
-                self.currentSideMenuState = .None
-                view.superview! - appliedConstraint!
-                self.centerContainerView +== [.Top, .CenterX, .Bottom]
-                if completion == nil {
-                    self.layoutIfNeeded()
-                    self.setNeedsLayout()
-                }else{
-                    completion?()
-                }
-            }
-        })
     }
     
 }
