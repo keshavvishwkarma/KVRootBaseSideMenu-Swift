@@ -152,8 +152,7 @@ public class KVMenuContainerView: UIView
     
     // MARK: - Deinitialization
     
-    deinit
-    {
+    deinit {
         unRegisterNotifications()
     }
     
@@ -293,9 +292,9 @@ private extension KVMenuContainerView
     
 }
 
-extension KVMenuContainerView
+private extension KVMenuContainerView
 {
-    func registerNotifications()
+    final func registerNotifications()
     {
         let selector: Selector = Selector("didReceivedNotification:")
         NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name:KVSideMenu.Notifications.toggleLeft, object: nil)
@@ -303,7 +302,7 @@ extension KVMenuContainerView
         NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name:KVSideMenu.Notifications.close, object: nil)
     }
     
-    func unRegisterNotifications()
+    final func unRegisterNotifications()
     {
         NSNotificationCenter.defaultCenter().removeObserver(self, name:KVSideMenu.Notifications.close, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name:KVSideMenu.Notifications.toggleLeft, object: nil)
