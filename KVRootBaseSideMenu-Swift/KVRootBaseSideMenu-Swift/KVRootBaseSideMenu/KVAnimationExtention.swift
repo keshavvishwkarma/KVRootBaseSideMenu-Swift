@@ -61,11 +61,13 @@ extension CALayer {
             
             CATransaction.begin()
             CATransaction.setDisableActions(true)
+            CATransaction.setCompletionBlock {
+                self.stopAnimation()
+            }
             
             _circleLayer.frame = CGRectMake(dx, dy, size, size)
             _circleLayer.cornerRadius = size / 2.0
             _circleLayer.backgroundColor = tintColor?.CGColor;
-            CATransaction.commit()
             
             let circleLayerAnimation : CABasicAnimation = CABasicAnimation(keyPath: "transform.scale")
             circleLayerAnimation.fromValue = NSNumber(double: 0.2)
@@ -78,7 +80,7 @@ extension CALayer {
             opacityAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
             
             let groupAnim : CAAnimationGroup = CAAnimationGroup()
-            groupAnim.duration = 0.65
+            groupAnim.duration = 0.75
             groupAnim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
             groupAnim.removedOnCompletion = true
             //        groupAnim.fillMode = kCAFillModeForwards
@@ -86,20 +88,15 @@ extension CALayer {
             groupAnim.animations = [circleLayerAnimation, opacityAnimation]
             groupAnim.delegate = self
             _circleLayer.addAnimation(groupAnim, forKey: "animation")
+            
+            CATransaction.commit()
         }
         
     }
     
-    public func stopAnimation() {
+    private func stopAnimation() {
         associatedObject?.removeFromSuperlayer()
         associatedObject = nil
     }
     
-    public override func animationDidStart(anim: CAAnimation) {
-        
-    }
-    
-    public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-        stopAnimation()
-    }
 }
