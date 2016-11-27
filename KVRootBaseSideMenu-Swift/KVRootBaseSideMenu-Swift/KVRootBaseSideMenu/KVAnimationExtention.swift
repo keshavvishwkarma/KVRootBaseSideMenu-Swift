@@ -44,7 +44,7 @@ extension CALayer
 
 extension CALayer {
     
-    func startAnimation(tintColor tintColor: UIColor? = UIColor.orangeColor())
+    public func startAnimation(tintColor tintColor: UIColor? = UIColor.orangeColor())
     {
         if (associatedObject == nil)
         {

@@ -163,12 +163,12 @@ public class KVMenuContainerView: UIView
         {
         case .Left:  closeOpenedSideMenu(leftContainerView,  attribute: .Leading)
         case .Right: closeOpenedSideMenu(rightContainerView, attribute: .Trailing)
-            
         default: appliedConstraint?.constant = 0
-                 applyAnimations({
-                    self.centerContainerView.transform = CGAffineTransformIdentity
-                 })
         }
+
+        applyAnimations({
+            self.centerContainerView.transform = CGAffineTransformIdentity
+        })
         
     }
     
