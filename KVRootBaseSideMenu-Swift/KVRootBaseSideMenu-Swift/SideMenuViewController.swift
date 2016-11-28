@@ -32,8 +32,8 @@ class SideMenuViewController: KVRootBaseSideMenuViewController
         
         // Configure The SideMenu
         
-        leftSideMenuViewController  =  self.storyboard?.instantiateViewControllerWithIdentifier(KVSideMenu.leftSideViewController)
-        rightSideMenuViewController =  self.storyboard?.instantiateViewControllerWithIdentifier(KVSideMenu.rightSideViewController)
+        leftSideMenuViewController  =  self.storyboard?.instantiateViewController(withIdentifier: KVSideMenu.leftSideViewController)
+        rightSideMenuViewController =  self.storyboard?.instantiateViewController(withIdentifier: KVSideMenu.rightSideViewController)
         
         // Set default root
         self.changeSideMenuViewControllerRoot(KVSideMenu.RootsIdentifiers.initialViewController)

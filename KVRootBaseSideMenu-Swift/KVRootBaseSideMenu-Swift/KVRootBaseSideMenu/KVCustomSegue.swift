@@ -29,12 +29,12 @@
 
 import UIKit
 
-public class KVCustomSegue: UIStoryboardSegue {
+open class KVCustomSegue: UIStoryboardSegue {
     
-    override public func perform()
+    override open func perform()
     {
         // Must Call this method from Source ViewController
-        if self.sourceViewController.shouldPerformSegueWithIdentifier(self.identifier!, sender: self) {
+        if self.source.shouldPerformSegue(withIdentifier: self.identifier!, sender: self) {
             
         }
     }
