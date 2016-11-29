@@ -86,7 +86,6 @@ extension CALayer {
             //        groupAnim.fillMode = kCAFillModeForwards
             groupAnim.fillMode = kCAFillModeBoth
             groupAnim.animations = [circleLayerAnimation, opacityAnimation]
-            groupAnim.delegate = self
             _circleLayer.addAnimation(groupAnim, forKey: "animation")
             
             CATransaction.commit()
