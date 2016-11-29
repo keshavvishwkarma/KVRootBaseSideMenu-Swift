@@ -145,8 +145,8 @@ public class KVMenuContainerView: UIView
         leftContainerView  +*== ( .Width, KVSideMenuOffsetValueInRatio )
         rightContainerView +*== ( .Width, KVSideMenuOffsetValueInRatio )
         
-        leftContainerView   <==> (.Trailing, .Leading, centerContainerView, 0)
-        centerContainerView <==> (.Trailing, .Leading, rightContainerView,  0)
+        leftContainerView   <==> ( .Trailing, .Leading, centerContainerView )
+        centerContainerView <==> ( .Trailing, .Leading, rightContainerView  )
         
     }
     
