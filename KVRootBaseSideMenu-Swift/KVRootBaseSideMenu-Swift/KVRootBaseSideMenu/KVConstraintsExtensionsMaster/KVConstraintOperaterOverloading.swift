@@ -68,7 +68,7 @@ public protocol LayoutRelationable:class
     func +*==(lhs: Self, rhs: (NSLayoutAttribute, CGFloat)) -> NSLayoutConstraint
     
     /// TO ADD SIBLING CONSTRAINT WITH EQUAL RELATION
-    func <==>(lhs: View, rhs: (NSLayoutAttribute, NSLayoutAttribute, View, CGFloat))
+    func <==>(lhs: View, rhs: (NSLayoutAttribute, NSLayoutAttribute, View))
 }
 
 extension View : Addable, Removable, Accessable, LayoutRelationable { }
@@ -101,17 +101,17 @@ public func <-(lhs: View, rhs: (NSLayoutAttribute, NSLayoutRelation)) -> NSLayou
 
 /// (leftContainerView +== .Top).constant = 0
 public func +<=(lhs: View, rhs: NSLayoutAttribute) -> NSLayoutConstraint {
-    return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs, attribute: rhs, relation: .LessThanOrEqual)
+    return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs, relation: .LessThanOrEqual)
 }
 
 /// (leftContainerView +== .Top).constant = 0
 public func +==(lhs: View, rhs: NSLayoutAttribute) -> NSLayoutConstraint {
-    return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs, constant: defaultConstant)
+    return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs)
 }
 
 /// (leftContainerView +== .Top).constant = 0
 public func +>=(lhs: View, rhs: NSLayoutAttribute) -> NSLayoutConstraint {
-    return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs, attribute: rhs, relation: .GreaterThanOrEqual)
+    return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs, relation: .GreaterThanOrEqual)
 }
 
 // With defaultt constant value that is - 0 (Zero) on a specific attribute
@@ -124,6 +124,6 @@ public func +*==(lhs: View, rhs: (NSLayoutAttribute, CGFloat)) -> NSLayoutConstr
     return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs.0, multiplier: rhs.1)
 }
 
-public func <==>(lhs: View, rhs: (NSLayoutAttribute, NSLayoutAttribute, View, CGFloat)) {
-    lhs.applyConstraintFromSiblingView(attribute: rhs.0, toAttribute: rhs.1, ofView: rhs.2, constant: rhs.3)
+public func <==>(lhs: View, rhs: (NSLayoutAttribute, NSLayoutAttribute, View)) {
+    lhs.applyConstraintFromSiblingView(attribute: rhs.0, toAttribute: rhs.1, ofView: rhs.2)
 }
