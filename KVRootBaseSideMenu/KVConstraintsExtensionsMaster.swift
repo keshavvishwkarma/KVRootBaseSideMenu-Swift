@@ -34,14 +34,14 @@ public typealias View = UIView
 extension View {
     
     /// This method is used to create new instance of ui elements for autolayout.
-    public final class func prepareNewViewForAutoLayout() -> View! {
+    final class func prepareNewViewForAutoLayout() -> View! {
         let preparedView = View()
         preparedView.translatesAutoresizingMaskIntoConstraints = false
         return preparedView
     }
     
-    ///This method is used to prepare already created instance of ui elements for autolayout.
-    public final func prepareViewForAutoLayout() {
+    /// This method is used to prepare already created instance of ui elements for autolayout.
+    final func prepareViewForAutoLayout() {
         translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -67,17 +67,17 @@ extension View {
     
     /// Generalized public constraint methods for views
     // For operator +<=,  +==,  +>=, +*==, +*>= , +*<=
-    public final func prepareConstraintToSuperview(attribute attr1: NSLayoutAttribute,  relation: NSLayoutRelation = .Equal, multiplier:CGFloat = 1.0) -> NSLayoutConstraint! {
+    final func prepareConstraintToSuperview(attribute attr1: NSLayoutAttribute,  relation: NSLayoutRelation = .Equal, multiplier:CGFloat = 1.0) -> NSLayoutConstraint! {
         assert(superview != nil, "You should have addSubView on any other its called's Superview \(self)");
         return View.prepareConstraint(self, attribute: attr1, secondView: superview, attribute:attr1, relation: relation, multiplier:multiplier)
     }
     
     /// Prepare constraint of one sibling view to other sibling view and add it into its superview view.
     // For operator <+<=>,  <+==>, <+>=>, <+*<=>, <+*==>, <+*>=>
-    public final func prepareConstraintFromSiblingView(attribute attr1: NSLayoutAttribute, toAttribute attr2:NSLayoutAttribute, ofView otherSiblingView: View, relation:NSLayoutRelation = .Equal, multiplier:CGFloat = 1.0, constant:CGFloat = 0.0 ) -> NSLayoutConstraint! {
+    final func prepareConstraintFromSiblingView(attribute attr1: NSLayoutAttribute, toAttribute attr2:NSLayoutAttribute, ofView otherSiblingView: View, relation:NSLayoutRelation = .Equal, multiplier:CGFloat = 1.0) -> NSLayoutConstraint! {
         assert(((NSSet(array: [superview!,otherSiblingView.superview!])).count == 1), "All the sibling views must belong to same superview")
         
-        return View.prepareConstraint(self, attribute: attr1, secondView:otherSiblingView, attribute:attr2, relation:relation,  multiplier: multiplier, constant:constant)
+        return View.prepareConstraint(self, attribute: attr1, secondView:otherSiblingView, attribute:attr2, relation:relation,  multiplier: multiplier)
     }
     
 }
@@ -105,7 +105,6 @@ extension View
     }
     
     public final func applyConstraintFromSiblingView(attribute attr1: NSLayoutAttribute, toAttribute attr2:NSLayoutAttribute, ofView otherSiblingView: View) -> NSLayoutConstraint {
-
         let c = self.prepareConstraintFromSiblingView(attribute: attr1, toAttribute: attr2, ofView: otherSiblingView)
         return self.superview! + c
     }
@@ -135,7 +134,7 @@ public struct KVConstraintsExtensionsMaster {
 
 private extension NSLayoutConstraint {
     final func isEqualTo(constraint c:NSLayoutConstraint)-> Bool {
-        return firstItem === c.firstItem && firstAttribute == c.firstAttribute && relation == c.relation && firstItem === c.firstItem && secondAttribute == c.secondAttribute && multiplier == c.multiplier
+        return firstItem === c.firstItem && firstAttribute == c.firstAttribute && relation == c.relation && secondItem === c.secondItem && secondAttribute == c.secondAttribute && multiplier == c.multiplier
     }
     
 }

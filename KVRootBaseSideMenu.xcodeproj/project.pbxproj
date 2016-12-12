@@ -15,7 +15,6 @@
 		6B183E151DF62AF10032F3CD /* KVCustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B183E0F1DF62AF10032F3CD /* KVCustomSegue.swift */; };
 		6B183E161DF62AF10032F3CD /* KVMenuContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B183E101DF62AF10032F3CD /* KVMenuContainerView.swift */; };
 		6B183E171DF62AF10032F3CD /* KVRootBaseSideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B183E111DF62AF10032F3CD /* KVRootBaseSideMenuViewController.swift */; };
-		6B183E261DF630450032F3CD /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6B183E251DF630450032F3CD /* Info.plist */; };
 		6B183E281DF630570032F3CD /* KVRootBaseSideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B183E271DF630570032F3CD /* KVRootBaseSideMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -205,7 +204,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B183E261DF630450032F3CD /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +348,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Keshav-Vishwkarma.KVRootBaseSideMenu";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -368,6 +367,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Keshav-Vishwkarma.KVRootBaseSideMenu";
 				PRODUCT_NAME = "$(TARGET_NAME)";

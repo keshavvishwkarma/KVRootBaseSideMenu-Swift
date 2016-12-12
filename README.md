@@ -132,9 +132,14 @@ class RightSideViewController: UIViewController
 }
 
 ```
-## Author
-Keshav Vishwkarma, keshavvbe@gmail.com
-
 ## License
 
 KVRootBaseSideMenu-Swift is released under the MIT license. See the LICENSE for details.
+
+## Contributions
+
+Any contribution is more than welcome! You can contribute through pull requests and issues on GitHub.
+
+## Author
+
+Keshav Vishwkarma, If you wish to contact me, email at: keshavvbe@gmail.com
