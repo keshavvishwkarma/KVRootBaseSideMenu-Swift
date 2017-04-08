@@ -6,6 +6,8 @@
 //  Copyright © 2016 Keshav. All rights reserved.
 //
 
+import UIKit
+
 public extension KVSideMenu
 {
     // Here define the roots identifier of side menus that must be connected from KVRootBaseSideMenuViewController
@@ -44,8 +46,33 @@ class SideMenuViewController: KVRootBaseSideMenuViewController
         
         // self.freshRoot = true
         
+         self.menuContainerView?.delegate = self
+
+    }
+
+}
+
+extension SideMenuViewController: KVRootBaseSideMenuDelegate
+{
+    func willOpenSideMenuView(sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState){
+        print(__FUNCTION__)
+    }
+    
+    func didOpenSideMenuView(sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState){
+        print(__FUNCTION__)
+    }
+    
+    func willCloseSideMenuView(sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState){
+        print(__FUNCTION__)
+    }
+
+    func didCloseSideMenuView(sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState){
+        print(__FUNCTION__)
     }
 }
+
+
+
 
 
 
