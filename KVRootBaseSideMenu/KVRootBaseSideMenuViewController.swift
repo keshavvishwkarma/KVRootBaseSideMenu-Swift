@@ -266,7 +266,7 @@ public extension UIViewController {
                 childViewController.view.autoresizingMask = [.FlexibleWidth,.FlexibleHeight]
             } else {
                 let child = childViewController.view
-                child!.prepareViewForAutoLayout()
+                child!.prepareAutoLayoutView()
                 
                 // Apply Equal relation constrains to its parent view.
                 child +== [.CenterX, .CenterY, .Height, .Width]

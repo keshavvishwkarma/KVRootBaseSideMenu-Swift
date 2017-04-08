@@ -31,7 +31,7 @@ import UIKit
 
 //********* DEFINE NEW OPERATOR *********//
 infix operator  <- { }; infix operator  +== { }; infix operator  +>= { }
-infix operator +<= { }; infix operator +*== { }; infix operator <==> { }
+infix operator +<= { }; infix operator *== { }; infix operator |==| { }
 
 //********* DEFINE NEW INTERFACE *********//
 
@@ -65,10 +65,10 @@ public protocol LayoutRelationable:class
     func +==(lhs: Self, rhs: [NSLayoutAttribute])
     
     /// TO ADD SINGLE EQUAL RELATION CONSTRAINT WITH MULTIPLEIR
-    func +*==(lhs: Self, rhs: (NSLayoutAttribute, CGFloat)) -> NSLayoutConstraint
+    func *==(lhs: Self, rhs: (NSLayoutAttribute, CGFloat)) -> NSLayoutConstraint
     
     /// TO ADD SIBLING CONSTRAINT WITH EQUAL RELATION
-    func <==>(lhs: View, rhs: (NSLayoutAttribute, NSLayoutAttribute, View))
+    func |==|(lhs: View, rhs: (NSLayoutAttribute, NSLayoutAttribute, View))
 }
 
 extension View : Addable, Removable, Accessable, LayoutRelationable { }
@@ -120,10 +120,10 @@ public func +==(lhs: View, rhs: [NSLayoutAttribute]) {
 }
 
 /// (leftContainerView *== (.Top, multiplier) ).constant = 0
-public func +*==(lhs: View, rhs: (NSLayoutAttribute, CGFloat)) -> NSLayoutConstraint {
+public func *==(lhs: View, rhs: (NSLayoutAttribute, CGFloat)) -> NSLayoutConstraint {
     return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs.0, multiplier: rhs.1)
 }
 
-public func <==>(lhs: View, rhs: (NSLayoutAttribute, NSLayoutAttribute, View)) {
+public func |==|(lhs: View, rhs: (NSLayoutAttribute, NSLayoutAttribute, View)) {
     lhs.applyConstraintFromSiblingView(attribute: rhs.0, toAttribute: rhs.1, ofView: rhs.2)
 }

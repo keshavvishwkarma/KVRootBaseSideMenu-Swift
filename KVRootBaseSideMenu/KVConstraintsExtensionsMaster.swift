@@ -31,17 +31,23 @@ import UIKit
 
 public typealias View = UIView
 
-extension View {
+
+/// MARK: TO PREPARE VIEW FOR CONSTRAINTS
+/// Types adopting the `AutoLayoutView` protocol can be used to construct Views.
+public protocol AutoLayoutView {}
+extension View : AutoLayoutView {}
+
+extension AutoLayoutView where Self : View {
     
     /// This method is used to create new instance of ui elements for autolayout.
-    final class func prepareNewViewForAutoLayout() -> View! {
-        let preparedView = View()
+    public static func prepareAutoLayoutView() -> Self {
+        let preparedView = Self()
         preparedView.translatesAutoresizingMaskIntoConstraints = false
         return preparedView
     }
     
     /// This method is used to prepare already created instance of ui elements for autolayout.
-    final func prepareViewForAutoLayout() {
+    public final func prepareAutoLayoutView() {
         translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -66,14 +72,12 @@ private extension View
 extension View {
     
     /// Generalized public constraint methods for views
-    // For operator +<=,  +==,  +>=, +*==, +*>= , +*<=
     final func prepareConstraintToSuperview(attribute attr1: NSLayoutAttribute,  relation: NSLayoutRelation = .Equal, multiplier:CGFloat = 1.0) -> NSLayoutConstraint! {
         assert(superview != nil, "You should have addSubView on any other its called's Superview \(self)");
         return View.prepareConstraint(self, attribute: attr1, secondView: superview, attribute:attr1, relation: relation, multiplier:multiplier)
     }
     
     /// Prepare constraint of one sibling view to other sibling view and add it into its superview view.
-    // For operator <+<=>,  <+==>, <+>=>, <+*<=>, <+*==>, <+*>=>
     final func prepareConstraintFromSiblingView(attribute attr1: NSLayoutAttribute, toAttribute attr2:NSLayoutAttribute, ofView otherSiblingView: View, relation:NSLayoutRelation = .Equal, multiplier:CGFloat = 1.0) -> NSLayoutConstraint! {
         assert(((NSSet(array: [superview!,otherSiblingView.superview!])).count == 1), "All the sibling views must belong to same superview")
         
@@ -82,7 +86,7 @@ extension View {
     
 }
 
-//MARK: TO ADD CONSTRAINT AND ACCESS APPLIED/ADDED CONSTRAINTS
+// MARK: TO ADD CONSTRAINT AND ACCESS APPLIED/ADDED CONSTRAINTS
 extension View
 {
     // MARK: - Add constraints in the non cumulative
