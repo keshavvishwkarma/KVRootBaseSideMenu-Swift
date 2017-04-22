@@ -37,17 +37,23 @@ public let defaultRelation        = NSLayoutRelation.equal
 public let default_iPadRation     = CGFloat(4.0/3.0)
 public let defaultLessMaxPriority = CGFloat(999.99996)
 
-extension View {
+/// MARK: TO PREPARE VIEW FOR CONSTRAINTS
+
+/// Types adopting the `AutoLayoutView` protocol can be used to construct Views.
+public protocol AutoLayoutView {}
+extension View : AutoLayoutView {}
+
+extension AutoLayoutView where Self : View {
     
     /// This method is used to create new instance of ui elements for autolayout.
-    public final class func prepareNewViewForAutoLayout() -> View! {
-        let preparedView = View()
+    public static func prepareAutoLayoutView() -> Self {
+        let preparedView = Self()
         preparedView.translatesAutoresizingMaskIntoConstraints = false
         return preparedView
     }
     
     ///This method is used to prepare already created instance of ui elements for autolayout.
-    public final func prepareViewForAutoLayout() {
+    public final func prepareAutoLayoutView() {
         translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -79,7 +85,7 @@ extension View {
     }
     
     // For operator +== , =<= , =>=
-    // For operator +*==, +*>= , +*<=
+    // For operator *==, +*>= , +*<=
     public final func prepareConstraintToSuperview(attribute attr1: NSLayoutAttribute,  relation: NSLayoutRelation = .equal, multiplier:CGFloat = 1.0, constant:CGFloat = 0.0) -> NSLayoutConstraint! {
         assert(superview != nil, "You should have addSubView on any other its called's Superview \(self)");
         
@@ -89,7 +95,7 @@ extension View {
     
     /// Prepare constraint of one sibling view to other sibling view and add it into its superview view.
     // For operator <+<=>,  <+==>, <+>=>
-    // <+*<=>, <+*==>, <+*>=>
+    // <+*<=>, <*==>, <+*>=>
     public final func prepareConstraintFromSiblingView(attribute attr1: NSLayoutAttribute, toAttribute attr2:NSLayoutAttribute, ofView otherSiblingView: View, relation:NSLayoutRelation = .equal, multiplier:CGFloat = 1.0, constant:CGFloat = 0.0 ) -> NSLayoutConstraint! {
         assert(((NSSet(array: [superview!,otherSiblingView.superview!])).count == 1), "All the sibling views must belong to same superview")
         

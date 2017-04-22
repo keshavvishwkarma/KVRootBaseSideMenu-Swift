@@ -31,7 +31,7 @@ import UIKit
 
 //********* DEFINE NEW OPERATOR *********//
 infix operator  <-; infix operator  +==; infix operator  +>=
-infix operator +<=; infix operator +*==; infix operator <==>
+infix operator +<=; infix operator *==; infix operator |==|
 
 //********* DEFINE NEW INTERFACE *********//
 
@@ -65,44 +65,40 @@ public protocol LayoutRelationable:class
     static func +==(lhs: Self, rhs: [NSLayoutAttribute])
     
     /// TO ADD SINGLE EQUAL RELATION CONSTRAINT WITH MULTIPLEIR
-    static func +*==(lhs: Self, rhs: (NSLayoutAttribute, CGFloat)) -> NSLayoutConstraint
+    static func *==(lhs: Self, rhs: (NSLayoutAttribute, CGFloat)) -> NSLayoutConstraint
     
     /// TO ADD SIBLING CONSTRAINT WITH EQUAL RELATION
-    static func <==>(lhs: Self, rhs: (NSLayoutAttribute, NSLayoutAttribute, Self, CGFloat)) -> NSLayoutConstraint?
+    static func |==|(lhs: Self, rhs: (NSLayoutAttribute, NSLayoutAttribute, Self, CGFloat)) -> NSLayoutConstraint?
 }
 
 extension View : Addable, Removable, Accessable, LayoutRelationable {}
 
 // MARK: Addable
 
-extension Addable where Self : View
+extension Addable where Self == View
 {
     /// To add single constraint on the receiver view
-    @discardableResult
     public static func +(lhs: Self, rhs: NSLayoutConstraint) -> NSLayoutConstraint {
         return lhs.applyPreparedConstraintInView(constraint: rhs)
     }
 }
 
 // MARK: Removable
-extension Removable where Self : View
+extension Removable where Self == View
 {
     /// To remove single constraint from the receiver view
-    @discardableResult
     public static func -(lhs: Self, rhs: NSLayoutConstraint) -> NSLayoutConstraint {
         lhs.removeConstraint(rhs); return rhs
     }
 }
 
 // MARK: Accessable
-extension Accessable where Self: View
+extension Accessable where Self == View
 {
-    @discardableResult
     public static func <-(lhs: Self, rhs: NSLayoutAttribute) -> NSLayoutConstraint?{
         return lhs.accessAppliedConstraintBy(attribute: rhs)
     }
     
-    @discardableResult
     public static func <-(lhs: Self, rhs: (NSLayoutAttribute, NSLayoutRelation)) -> NSLayoutConstraint?{
         return lhs.accessAppliedConstraintBy(attribute: rhs.0, relation: rhs.1)
     }
@@ -111,40 +107,34 @@ extension Accessable where Self: View
 
 //MARK: LayoutRelationable
 
-extension LayoutRelationable where Self: View {
+extension LayoutRelationable where Self == View {
     
     /// (leftContainerView +== .Top).constant = 0
-    @discardableResult
     public static func +<=(lhs: Self, rhs: NSLayoutAttribute) -> NSLayoutConstraint {
         return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs, attribute: rhs, relation: .lessThanOrEqual)
     }
     
     /// (leftContainerView +== .Top).constant = 0
-    @discardableResult
     public static func +==(lhs: Self, rhs: NSLayoutAttribute) -> NSLayoutConstraint {
         return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs, constant: defaultConstant)
     }
     
     /// (leftContainerView +== .Top).constant = 0
-    @discardableResult
     public static func +>=(lhs: Self, rhs: NSLayoutAttribute) -> NSLayoutConstraint {
         return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs, attribute: rhs, relation: .greaterThanOrEqual)
     }
     
-    // With defaultt constant value that is - 0 (Zero) on a specific attribute
-    @discardableResult
+    /// With defaultt constant value that is - 0 (Zero) on a specific attribute
     public static func +==(lhs: Self, rhs: [NSLayoutAttribute]) {
         for attribute in rhs { _ = lhs +== attribute }
     }
     
     /// (leftContainerView *== (.Top, multiplier) ).constant = 0
-    @discardableResult
-    public static func +*==(lhs: Self, rhs: (NSLayoutAttribute, CGFloat)) -> NSLayoutConstraint {
+    public static func *==(lhs: Self, rhs: (NSLayoutAttribute, CGFloat)) -> NSLayoutConstraint {
         return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs.0, multiplier: rhs.1)
     }
     
-    @discardableResult
-    public static func <==>(lhs: Self, rhs: (NSLayoutAttribute, NSLayoutAttribute, Self, CGFloat)) -> NSLayoutConstraint? {
+    public static func |==|(lhs: Self, rhs: (NSLayoutAttribute, NSLayoutAttribute, Self, CGFloat)) -> NSLayoutConstraint? {
         return lhs.applyConstraintFromSiblingView(attribute: rhs.0, toAttribute: rhs.1, ofView: rhs.2, constant: rhs.3)
     }
 }

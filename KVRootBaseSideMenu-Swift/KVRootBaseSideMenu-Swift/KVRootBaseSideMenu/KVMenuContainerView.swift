@@ -64,9 +64,9 @@ open class KVMenuContainerView: UIView
     
     fileprivate let transformScale:CGAffineTransform = CGAffineTransform(scaleX: 1.0, y: 0.8)
     
-    fileprivate(set) var leftContainerView   :UIView! = UIView.prepareNewViewForAutoLayout()
-    fileprivate(set) var centerContainerView :UIView! = UIView.prepareNewViewForAutoLayout()
-    fileprivate(set) var rightContainerView  :UIView! = UIView.prepareNewViewForAutoLayout()
+    fileprivate(set) var leftContainerView   :UIView! = UIView.prepareAutoLayoutView()
+    fileprivate(set) var centerContainerView :UIView! = UIView.prepareAutoLayoutView()
+    fileprivate(set) var rightContainerView  :UIView! = UIView.prepareAutoLayoutView()
     
     fileprivate(set) var currentSideMenuState:KVSideMenu.SideMenuState = KVSideMenu.SideMenuState()
     
@@ -102,7 +102,7 @@ open class KVMenuContainerView: UIView
     {
         self.init()
         
-        prepareViewForAutoLayout()
+        prepareAutoLayoutView()
         backgroundColor = UIColor.clear
         superView.addSubview(self)
         superView.clipsToBounds = true
@@ -142,11 +142,11 @@ open class KVMenuContainerView: UIView
         centerContainerView +== [ .top, .bottom, .width, .centerX ]
         rightContainerView  +== [ .top, .bottom ]
         
-        leftContainerView  +*== ( .width, KVSideMenuOffsetValueInRatio )
-        rightContainerView +*== ( .width, KVSideMenuOffsetValueInRatio )
+        leftContainerView  *== ( .width, KVSideMenuOffsetValueInRatio )
+        rightContainerView *== ( .width, KVSideMenuOffsetValueInRatio )
         
-        leftContainerView   <==> (.trailing, .leading, centerContainerView, 0)
-        centerContainerView <==> (.trailing, .leading, rightContainerView,  0)
+        leftContainerView   |==| (.trailing, .leading, centerContainerView, 0)
+        centerContainerView |==| (.trailing, .leading, rightContainerView,  0)
         
     }
     
