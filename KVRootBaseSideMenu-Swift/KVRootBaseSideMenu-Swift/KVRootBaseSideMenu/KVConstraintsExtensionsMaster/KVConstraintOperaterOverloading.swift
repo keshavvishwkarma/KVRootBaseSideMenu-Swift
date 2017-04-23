@@ -75,7 +75,7 @@ extension View : Addable, Removable, Accessable, LayoutRelationable {}
 
 // MARK: Addable
 
-extension Addable where Self == View
+extension Addable where Self: View
 {
     /// To add single constraint on the receiver view
     public static func +(lhs: Self, rhs: NSLayoutConstraint) -> NSLayoutConstraint {
@@ -84,7 +84,7 @@ extension Addable where Self == View
 }
 
 // MARK: Removable
-extension Removable where Self == View
+extension Removable where Self: View
 {
     /// To remove single constraint from the receiver view
     public static func -(lhs: Self, rhs: NSLayoutConstraint) -> NSLayoutConstraint {
@@ -93,21 +93,16 @@ extension Removable where Self == View
 }
 
 // MARK: Accessable
-extension Accessable where Self == View
+extension Accessable where Self: View
 {
     public static func <-(lhs: Self, rhs: NSLayoutAttribute) -> NSLayoutConstraint?{
         return lhs.accessAppliedConstraintBy(attribute: rhs)
     }
-    
-    public static func <-(lhs: Self, rhs: (NSLayoutAttribute, NSLayoutRelation)) -> NSLayoutConstraint?{
-        return lhs.accessAppliedConstraintBy(attribute: rhs.0, relation: rhs.1)
-    }
-    
 }
 
 //MARK: LayoutRelationable
 
-extension LayoutRelationable where Self == View {
+extension LayoutRelationable where Self: View {
     
     /// (leftContainerView +== .Top).constant = 0
     public static func +<=(lhs: Self, rhs: NSLayoutAttribute) -> NSLayoutConstraint {
@@ -124,11 +119,6 @@ extension LayoutRelationable where Self == View {
         return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs, attribute: rhs, relation: .greaterThanOrEqual)
     }
     
-    /// With defaultt constant value that is - 0 (Zero) on a specific attribute
-    public static func +==(lhs: Self, rhs: [NSLayoutAttribute]) {
-        for attribute in rhs { _ = lhs +== attribute }
-    }
-    
     /// (leftContainerView *== (.Top, multiplier) ).constant = 0
     public static func *==(lhs: Self, rhs: (NSLayoutAttribute, CGFloat)) -> NSLayoutConstraint {
         return lhs.superview! + lhs.prepareConstraintToSuperview(attribute: rhs.0, multiplier: rhs.1)
@@ -138,3 +128,13 @@ extension LayoutRelationable where Self == View {
         return lhs.applyConstraintFromSiblingView(attribute: rhs.0, toAttribute: rhs.1, ofView: rhs.2, constant: rhs.3)
     }
 }
+
+extension View {
+    
+    /// With defaultt constant value that is - 0 (Zero) on a specific attribute
+    public static func +==(lhs: View, rhs: [NSLayoutAttribute])  {
+        rhs.map { lhs +== $0 }
+    }
+    
+}
+
