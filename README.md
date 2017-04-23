@@ -12,10 +12,10 @@ It's a root base side menu with autolayout for iOS applications & It is also wri
 - [x] Automatic orientation support because of autolayout that we used.
 - [x] Automatically manage Left, right or left & right side menu sliding & toggle functionality to open or close.
 - [x] Complete example
+- [x] Carthage Support
 
 ###TO DO
 - [ ] By supporting @IBInspectable, the class properties can be exposed in the Interface Builder
-- [ ] Carthage Support
 - [ ] Advance example.
 
 ### Requirements
