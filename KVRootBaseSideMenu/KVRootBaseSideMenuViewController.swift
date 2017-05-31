@@ -35,7 +35,7 @@ open class KVRootBaseSideMenuViewController: UIViewController
     
     fileprivate var rootObjects: [Key:Value] = [Key:Value]();
     
-    fileprivate(set) var menuContainerView: KVMenuContainerView?
+    open fileprivate(set) var menuContainerView: KVMenuContainerView?
     
     /// If **true** then we will always create a new instance of every root viewcontroller.
     ///
@@ -68,13 +68,11 @@ open class KVRootBaseSideMenuViewController: UIViewController
             else if oldValue != visibleRootViewController
             {
                 oldValue?.willMove(toParentViewController: nil)
-                oldValue?.removeFromParentViewController()
-                
                 UIView.animate(withDuration: 0, animations: { _ in }, completion: { _ in
                     DispatchQueue.main.async(execute: {
-                        
                         oldValue?.view.removeFromSuperview()
                         oldValue?.didMove(toParentViewController: nil)
+                        oldValue?.removeFromParentViewController()
                         self.addChildViewControllerOnContainerView(self.visibleRootViewController, containerView:self.menuContainerView?.centerContainerView)
                         
                     })
@@ -104,15 +102,17 @@ open class KVRootBaseSideMenuViewController: UIViewController
         self.setNeedsStatusBarAppearanceUpdate()
         
         // Listen for changes to keyboard visibility so that we can adjust the text view accordingly.
-        NotificationCenter.default.addObserver(self, selector: #selector(KVRootBaseSideMenuViewController.handleKeyboardNotification(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(KVRootBaseSideMenuViewController.handleKeyboardNotification(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(KVRootBaseSideMenuViewController.handleKeyboardNotification(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(KVRootBaseSideMenuViewController.handleKeyboardNotification(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        notificationCenter.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
     
@@ -176,7 +176,7 @@ private extension KVRootBaseSideMenuViewController
     // MARK: Keyboard Event Notifications
     
     @objc func handleKeyboardNotification(_ notification: Notification) {
-        let userInfo = (notification as NSNotification).userInfo!
+        let userInfo = notification.userInfo!
         
         // Get information about the animation.
         let animationDuration: TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
@@ -226,9 +226,8 @@ public extension KVRootBaseSideMenuViewController {
 }
 
 // MARK:
-public extension UIViewController {
-    
-    
+public extension UIViewController
+{
     func sideMenuViewController() -> KVRootBaseSideMenuViewController?
     {
         var viewController:UIViewController? = ( self.parent != nil) ? self.parent : self.presentingViewController;

@@ -43,7 +43,28 @@ class SideMenuViewController: KVRootBaseSideMenuViewController
         // If freshRoot value is ture then we will reuse already created root viewcontroller if exist otherwise create it.
         
         // self.freshRoot = true
-        
+     
+        self.menuContainerView?.delegate = self
+
+    }
+}
+
+extension SideMenuViewController: KVRootBaseSideMenuDelegate
+{
+    func willOpenSideMenuView(_ sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState) {
+        print(#function)
+    }
+    
+    func didOpenSideMenuView(_ sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState){
+        print(#function)
+    }
+    
+    func willCloseSideMenuView(_ sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState){
+        print(#function)
+    }
+    
+    func didCloseSideMenuView(_ sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState){
+        print(#function)
     }
 }
 

@@ -37,14 +37,16 @@ public struct KVSideMenu
         static public let close        =  Notification.Name(rawValue: "CloseSideMenuNotification")
     }
     
-    enum SideMenuState {
+    @objc
+    public enum SideMenuState: Int {
         case none, left, right
         init() {
             self = .none
         }
     }
     
-    public enum AnimationType
+    @objc
+    public enum AnimationType: Int
     {
         case `default`, window, folding
         public init() {
@@ -54,24 +56,79 @@ public struct KVSideMenu
     
 }
 
+@objc(KVRootBaseSideMenuDelegate)
+public protocol KVRootBaseSideMenuDelegate: class {
+    /**
+     An optional delegation method that is fired before the KVMenuContainerView opens.
+     */
+    @objc optional func willOpenSideMenuView(_ sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState)
+    
+    /**
+     An optional delegation method that is fired after the KVMenuContainerView opened.
+     */
+    @objc optional func didOpenSideMenuView(_ sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState)
+    
+    /**
+     An optional delegation method that is fired before the KVMenuContainerView closes.
+     */
+    @objc optional func willCloseSideMenuView(_ sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState)
+    
+    /**
+     An optional delegation method that is fired after the KVMenuContainerView closed.
+     */
+    @objc optional func didCloseSideMenuView(_ sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState)
+}
+
+@objc(KVMenuContainerView)
 open class KVMenuContainerView: UIView
 {
     // MARK: - Properties
     
+    /// A KVRootBaseSideMenuDelegate property used to bind the delegation object.
+    open weak var delegate: KVRootBaseSideMenuDelegate?
+    
+    open var animationType: KVSideMenu.AnimationType  = KVSideMenu.AnimationType()
+    open var allowTapGesture : Bool = true
+    open var allowPanGesture : Bool = true
+    
+    /// A Boolean property that indicates either left swipe is enables or disables .
+    open var allowLeftPaning: Bool = false {
+        didSet{
+            rightContainerView.subviews.first?.removeFromSuperview()
+        }
+    }
+    
+    /// A Boolean property that indicates either right swipe is enables or disables .
+    open var allowRightPaning : Bool = false {
+        didSet{
+            leftContainerView.subviews.first?.removeFromSuperview()
+        }
+    }
+    
+    /**
+     A CGFloat property that accesses the leftContainerView and
+     rightContainerView threshold of the KVMenuContainerView.
+     
+     When the panning gesture has ended, if the position is
+     beyond the threshold, either left or right side menu
+     is opened, if it is below the threshold, the side menu is closed.
+     */
     fileprivate let thresholdFactor: CGFloat = 0.25
-    open var KVSideMenuOffsetValueInRatio : CGFloat = 0.75
-    open var KVSideMenuHideShowDuration   : CGFloat = 0.4
     
-    fileprivate let transformScale:CGAffineTransform = CGAffineTransform(scaleX: 1.0, y: 0.8)
+    open var KVSideMenuOffsetValueInRatio: CGFloat = 0.75
+    open var KVSideMenuHideShowDuration  : CGFloat = 0.4
     
-    fileprivate(set) var leftContainerView   :UIView! = UIView.prepareAutoLayoutView()
-    fileprivate(set) var centerContainerView :UIView! = UIView.prepareAutoLayoutView()
-    fileprivate(set) var rightContainerView  :UIView! = UIView.prepareAutoLayoutView()
+    fileprivate let transformScale = CGAffineTransform(scaleX: 1.0, y: 0.8)
     
-    fileprivate(set) var currentSideMenuState:KVSideMenu.SideMenuState = KVSideMenu.SideMenuState()
+    open fileprivate(set) var leftContainerView  : UIView! = UIView.prepareAutoLayoutView()
+    open fileprivate(set) var centerContainerView: UIView! = UIView.prepareAutoLayoutView()
+    open fileprivate(set) var rightContainerView : UIView! = UIView.prepareAutoLayoutView()
     
-    fileprivate var appliedConstraint : NSLayoutConstraint? // may be center, leading, trailling
-    fileprivate var panRecognizer     : UIPanGestureRecognizer? {
+    open fileprivate(set) var currentSideMenuState:KVSideMenu.SideMenuState = KVSideMenu.SideMenuState()
+    
+    fileprivate var appliedConstraint: NSLayoutConstraint? // may be center, leading, trailling
+    
+    fileprivate var panRecognizer: UIPanGestureRecognizer? {
         didSet {
             panRecognizer?.delegate = self
             panRecognizer?.maximumNumberOfTouches = 1
@@ -79,20 +136,10 @@ open class KVMenuContainerView: UIView
         }
     }
     
-    open var animationType   = KVSideMenu.AnimationType()
-    open var allowPanGesture :    Bool = true
-    
-    /// A Boolean value indicating whether the left swipe is enabled.
-    open var allowLeftPaning  : Bool = false {
-        didSet{
-            rightContainerView.subviews.first?.removeFromSuperview()
-        }
-    }
-    
-    /// A Boolean value indicating whether the right swipe is enabled.
-    open var allowRightPaning : Bool = false {
-        didSet{
-            leftContainerView.subviews.first?.removeFromSuperview()
+    fileprivate var tapRecognizer : UITapGestureRecognizer? {
+        didSet {
+            tapRecognizer?.delegate = self
+            addGestureRecognizer(tapRecognizer!)
         }
     }
     
@@ -123,10 +170,7 @@ open class KVMenuContainerView: UIView
     fileprivate func initialise()
     {
         registerNotifications()
-
         setupGestureRecognizer()
-        
-        clipsToBounds = false
         
         leftContainerView.backgroundColor   = backgroundColor
         centerContainerView.backgroundColor = backgroundColor
@@ -145,8 +189,8 @@ open class KVMenuContainerView: UIView
         leftContainerView  *== ( .width, KVSideMenuOffsetValueInRatio )
         rightContainerView *== ( .width, KVSideMenuOffsetValueInRatio )
         
-        leftContainerView   |==| (.trailing, .leading, centerContainerView, 0)
-        centerContainerView |==| (.trailing, .leading, rightContainerView,  0)
+        leftContainerView   |==| ( .trailing, .leading, centerContainerView )
+        centerContainerView |==| ( .trailing, .leading, rightContainerView  )
         
     }
     
@@ -156,13 +200,13 @@ open class KVMenuContainerView: UIView
         unRegisterNotifications()
     }
     
-    /// A method that closes the side menu if the menu is showed.
+    /// A method that is used to close the side menu if the menu is showed.
     open func closeSideMenu()
     {
         switch (currentSideMenuState)
         {
-        case .left:  closeOpenedSideMenu(leftContainerView,  attribute: .leading)
-        case .right: closeOpenedSideMenu(rightContainerView, attribute: .trailing)
+        case .left:  self.toggleLeftSideMenu()
+        case .right: self.toggleRightSideMenu()
         default: appliedConstraint?.constant = 0
         }
         
@@ -213,7 +257,6 @@ private extension KVMenuContainerView
         let attribute      = isLeft ? NSLayoutAttribute.leading : NSLayoutAttribute.trailing
         
         endEditing(true)
-        backgroundColor = constraintView?.subviews.first?.backgroundColor
         
         if isLeft {
             if (currentSideMenuState == .right) {
@@ -228,20 +271,35 @@ private extension KVMenuContainerView
         
         centerContainerView.accessAppliedConstraintBy(attribute: .centerX) { appliedConstraint in
             if appliedConstraint != nil {
+                // debugPrint("will_Opened_SideMenu")
+                // debugPrint(self.currentSideMenuState.rawValue)
+                self.delegate?.willOpenSideMenuView?(self, state: self.currentSideMenuState)
                 
                 self.currentSideMenuState = isLeft ? .left : .right
-                self.centerContainerView.superview! - appliedConstraint!
+                (constraintView?.superview!)! - appliedConstraint!
                 constraintView! +== attribute
                 
-                self.handelTransformAnimations()
+                self.handelTransformAnimations {
+                    // debugPrint(self.currentSideMenuState.rawValue)
+                    // debugPrint("did_Opened_SideMenu")
+                    self.delegate?.didOpenSideMenuView?(self, state: self.currentSideMenuState)
+                }
             }
             else {
-
-                self.closeOpenedSideMenu(constraintView!, attribute: attribute, completion: { _ in
-                    self.applyAnimations({
+                // debugPrint("will_Closed_SideMenu")
+                // debugPrint(self.currentSideMenuState.rawValue)
+                self.delegate?.willCloseSideMenuView?(self, state: self.currentSideMenuState)
+                
+                self.closeOpenedSideMenu(constraintView!, attribute: attribute) { _ in
+                    self.applyAnimations {
                         self.centerContainerView.transform = CGAffineTransform.identity
-                    })
-                })
+                        
+                        // debugPrint("did_Closed_SideMenu")
+                        // debugPrint(self.currentSideMenuState.rawValue)
+                        self.delegate?.didCloseSideMenuView?(self, state: self.currentSideMenuState)
+                        
+                    }
+                }
             }
         }
         
@@ -264,30 +322,30 @@ private extension KVMenuContainerView
         })
     }
     
-    final func handelTransformAnimations()
+    /// A method that will handel transform & animations too.
+    final func handelTransformAnimations(_ completionHandler: ((Void) -> Void)? = nil)
     {
-        if self.animationType == KVSideMenu.AnimationType.window
-        {
+        if self.animationType == KVSideMenu.AnimationType.window {
             // update Top And Bottom Pin Constraints Of SideMenu
             (centerContainerView +== .bottom).constant = -22.5
             (centerContainerView +== .top).constant    = 22.5
             // this valus is fixed for orientation so try to avoid it
         }
         
-        self.applyAnimations({
+        self.applyAnimations {
             
-            if self.animationType == KVSideMenu.AnimationType.folding
-            {
+            if self.animationType == KVSideMenu.AnimationType.folding {
                 self.applyTransformAnimations(self.centerContainerView, transform_d: self.transformScale.d )
             }
-            else if self.animationType == KVSideMenu.AnimationType.window
-            {
+            else if self.animationType == KVSideMenu.AnimationType.window {
                 self.applyTransform3DAnimations(self.centerContainerView, transformRotatingAngle: 22.5)
             }
             else{
                 
             }
-        })
+            
+            completionHandler?()
+        }
     }
     
 }
@@ -337,6 +395,11 @@ extension KVMenuContainerView: UIGestureRecognizerDelegate
         if allowPanGesture {
             panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(KVMenuContainerView.handlePanGesture(_:)))
         }
+        
+        if allowTapGesture {
+            tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(KVMenuContainerView.closeSideMenu))
+        }
+        
     }
     
     fileprivate dynamic func handlePanGesture(_ recognizer: UIPanGestureRecognizer)
@@ -456,6 +519,10 @@ extension KVMenuContainerView: UIGestureRecognizerDelegate
             return (allowPanGesture && (allowLeftPaning || allowRightPaning ))
         }
         
+        if gestureRecognizer == tapRecognizer {
+            return currentSideMenuState != .none && allowTapGesture && self.centerContainerView.frame.contains(gestureRecognizer.location(in: gestureRecognizer.view))
+        }
+        
         return false
     }
     
@@ -478,7 +545,7 @@ private extension KVMenuContainerView
             self.setNeedsUpdateConstraints()
             self.applyShadow(self.centerContainerView)
             completionHandler?()
-            }, completion: nil)
+        })
     }
     
     final func applyTransformAnimations(_ view:UIView!,transform_d:CGFloat) {
@@ -493,7 +560,7 @@ private extension KVMenuContainerView
         var tRotate : CATransform3D = CATransform3DIdentity
         tRotate.m34 = 1.0/(500)
         
-        let aXpos: CGFloat = CGFloat(22.5*((currentSideMenuState == .right) ? -1.0 : 1.0)*(M_PI/180))
+        let aXpos: CGFloat = CGFloat(22.5*((currentSideMenuState == .right) ? -1.0 : 1.0)*(Double.pi/180))
         tRotate = CATransform3DRotate(tRotate,aXpos, 0, 1, 0)
         layerTemp.transform = tRotate
         
@@ -520,6 +587,5 @@ private extension KVMenuContainerView
             shadowViewLayer.shadowColor = nil
         }
     }
-    
     
 }

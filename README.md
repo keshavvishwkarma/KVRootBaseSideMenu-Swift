@@ -4,7 +4,7 @@ It's a root base side menu with autolayout for iOS applications & It is also wri
 ### Demo
 [![KVRootBaseSideMenu-Swift](http://img.youtube.com/vi/104QJ6Nn77A/0.jpg)](http://www.youtube.com/watch?v=104QJ6Nn77A)
 
-###Features
+### Features
 - [x] Highly customizable & easy to use.
 - [x] You can add this side menu in a view of viewCintroller Or any specific subview of viewcontroller.
 - [x] Support both left & right side menu.
@@ -12,19 +12,19 @@ It's a root base side menu with autolayout for iOS applications & It is also wri
 - [x] Automatic orientation support because of autolayout that we used.
 - [x] Automatically manage Left, right or left & right side menu sliding & toggle functionality to open or close.
 - [x] Complete example
+- [x] Carthage Support
 
-###TO DO
+### TO DO
 - [ ] By supporting @IBInspectable, the class properties can be exposed in the Interface Builder
-- [ ] Carthage Support
 - [ ] Advance example.
 
 ### Requirements
 * iOS 8+ (compatible with iOS 8)
-* Xcode 8.3
+* Xcode 7.2
 
 <a name="usage"> Usage </a>
 --------------
-####`Step 1.`
+#### `Step 1.`
 Prepare `SideMenuViewController`,  either `LeftViewController` or `RightViewController` or both.
 - Create a subclass of **KVRootBaseSideMenuViewController** called SideMenuViewController.
 - Create LeftViewController Or RightViewController Or both class subclassing from UIViewController.
@@ -41,7 +41,7 @@ class RightViewController: UIViewController {
 ```
 - In Storyboard, Drag three view controllers from the Object library to the storyboard canvas and give them class  name in the Attributes inspector for the scenes. one is  `SideMenuViewController ` second is `LeftViewController` & third is `RightViewController`.
 
-####`Step 2.`
+#### `Step 2.`
 - Prepare roots(options available in left and/or Right side menu) & roots identifiers and [Connect](#Connect_Roots) all the roots from side menu view controller.
 
 - In storyboard, drag view controller objects from the Object library to the scene, create a custom view controller class. Specify this class as the custom class in the Attributes inspector for the scene.
@@ -73,7 +73,7 @@ public extension KVSideMenu
 -----
 - You need to create a segue from the `SideMenuViewController` itself to the destination root viewController. You must do this for each root viewController and give them appropriate `identifiers` and give them ’Segue Class’ i.e. `KVCustomSegue`
 
-####`Step 3.`
+#### `Step 3.`
 
 - To enable left or right or both SideMenu, you must assign a `leftSideMenuViewController` or `rightSideMenuViewController` or both at any moment. In this example I'm doing as -
 ```
@@ -132,9 +132,14 @@ class RightSideViewController: UIViewController
 }
 
 ```
-## Author
-Keshav Vishwkarma, keshavvbe@gmail.com
-
 ## License
 
 KVRootBaseSideMenu-Swift is released under the MIT license. See the LICENSE for details.
+
+## Contributions
+
+Any contribution is more than welcome! You can contribute through pull requests and issues on GitHub.
+
+## Author
+
+Keshav Vishwkarma, If you wish to contact me, email at: keshavvbe@gmail.com

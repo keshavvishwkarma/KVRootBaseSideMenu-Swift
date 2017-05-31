@@ -44,7 +44,7 @@ extension CALayer
 
 extension CALayer {
     
-    func startAnimation(tintColor: UIColor? = UIColor.orange)
+    public func startAnimation(tintColor: UIColor? = UIColor.orange)
     {
         if (associatedObject == nil)
         {
@@ -83,7 +83,7 @@ extension CALayer {
             groupAnim.duration = 0.75
             groupAnim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
             groupAnim.isRemovedOnCompletion = true
-            //        groupAnim.fillMode = kCAFillModeForwards
+            // groupAnim.fillMode = kCAFillModeForwards
             groupAnim.fillMode = kCAFillModeBoth
             groupAnim.animations = [circleLayerAnimation, opacityAnimation]
             _circleLayer.add(groupAnim, forKey: "animation")
