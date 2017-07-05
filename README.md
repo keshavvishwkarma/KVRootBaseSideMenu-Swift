@@ -20,7 +20,7 @@ It's a root base side menu with autolayout for iOS applications & It is also wri
 
 ### Requirements
 * iOS 8+ (compatible with iOS 8)
-* Xcode 7.2
+* Xcode 8.0
 
 <a name="usage"> Usage </a>
 --------------

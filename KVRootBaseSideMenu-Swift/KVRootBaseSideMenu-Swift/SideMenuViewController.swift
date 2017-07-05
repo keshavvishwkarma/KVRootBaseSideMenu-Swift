@@ -6,8 +6,6 @@
 //  Copyright © 2016 Keshav. All rights reserved.
 //
 
-import UIKit
-
 public extension KVSideMenu
 {
     // Here define the roots identifier of side menus that must be connected from KVRootBaseSideMenuViewController
@@ -34,8 +32,8 @@ class SideMenuViewController: KVRootBaseSideMenuViewController
         
         // Configure The SideMenu
         
-        leftSideMenuViewController  =  self.storyboard?.instantiateViewControllerWithIdentifier(KVSideMenu.leftSideViewController)
-        rightSideMenuViewController =  self.storyboard?.instantiateViewControllerWithIdentifier(KVSideMenu.rightSideViewController)
+        leftSideMenuViewController  =  self.storyboard?.instantiateViewController(withIdentifier: KVSideMenu.leftSideViewController)
+        rightSideMenuViewController =  self.storyboard?.instantiateViewController(withIdentifier: KVSideMenu.rightSideViewController)
         
         // Set default root
         self.changeSideMenuViewControllerRoot(KVSideMenu.RootsIdentifiers.initialViewController)
@@ -45,34 +43,30 @@ class SideMenuViewController: KVRootBaseSideMenuViewController
         // If freshRoot value is ture then we will reuse already created root viewcontroller if exist otherwise create it.
         
         // self.freshRoot = true
-        
-         self.menuContainerView?.delegate = self
+     
+        self.menuContainerView?.delegate = self
 
     }
-
 }
 
 extension SideMenuViewController: KVRootBaseSideMenuDelegate
 {
-    func willOpenSideMenuView(sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState){
-        print(__FUNCTION__)
+    func willOpenSideMenuView(_ sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState) {
+        print(#function)
     }
     
-    func didOpenSideMenuView(sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState){
-        print(__FUNCTION__)
+    func didOpenSideMenuView(_ sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState){
+        print(#function)
     }
     
-    func willCloseSideMenuView(sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState){
-        print(__FUNCTION__)
+    func willCloseSideMenuView(_ sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState){
+        print(#function)
     }
-
-    func didCloseSideMenuView(sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState){
-        print(__FUNCTION__)
+    
+    func didCloseSideMenuView(_ sideMenuView: KVMenuContainerView, state: KVSideMenu.SideMenuState){
+        print(#function)
     }
 }
-
-
-
 
 
 

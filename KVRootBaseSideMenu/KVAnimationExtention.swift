@@ -44,7 +44,7 @@ extension CALayer
 
 extension CALayer {
     
-    public func startAnimation(tintColor tintColor: UIColor? = UIColor.orangeColor())
+    public func startAnimation(tintColor: UIColor? = UIColor.orange)
     {
         if (associatedObject == nil)
         {
@@ -53,7 +53,7 @@ extension CALayer {
             addSublayer(_circleLayer)
             _circleLayer.name = "KVAnimationExtention"
             
-            let size : CGFloat = max(CGRectGetHeight(self.bounds), CGRectGetWidth(self.bounds));
+            let size : CGFloat = max(self.bounds.height, self.bounds.width);
             let dx : CGFloat   = (self.bounds.size.width - size) / 2.0
             let dy : CGFloat   = (self.bounds.size.height - size) / 2.0
             
@@ -65,35 +65,35 @@ extension CALayer {
                 self.stopAnimation()
             }
             
-            _circleLayer.frame = CGRectMake(dx, dy, size, size)
+            _circleLayer.frame = CGRect(x: dx, y: dy, width: size, height: size)
             _circleLayer.cornerRadius = size / 2.0
-            _circleLayer.backgroundColor = tintColor?.CGColor;
+            _circleLayer.backgroundColor = tintColor?.cgColor;
             
             let circleLayerAnimation : CABasicAnimation = CABasicAnimation(keyPath: "transform.scale")
-            circleLayerAnimation.fromValue = NSNumber(double: 0.2)
-            circleLayerAnimation.toValue   = NSNumber(double: 1.1)
+            circleLayerAnimation.fromValue = NSNumber(value: 0.2 as Double)
+            circleLayerAnimation.toValue   = NSNumber(value: 1.1 as Double)
             circleLayerAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
             
             let opacityAnimation : CABasicAnimation = CABasicAnimation(keyPath: "opacity")
-            opacityAnimation.fromValue = NSNumber(double: 0.75)
-            opacityAnimation.toValue   = NSNumber(double: 0.0)
+            opacityAnimation.fromValue = NSNumber(value: 0.75 as Double)
+            opacityAnimation.toValue   = NSNumber(value: 0.0 as Double)
             opacityAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
             
             let groupAnim : CAAnimationGroup = CAAnimationGroup()
             groupAnim.duration = 0.75
             groupAnim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-            groupAnim.removedOnCompletion = true
-            //        groupAnim.fillMode = kCAFillModeForwards
+            groupAnim.isRemovedOnCompletion = true
+            // groupAnim.fillMode = kCAFillModeForwards
             groupAnim.fillMode = kCAFillModeBoth
             groupAnim.animations = [circleLayerAnimation, opacityAnimation]
-            _circleLayer.addAnimation(groupAnim, forKey: "animation")
+            _circleLayer.add(groupAnim, forKey: "animation")
             
             CATransaction.commit()
         }
         
     }
     
-    private func stopAnimation() {
+    fileprivate func stopAnimation() {
         associatedObject?.removeFromSuperlayer()
         associatedObject = nil
     }

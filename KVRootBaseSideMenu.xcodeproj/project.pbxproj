@@ -10,7 +10,6 @@
 		6B183DFB1DF62A1F0032F3CD /* KVRootBaseSideMenu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B183DF01DF62A1E0032F3CD /* KVRootBaseSideMenu.framework */; };
 		6B183E001DF62A1F0032F3CD /* KVRootBaseSideMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B183DFF1DF62A1F0032F3CD /* KVRootBaseSideMenuTests.swift */; };
 		6B183E121DF62AF10032F3CD /* KVAnimationExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B183E0C1DF62AF10032F3CD /* KVAnimationExtention.swift */; };
-		6B183E131DF62AF10032F3CD /* KVConstraintOperaterOverloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B183E0D1DF62AF10032F3CD /* KVConstraintOperaterOverloading.swift */; };
 		6B183E141DF62AF10032F3CD /* KVConstraintsExtensionsMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B183E0E1DF62AF10032F3CD /* KVConstraintsExtensionsMaster.swift */; };
 		6B183E151DF62AF10032F3CD /* KVCustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B183E0F1DF62AF10032F3CD /* KVCustomSegue.swift */; };
 		6B183E161DF62AF10032F3CD /* KVMenuContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B183E101DF62AF10032F3CD /* KVMenuContainerView.swift */; };
@@ -34,7 +33,6 @@
 		6B183DFF1DF62A1F0032F3CD /* KVRootBaseSideMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KVRootBaseSideMenuTests.swift; sourceTree = "<group>"; };
 		6B183E011DF62A1F0032F3CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6B183E0C1DF62AF10032F3CD /* KVAnimationExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVAnimationExtention.swift; sourceTree = "<group>"; };
-		6B183E0D1DF62AF10032F3CD /* KVConstraintOperaterOverloading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVConstraintOperaterOverloading.swift; sourceTree = "<group>"; };
 		6B183E0E1DF62AF10032F3CD /* KVConstraintsExtensionsMaster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVConstraintsExtensionsMaster.swift; sourceTree = "<group>"; };
 		6B183E0F1DF62AF10032F3CD /* KVCustomSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVCustomSegue.swift; sourceTree = "<group>"; };
 		6B183E101DF62AF10032F3CD /* KVMenuContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVMenuContainerView.swift; sourceTree = "<group>"; };
@@ -87,7 +85,6 @@
 				6B183E101DF62AF10032F3CD /* KVMenuContainerView.swift */,
 				6B183E0F1DF62AF10032F3CD /* KVCustomSegue.swift */,
 				6B183E0C1DF62AF10032F3CD /* KVAnimationExtention.swift */,
-				6B183E0D1DF62AF10032F3CD /* KVConstraintOperaterOverloading.swift */,
 				6B183E0E1DF62AF10032F3CD /* KVConstraintsExtensionsMaster.swift */,
 				6B183E0B1DF62A520032F3CD /* Supporting Files */,
 			);
@@ -170,14 +167,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "com.keshav. KVRootBaseSideMenu";
 				TargetAttributes = {
 					6B183DEF1DF62A1E0032F3CD = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0830;
 					};
 					6B183DF91DF62A1F0032F3CD = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
@@ -221,7 +220,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B183E131DF62AF10032F3CD /* KVConstraintOperaterOverloading.swift in Sources */,
 				6B183E121DF62AF10032F3CD /* KVAnimationExtention.swift in Sources */,
 				6B183E161DF62AF10032F3CD /* KVMenuContainerView.swift in Sources */,
 				6B183E141DF62AF10032F3CD /* KVConstraintsExtensionsMaster.swift in Sources */,
@@ -262,8 +260,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -286,7 +286,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -310,8 +310,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -328,9 +330,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -342,6 +345,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -354,6 +358,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -361,6 +366,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -372,6 +378,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Keshav-Vishwkarma.KVRootBaseSideMenu";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -382,6 +389,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Keshav-Vishwkarma.KVRootBaseSideMenuTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -392,6 +400,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Keshav-Vishwkarma.KVRootBaseSideMenuTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

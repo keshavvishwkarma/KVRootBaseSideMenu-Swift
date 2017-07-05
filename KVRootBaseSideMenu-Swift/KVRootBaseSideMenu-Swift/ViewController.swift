@@ -17,31 +17,31 @@ class ViewController: BaseViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        disableMenuButton.selected = !(sideMenuViewController()?.menuContainerView?.allowPanGesture ?? false)
+        disableMenuButton.isSelected = !(sideMenuViewController()?.menuContainerView?.allowPanGesture ?? false)
     }
     
-    @IBAction func defaultButtonPressed(sender: AnyObject)
+    @IBAction func defaultButtonPressed(_ sender: AnyObject)
     {
-        sideMenuViewController()?.menuContainerView?.animationType = KVSideMenu.AnimationType.Default
+        sideMenuViewController()?.menuContainerView?.animationType = KVSideMenu.AnimationType.default
     }
     
-    @IBAction func foldingButtonPressed(sender: AnyObject)
+    @IBAction func foldingButtonPressed(_ sender: AnyObject)
     {
-        sideMenuViewController()?.menuContainerView?.animationType = KVSideMenu.AnimationType.Folding
+        sideMenuViewController()?.menuContainerView?.animationType = KVSideMenu.AnimationType.folding
     }
     
-    @IBAction func windowButtonPressed(sender: AnyObject)
+    @IBAction func windowButtonPressed(_ sender: AnyObject)
     {
-        sideMenuViewController()?.menuContainerView?.animationType = KVSideMenu.AnimationType.Window
+        sideMenuViewController()?.menuContainerView?.animationType = KVSideMenu.AnimationType.window
     }
     
-    @IBAction func disablePanGustureButtonPressed(sender: UIButton)
+    @IBAction func disablePanGustureButtonPressed(_ sender: UIButton)
     {
-        sender.selected = !sender.selected
-        sideMenuViewController()?.menuContainerView?.allowPanGesture = !sender.selected
+        sender.isSelected = !sender.isSelected
+        sideMenuViewController()?.menuContainerView?.allowPanGesture = !sender.isSelected
 //        sideMenuViewController()?.menuContainerView?.allowPanGesture = false
 
     }

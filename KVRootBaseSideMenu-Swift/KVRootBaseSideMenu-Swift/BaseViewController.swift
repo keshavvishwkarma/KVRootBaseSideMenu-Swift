@@ -14,21 +14,21 @@ class BaseViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.title = self.classForCoder.description().componentsSeparatedByString(".").last!
+        self.title = self.classForCoder.description().components(separatedBy: ".").last!
         
-        let barItemFram = CGRectMake(0, 0, 44, 44);
+        let barItemFram = CGRect(x: 0, y: 0, width: 44, height: 44);
         
         // Customize the UIBarButtonItem
-        let leftItemCustomeView   = UIButton(type: UIButtonType.Custom);
+        let leftItemCustomeView   = UIButton(type: UIButtonType.custom);
         leftItemCustomeView.frame = barItemFram;
-        leftItemCustomeView.setImage(UIImage(named:"backward_arrow"), forState: UIControlState.Normal)
+        leftItemCustomeView.setImage(UIImage(named:"backward_arrow"), for: UIControlState())
         
-        let rightItemCustomeView   = UIButton(type: UIButtonType.Custom);
+        let rightItemCustomeView   = UIButton(type: UIButtonType.custom);
         rightItemCustomeView.frame = barItemFram;
-        rightItemCustomeView.setImage(UIImage(named:"forward_arrow"), forState: UIControlState.Normal)
+        rightItemCustomeView.setImage(UIImage(named:"forward_arrow"), for: UIControlState())
         
-        leftItemCustomeView.addTarget(self, action: "leftButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        rightItemCustomeView.addTarget(self, action: "rightButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        leftItemCustomeView.addTarget(self, action: #selector(BaseViewController.leftButtonAction(_:)), for: UIControlEvents.touchUpInside)
+        rightItemCustomeView.addTarget(self, action: #selector(BaseViewController.rightButtonAction(_:)), for: UIControlEvents.touchUpInside)
         
         self.navigationItem.leftBarButtonItem  = UIBarButtonItem(customView: leftItemCustomeView);
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightItemCustomeView);
@@ -37,18 +37,18 @@ class BaseViewController: UIViewController {
     
     // MARK: - IBAction Methods
     
-    func leftButtonAction(sender: UIButton)
+    func leftButtonAction(_ sender: UIButton)
     {
         // with orange color
-        sender.layer.startAnimation(tintColor :UIColor.orangeColor())
-        NSNotificationCenter.defaultCenter().postNotificationName(KVSideMenu.Notifications.toggleLeft, object: self)
+        sender.layer.startAnimation(tintColor :UIColor.orange)
+        NotificationCenter.default.post(name:  KVSideMenu.Notifications.toggleLeft, object: self)
     }
     
-    func rightButtonAction(sender: UIButton)
+    func rightButtonAction(_ sender: UIButton)
     {
         // with defaultt color
         sender.layer.startAnimation()
-        NSNotificationCenter.defaultCenter().postNotificationName(KVSideMenu.Notifications.toggleRight, object: self)
+        NotificationCenter.default.post(name: KVSideMenu.Notifications.toggleRight, object: self)
         //   OR
         // self.sideMenuViewController()?.menuContainerView?.toggleRightSideMenu();
     }

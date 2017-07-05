@@ -10,14 +10,14 @@ import UIKit
 
 class LeftSideViewController: UIViewController {
     
-    @IBAction func moveToFirstViewControllerButton(sender: AnyObject) {
+    @IBAction func moveToFirstViewControllerButton(_ sender: AnyObject) {
         self.changeSideMenuViewControllerRoot(KVSideMenu.RootsIdentifiers.firstViewController)
-        NSNotificationCenter.defaultCenter().postNotificationName(KVSideMenu.Notifications.toggleLeft, object: self)
+        NotificationCenter.default.post(name:  KVSideMenu.Notifications.toggleLeft, object: self)
     }
     
-    @IBAction func moveToSecondViewControllerButton(sender: AnyObject) {
+    @IBAction func moveToSecondViewControllerButton(_ sender: AnyObject) {
         self.changeSideMenuViewControllerRoot(KVSideMenu.RootsIdentifiers.secondViewController)
-        NSNotificationCenter.defaultCenter().postNotificationName(KVSideMenu.Notifications.toggleLeft, object: self)
+        NotificationCenter.default.post(name:  KVSideMenu.Notifications.toggleLeft, object: self)
     }
     
     

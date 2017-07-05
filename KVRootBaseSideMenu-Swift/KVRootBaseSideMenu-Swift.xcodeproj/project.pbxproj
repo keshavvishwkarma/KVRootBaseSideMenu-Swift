@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6B183E311DF630FC0032F3CD /* KVAnimationExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B183E2B1DF630FC0032F3CD /* KVAnimationExtention.swift */; };
-		6B183E321DF630FC0032F3CD /* KVConstraintOperaterOverloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B183E2C1DF630FC0032F3CD /* KVConstraintOperaterOverloading.swift */; };
 		6B183E331DF630FC0032F3CD /* KVConstraintsExtensionsMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B183E2D1DF630FC0032F3CD /* KVConstraintsExtensionsMaster.swift */; };
 		6B183E341DF630FC0032F3CD /* KVCustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B183E2E1DF630FC0032F3CD /* KVCustomSegue.swift */; };
 		6B183E351DF630FC0032F3CD /* KVMenuContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B183E2F1DF630FC0032F3CD /* KVMenuContainerView.swift */; };
@@ -39,7 +38,6 @@
 
 /* Begin PBXFileReference section */
 		6B183E2B1DF630FC0032F3CD /* KVAnimationExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVAnimationExtention.swift; sourceTree = "<group>"; };
-		6B183E2C1DF630FC0032F3CD /* KVConstraintOperaterOverloading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVConstraintOperaterOverloading.swift; sourceTree = "<group>"; };
 		6B183E2D1DF630FC0032F3CD /* KVConstraintsExtensionsMaster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVConstraintsExtensionsMaster.swift; sourceTree = "<group>"; };
 		6B183E2E1DF630FC0032F3CD /* KVCustomSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVCustomSegue.swift; sourceTree = "<group>"; };
 		6B183E2F1DF630FC0032F3CD /* KVMenuContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVMenuContainerView.swift; sourceTree = "<group>"; };
@@ -75,7 +73,6 @@
 				6B183E2F1DF630FC0032F3CD /* KVMenuContainerView.swift */,
 				6B183E2E1DF630FC0032F3CD /* KVCustomSegue.swift */,
 				6B183E2B1DF630FC0032F3CD /* KVAnimationExtention.swift */,
-				6B183E2C1DF630FC0032F3CD /* KVConstraintOperaterOverloading.swift */,
 				6B183E2D1DF630FC0032F3CD /* KVConstraintsExtensionsMaster.swift */,
 			);
 			name = KVRootBaseSideMenu;
@@ -149,6 +146,7 @@
 				TargetAttributes = {
 					6B298B681D342E1E00DADBA5 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
@@ -191,7 +189,6 @@
 				6B183E351DF630FC0032F3CD /* KVMenuContainerView.swift in Sources */,
 				6B298B6F1D342E1E00DADBA5 /* ViewController.swift in Sources */,
 				6B298B8D1D342ED500DADBA5 /* LeftSideViewController.swift in Sources */,
-				6B183E321DF630FC0032F3CD /* KVConstraintOperaterOverloading.swift in Sources */,
 				6B183E341DF630FC0032F3CD /* KVCustomSegue.swift in Sources */,
 				6B298B8F1D342ED500DADBA5 /* BaseViewController.swift in Sources */,
 				6B183E311DF630FC0032F3CD /* KVAnimationExtention.swift in Sources */,
@@ -317,6 +314,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Keshav-Vishwkarma.KVRootBaseSideMenu-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -332,6 +330,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Keshav-Vishwkarma.KVRootBaseSideMenu-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
