@@ -37,14 +37,14 @@ class BaseViewController: UIViewController {
     
     // MARK: - IBAction Methods
     
-    func leftButtonAction(_ sender: UIButton)
+    @objc func leftButtonAction(_ sender: UIButton)
     {
         // with orange color
         sender.layer.startAnimation(tintColor :UIColor.orange)
         NotificationCenter.default.post(name:  KVSideMenu.Notifications.toggleLeft, object: self)
     }
     
-    func rightButtonAction(_ sender: UIButton)
+    @objc func rightButtonAction(_ sender: UIButton)
     {
         // with defaultt color
         sender.layer.startAnimation()

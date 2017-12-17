@@ -201,7 +201,7 @@ open class KVMenuContainerView: UIView
     }
     
     /// A method that is used to close the side menu if the menu is showed.
-    open func closeSideMenu()
+    @objc open func closeSideMenu()
     {
         switch (currentSideMenuState)
         {
@@ -290,7 +290,7 @@ private extension KVMenuContainerView
                 // debugPrint(self.currentSideMenuState.rawValue)
                 self.delegate?.willCloseSideMenuView?(self, state: self.currentSideMenuState)
                 
-                self.closeOpenedSideMenu(constraintView!, attribute: attribute) { _ in
+                self.closeOpenedSideMenu(constraintView!, attribute: attribute) { 
                     self.applyAnimations {
                         self.centerContainerView.transform = CGAffineTransform.identity
                         
@@ -305,7 +305,7 @@ private extension KVMenuContainerView
         
     }
     
-    final func closeOpenedSideMenu(_ view:UIView, attribute attr: NSLayoutAttribute, completion: ((Void) -> Void)? = nil )
+    final func closeOpenedSideMenu(_ view:UIView, attribute attr: NSLayoutAttribute, completion: (() -> Void)? = nil )
     {
         view.accessAppliedConstraintBy(attribute: attr, completionHandler: { (appliedConstraint) -> Void in
             if appliedConstraint != nil {
@@ -323,7 +323,7 @@ private extension KVMenuContainerView
     }
     
     /// A method that will handel transform & animations too.
-    final func handelTransformAnimations(_ completionHandler: ((Void) -> Void)? = nil)
+    final func handelTransformAnimations(_ completionHandler: (() -> Void)? = nil)
     {
         if self.animationType == KVSideMenu.AnimationType.window {
             // update Top And Bottom Pin Constraints Of SideMenu
@@ -402,7 +402,7 @@ extension KVMenuContainerView: UIGestureRecognizerDelegate
         
     }
     
-    fileprivate dynamic func handlePanGesture(_ recognizer: UIPanGestureRecognizer)
+    @objc fileprivate dynamic func handlePanGesture(_ recognizer: UIPanGestureRecognizer)
     {
         let translation = recognizer.translation(in: recognizer.view)
         
@@ -532,14 +532,14 @@ extension KVMenuContainerView: UIGestureRecognizerDelegate
 
 private extension KVMenuContainerView
 {
-    final func applyAnimations(_ completionHandler: ((Void) -> Void)? = nil)
+    final func applyAnimations(_ completionHandler: (() -> Void)? = nil)
     {
         // let options : UIViewAnimationOptions = [.AllowUserInteraction, .OverrideInheritedCurve, .LayoutSubviews, .BeginFromCurrentState, .CurveEaseOut]
         
         let options : UIViewAnimationOptions = [.allowUserInteraction, .layoutSubviews, .beginFromCurrentState, .curveLinear, .curveEaseOut]
         let duration = TimeInterval(self.KVSideMenuHideShowDuration)
         
-        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.95, initialSpringVelocity: 10, options: options, animations: { _ in
+        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.95, initialSpringVelocity: 10, options: options, animations: { 
             self.layoutIfNeeded()
             self.setNeedsLayout()
             self.setNeedsUpdateConstraints()

@@ -68,7 +68,7 @@ open class KVRootBaseSideMenuViewController: UIViewController
             else if oldValue != visibleRootViewController
             {
                 oldValue?.willMove(toParentViewController: nil)
-                UIView.animate(withDuration: 0, animations: { _ in }, completion: { _ in
+                UIView.animate(withDuration: 0, animations: {  }, completion: { _ in
                     DispatchQueue.main.async(execute: {
                         oldValue?.view.removeFromSuperview()
                         oldValue?.didMove(toParentViewController: nil)
@@ -226,9 +226,9 @@ public extension KVRootBaseSideMenuViewController {
 }
 
 // MARK:
-public extension UIViewController
+extension UIViewController
 {
-    func sideMenuViewController() -> KVRootBaseSideMenuViewController?
+    @objc public func sideMenuViewController() -> KVRootBaseSideMenuViewController?
     {
         var viewController:UIViewController? = ( self.parent != nil) ? self.parent : self.presentingViewController;
         
@@ -240,7 +240,7 @@ public extension UIViewController
     }
     
     /// To switch the root of side menu controller from any view controller.
-    public func changeSideMenuViewControllerRoot(_ rootIdentifier:String)
+    @objc public func changeSideMenuViewControllerRoot(_ rootIdentifier:String)
     {
         if let sideMenuViewController = sideMenuViewController() {
             sideMenuViewController.changeSideMenuViewControllerRoot(rootIdentifier)

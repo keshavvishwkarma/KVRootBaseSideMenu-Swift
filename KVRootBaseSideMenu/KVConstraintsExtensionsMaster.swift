@@ -133,7 +133,7 @@ extension AutoLayoutView where Self : View {
     }
     
     /// This method is used to prepare already created instance of ui elements for autolayout.
-    final func prepareAutoLayoutView() {
+    func prepareAutoLayoutView() {
         translatesAutoresizingMaskIntoConstraints = false
     }
     
